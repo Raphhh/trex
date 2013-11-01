@@ -1,0 +1,14 @@
+<phpunit
+        bootstrap="src/TRex/bootstrap.php"
+        colors="true"
+        strict="true"
+        verbose="true"
+        >
+
+    <testsuites>
+        <testsuite name="TRex tests">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>

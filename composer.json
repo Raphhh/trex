@@ -1,0 +1,22 @@
+{
+    "name": "Raphhh/TRex",
+    "description": "A light PHP toolbox with low level classes",
+    "type": "library",
+    "keywords": ["TRex"],
+    "homepage": "http://labs.raphaellefebvre.be/TRex",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raphaël Lefebvre",
+            "email": "raphael@raphaellefebvre.be"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "TRex": "src/"
+        }
+    }
+}

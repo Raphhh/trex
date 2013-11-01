@@ -27,10 +27,10 @@ class ClassLoader
      */
     private $vendors = array(
         'TRex' => array(
-            'src' => 'trex/src/',
+            'sourcePath' => 'trex/src/',
         ),
         'TRexTests' => array(
-            'src' => 'trex/tests/',
+            'sourcePath' => 'trex/tests/',
         ),
     );
 
@@ -84,7 +84,7 @@ class ClassLoader
     {
         if (!$this->hasVendor($name)) {
             $this->vendors[$name] = array(
-                'src' => $this->normalizeSourcePath($sourcePath),
+                'sourcePath' => $this->normalizeSourcePath($sourcePath),
             );
             return true;
         }
@@ -116,7 +116,25 @@ class ClassLoader
     public function getSourcePath($vendorName)
     {
         if ($this->hasVendor($vendorName)) {
-            return $this->vendors[$vendorName]['src'];
+            return $this->vendors[$vendorName]['sourcePath'];
+        }
+        return '';
+    }
+
+    /**
+     * get a vendor root dir
+     * the root dir is the absolute path to the first directory of the source path
+     *
+     * @param $vendorName
+     * @return string
+     */
+    public function getRootDir($vendorName)
+    {
+        if ($this->hasVendor($vendorName)) {
+            if (!isset($this->vendors[$vendorName]['rootDir'])) { //todo: cache not unit tested
+                $this->vendors[$vendorName]['rootDir'] = $this->resolveRootDir($this->getSourcePath($vendorName));
+            }
+            return $this->vendors[$vendorName]['rootDir'];
         }
         return '';
     }
@@ -154,5 +172,41 @@ class ClassLoader
             $sourcePath .= DIRECTORY_SEPARATOR;
         }
         return $sourcePath;
+    }
+
+    /**
+     * resolve an absolute root dir to the first directory of $sourcePath
+     *
+     * ex:
+     * trex/src => /absolute/path/to/trex/
+     *
+     * @param string $sourcePath
+     * @throws \DomainException
+     * @return string
+     */
+    private function resolveRootDir($sourcePath)
+    {
+        $matches = array();
+        if (preg_match('/(.*?)trex/i', __DIR__, $matches)) { //todo: exception not unit tested
+            return $matches[1] . $this->extractBaseDir($sourcePath);
+        }
+        throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__));
+    }
+
+    /**
+     * extract the first directory of $path
+     *
+     * trex/src => trex/
+     *
+     * @param string $path
+     * @return string
+     */
+    private function extractBaseDir($path)
+    {
+        $matches = array();
+        if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) { //TODO: or simply strpos($path, DIRECTORY_SEPARATOR)?
+            return $matches[1] . DIRECTORY_SEPARATOR;
+        }
+        return '';
     }
 }

@@ -64,8 +64,8 @@ You can ask if a vendor is already added.
 
 You can get a vendor source path and root dir.
 
-    TRex\Loader\ClassLoader::getInstance->getSourcePath('Vendor'); // "path/to/src/"
-    TRex\Loader\ClassLoader::getInstance->getRootDir('Vendor'); // "$ROOT_DIRpath/to/src/"
+    TRex\Loader\ClassLoader::getInstance->getSourcePath('Vendor'); // "library/path/to/src/"
+    TRex\Loader\ClassLoader::getInstance->getRootDir('Vendor'); // "$ROOT_DIR/library/"
 
 You can remove a vendor.
 
@@ -118,6 +118,4 @@ You will have the following behavior:
 
     TRex\Loader\ClassLoader::getInstance->addVendor('YourLib', 'yourLib/src/');
     TRex\Loader\ClassLoader::getInstance->getSourcePath('YourLib'); // "yourLib/src/"
-    TRex\Loader\ClassLoader::getInstance->getRootDir('YourLib'); // "/Vendors/yourLib/src/"
-    TRex\Loader\ClassLoader::resolveRootDir('yourLib/src/'); // "/Vendors/yourLib/src/"
-
+    TRex\Loader\ClassLoader::getInstance->getRootDir('YourLib'); // "/Vendors/yourLib/"

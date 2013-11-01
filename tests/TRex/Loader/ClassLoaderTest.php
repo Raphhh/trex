@@ -53,7 +53,8 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $vendorData = array(
             'name' => 'Vendor',
-            'sourcePath' => sprintf('vendor%ssrc%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR)
+            'sourcePath' => sprintf('vendor%ssrc%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),
+            'rootDir' => $this->getBaseDir('vendor')
         );
         $this->assertFalse(ClassLoader::getInstance()->hasVendor($vendorData['name']));
         return $vendorData;
@@ -71,8 +72,20 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * get an undefined vendor root dir
+     *
+     * @depends testGetSourcePathNotAdded
+     */
+    public function testGetRootDirNotAdded(array $vendorData)
+    {
+        $this->assertSame('', ClassLoader::getInstance()->getRootDir($vendorData['name']));
+        return $vendorData;
+    }
+
+    /**
      * remove an undefined vendor
-     * @depends testHasVendorNotAdded
+     *
+     * @depends testGetRootDirNotAdded
      */
     public function testRemoveVendorNotExisting(array $vendorData)
     {
@@ -129,7 +142,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertTrue(ClassLoader::getInstance()->addVendor($vendorData['name'], $vendorData['sourcePath']));
         $this->assertSame(
-            $vendorData['sourcePath'].DIRECTORY_SEPARATOR,
+            $vendorData['sourcePath'] . DIRECTORY_SEPARATOR,
             ClassLoader::getInstance()->getSourcePath($vendorData['name'])
         );
     }
@@ -160,9 +173,23 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * remove a vendor
+     * get a vendor source path
      *
      * @depends testGetSourcePathAfterAdd
+     */
+    public function testGetRootDirAfterAdd(array $vendorData)
+    {
+        $this->assertSame(
+            $vendorData['rootDir'],
+            ClassLoader::getInstance()->getRootDir($vendorData['name'])
+        );
+        return $vendorData;
+    }
+
+    /**
+     * remove a vendor
+     *
+     * @depends testGetRootDirAfterAdd
      */
     public function testRemoveVendorExisting(array $vendorData)
     {
@@ -242,6 +269,26 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame('trex/src/', ClassLoader::getInstance()->getSourcePath('TRex'));
         $this->assertSame('trex/tests/', ClassLoader::getInstance()->getSourcePath('TRexTests'));
+    }
+
+    /**
+     * test the default config with TRex root dir
+     */
+    public function testGetRootDirDefault()
+    {
+        $this->assertSame($this->getBaseDir('trex'), ClassLoader::getInstance()->getRootDir('TRex'));
+        $this->assertSame($this->getBaseDir('trex'), ClassLoader::getInstance()->getRootDir('TRexTests'));
+    }
+
+    /**
+     * return the root dir for $dir
+     *
+     * @param $dir
+     * @return string
+     */
+    private function getBaseDir($dir)
+    {
+        return realpath(__DIR__ . '/../../../..') . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR;
     }
 
 }

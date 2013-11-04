@@ -354,11 +354,32 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      * test the load of a class file when there is no such file
      *
      * @expectedException \Exception
-     * @expectedExceptionMessage No file found for class TRexTests\Loader\resources\Bar with the path
+     * @expectedExceptionMessage No file found for class TRexTests\Loader\resources\None with the path
      */
     public function testLoadKo()
     {
-        $this->assertSame(null, ClassLoader::getInstance()->load('TRexTests\Loader\resources\Bar'));
+        $this->assertSame(null, ClassLoader::getInstance()->load('TRexTests\Loader\resources\None'));
+    }
+
+
+    /**
+     * test deactivation of autoloading
+     */
+    public function testUnRegister()
+    {
+        ClassLoader::getInstance()->unRegister();
+        $this->assertfalse(class_exists('TRexTests\Loader\resources\Bar'));
+    }
+
+    /**
+     * test activation of autoloading
+     *
+     * @depends testUnRegister
+     */
+    public function testRegister()
+    {
+        ClassLoader::getInstance()->register();
+        $this->assertInstanceOf('TRexTests\Loader\resources\Bar', new \TRexTests\Loader\resources\Bar());
     }
 
     /**

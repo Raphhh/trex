@@ -75,6 +75,28 @@ class ClassLoader
     }
 
     /**
+     * start auto-loading of php classes
+     *
+     * @param array $vendors
+     * @return bool
+     */
+    public function register(array $vendors = array())
+    {
+        $this->addVendors($vendors);
+        return spl_autoload_register(array(self::getInstance(), 'load'));
+    }
+
+    /**
+     * stop auto-loading of php classes
+     *
+     * @return bool
+     */
+    public function unRegister()
+    {
+        return spl_autoload_unregister(array(self::getInstance(), 'load'));
+    }
+
+    /**
      * load a php class
      *
      * @param string $className

@@ -13,6 +13,11 @@ class ClassLoader
 {
 
     /**
+     * extension of php file
+     */
+    const FILE_EXTENSION = '.php';
+
+    /**
      * unique instance of the current class
      * singleton pattern
      *
@@ -67,6 +72,25 @@ class ClassLoader
      */
     private function __clone()
     {
+    }
+
+    /**
+     * get the path of the file containing the class $className
+     *
+     * @param string $className
+     * @return string
+     */
+    public function getClassPath($className)
+    {
+        $className = ltrim($className, '\\');
+        $vendor = $this->extractVendor($className);
+        if ($vendor) {
+            if ($this->hasVendor($vendor)) {
+                return $this->getRealPath($vendor) . $this->parseClassPath($className);
+            }
+            trigger_error(sprintf('Detected vendor %s was not recorded. Class %s.', $vendor, $className), E_USER_ERROR);
+        }
+        return $this->getBasePath() . $this->parseClassPath($className);
     }
 
     /**
@@ -252,6 +276,36 @@ class ClassLoader
     }
 
     /**
+     * extract the vendor of a class name
+     *
+     * @param $className
+     * @return string
+     */
+    private function extractVendor($className)
+    {
+        $matches = array();
+        if (preg_match('#(.*?)(/|\\\|_)#', $className, $matches)) {
+            return $matches[1];
+        }
+        return '';
+    }
+
+    /**
+     * convert a class name in a file path
+     *
+     * @param $className
+     * @return string
+     */
+    private function parseClassPath($className)
+    {
+        if (strpos($className, '_') !== false) {
+            return strtr($className, '_', DIRECTORY_SEPARATOR) . self::FILE_EXTENSION;
+        } else {
+            return strtr($className, '\\', DIRECTORY_SEPARATOR) . self::FILE_EXTENSION;
+        }
+    }
+
+    /**
      * getter of $basePath
      *
      * @return string
@@ -288,4 +342,5 @@ class ClassLoader
         }
         throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__));
     }
+
 }

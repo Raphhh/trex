@@ -27,6 +27,10 @@ TRex\Loader\ClassLoader can resolve the root directory and real source path of a
     TRex\Loader\ClassLoader::getInstance->getRootDir('Vendor'); //$ROOT_DIR
     TRex\Loader\ClassLoader::getInstance->getRealPath('Vendor'); //$ROOT_DIR/src/
 
+This class can also resolve the path of a class file.
+
+    TRex\Loader\ClassLoader::getInstance->getClassPath('Vendor\Package\Class'); //$ROOT_DIR/src/Vendor/Package/Class
+
 See how to add a vendor if you want to use it for a specific vendor class.
 
 ## Add vendor

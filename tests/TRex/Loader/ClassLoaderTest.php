@@ -307,6 +307,42 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * test the conversion of a class path
+     *
+     * @param string $className
+     * @param string $path
+     *
+     * @dataProvider provideClassPaths
+     */
+    public function testGetClassPath($className, $path)
+    {
+        ClassLoader::getInstance()->addVendor(
+            'Vendor',
+            sprintf('vendor%ssrc%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR)
+        );
+        $this->assertSame($path, ClassLoader::getInstance()->getClassPath($className));
+    }
+
+    /**
+     * test the conversion of a class path with a vendor not added before.
+     *
+     * @expectedException \PHPUnit_Framework_Error
+     * @expectedExceptionMessage Detected vendor Vendor2 was not recorded
+     */
+    public function testGetClassPathWithNotAddedVendor()
+    {
+        $this->assertSame(
+            $this->getFilePath(
+                sprintf(
+                    'Vendor2%sClassName.php',
+                    DIRECTORY_SEPARATOR
+                )
+            ),
+            ClassLoader::getInstance()->getClassPath('Vendor2\ClassName')
+        );
+    }
+
+    /**
      * return the root dir for $dir
      *
      * @param $dir
@@ -314,7 +350,103 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     private function getBaseDir($dir)
     {
-        return realpath(__DIR__ . '/../../../..') . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR;
+        return $this->getFilePath($dir . DIRECTORY_SEPARATOR);
+    }
+
+    /**
+     * return the path for $file
+     *
+     * @param $file
+     * @return string
+     */
+    private function getFilePath($file)
+    {
+        return realpath(__DIR__ . '/../../../..') . DIRECTORY_SEPARATOR . $file;
+    }
+
+    /**
+     * provide class paths for test
+     *
+     * @return array
+     */
+    public function provideClassPaths()
+    {
+        return array(
+            array(
+                'ClassName',
+                $this->getFilePath('ClassName.php')
+            ),
+            array(
+                '\ClassName',
+                $this->getFilePath('ClassName.php')
+            ),
+            array(
+                'Vendor\ClassName',
+                $this->getFilePath(
+                    sprintf(
+                        'vendor%ssrc%sVendor%sClassName.php',
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR
+                    )
+                )
+            ),
+            array(
+                '\Vendor\ClassName',
+                $this->getFilePath(
+                    sprintf(
+                        'vendor%ssrc%sVendor%sClassName.php',
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR
+                    )
+                )
+            ),
+            array(
+                'Vendor\VendorClassName',
+                $this->getFilePath(
+                    sprintf(
+                        'vendor%ssrc%sVendor%sVendorClassName.php',
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR
+                    )
+                )
+            ),
+            array(
+                'Vendor_ClassName',
+                $this->getFilePath(
+                    sprintf(
+                        'vendor%ssrc%sVendor%sClassName.php',
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR
+                    )
+                )
+            ),
+            array(
+                '\Vendor_ClassName',
+                $this->getFilePath(
+                    sprintf(
+                        'vendor%ssrc%sVendor%sClassName.php',
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR
+                    )
+                )
+            ),
+            array(
+                'Vendor_VendorClassName',
+                $this->getFilePath(
+                    sprintf(
+                        'vendor%ssrc%sVendor%sVendorClassName.php',
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR,
+                        DIRECTORY_SEPARATOR
+                    )
+                )
+            ),
+        );
     }
 
 }

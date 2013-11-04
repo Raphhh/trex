@@ -368,7 +368,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnRegister()
     {
-        ClassLoader::getInstance()->unRegister();
+        $this->assertTrue(ClassLoader::getInstance()->unRegister());
         $this->assertfalse(class_exists('TRexTests\Loader\resources\Bar'));
     }
 
@@ -379,7 +379,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRegister()
     {
-        ClassLoader::getInstance()->register();
+        $this->assertTrue(ClassLoader::getInstance()->register());
         $this->assertInstanceOf('TRexTests\Loader\resources\Bar', new \TRexTests\Loader\resources\Bar());
     }
 

@@ -330,7 +330,7 @@ class ClassLoader
         if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) { //TODO: or simply strpos($path, DIRECTORY_SEPARATOR)?
             return $matches[1] . DIRECTORY_SEPARATOR;
         }
-        return '';
+        return ''; //this case does not normally happen, because self::normalizeSourcePath add to $path (which is the source path of a vendor) a directory separator.
     }
 
     /**
@@ -425,10 +425,10 @@ class ClassLoader
     private function buildBasePath()
     {
         $matches = array();
-        if (preg_match('/(.*?)trex/i', __DIR__, $matches)) { //todo: exception not unit tested
+        if (preg_match('/(.*?)trex/i', __DIR__, $matches)) {
             return $matches[1];
         }
-        throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__));
+        throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__)); //todo: exception not unit tested
     }
 
     /**

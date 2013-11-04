@@ -361,6 +361,18 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(null, ClassLoader::getInstance()->load('TRexTests\Loader\resources\None'));
     }
 
+    /**
+     * tests functions not throwing exception
+     *
+     * @param string $functionName
+     * @param array $args
+     *
+     * @dataProvider provideFunctionNames
+     */
+    public function testLoadFunctionExceptions($functionName, array $args)
+    {
+        $this->assertFalse(call_user_func_array($functionName, $args));
+    }
 
     /**
      * test deactivation of autoloading
@@ -380,6 +392,22 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         ClassLoader::getInstance()->register();
         $this->assertInstanceOf('TRexTests\Loader\resources\Bar', new \TRexTests\Loader\resources\Bar());
+    }
+
+    /**
+     * provide a list of functions not throwing exception
+     *
+     * @return array
+     */
+    public function provideFunctionNames()
+    {
+        return array(
+            array('class_exists', array('TRexTests\Loader\resources\None')),
+            array('get_parent_class', array('TRexTests\Loader\resources\None')),
+            array('interface_exists', array('TRexTests\Loader\resources\None')),
+            array('is_subclass_of', array(new \stdClass(), 'TRexTests\Loader\resources\None')),
+            array('is_a', array(new \stdClass(), 'TRexTests\Loader\resources\None')),
+        );
     }
 
     /**

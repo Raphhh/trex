@@ -46,6 +46,19 @@ class ClassLoader
         ),
     );
 
+    /*
+     * list of functions not throwing exception
+     *
+     * @var array
+     */
+    private $excludedFunctionNames = array(
+        'class_exists',
+        'get_parent_class',
+        'interface_exists',
+        'is_subclass_of',
+        'is_a',
+    );
+
     /**
      * get $instance
      *
@@ -108,12 +121,18 @@ class ClassLoader
         $classPath = $this->getClassPath($className);
         if (is_file($classPath)) {
             return include_once $classPath;
+
+        } elseif ($this->hasToDisplayError()) {
+            throw new \Exception(
+                sprintf(
+                    'No file found for class %s with the path %s',
+                    $className,
+                    $classPath
+                ),
+                E_USER_ERROR
+            );
         }
-        throw new \Exception(sprintf(
-            'No file found for class %s with the path %s',
-            $className,
-            $classPath
-        ), E_USER_ERROR);
+        return null;
     }
 
     /**
@@ -348,6 +367,36 @@ class ClassLoader
     }
 
     /**
+     * indicates if the calling context requires to display error
+     *
+     * @return bool
+     */
+    private function hasToDisplayError()
+    {
+        $backTraceData = $this->getBackTraceData();
+        return !(isset($backTraceData['function']) && in_array($backTraceData['function'], $this->getExcludedFunctionNames(), true));
+    }
+
+    /**
+     * return the calling context
+     *
+     * @return array
+     */
+    private static function getBackTraceData()
+    {
+        $backTraces = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        foreach ($backTraces as $i => $backTrace) {
+            if (isset($backTrace['function']) && $backTrace['function'] === 'spl_autoload_call') { //we are at the level of autoload.
+                if (isset($backTraces[$i + 1])) {
+                    return $backTraces[$i + 1]; //The index following has the context of the autoload call.
+                }
+                break;
+            }
+        }
+        return array();
+    }
+
+    /**
      * getter of $basePath
      *
      * @return string
@@ -383,6 +432,16 @@ class ClassLoader
             return $matches[1];
         }
         throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__));
+    }
+
+    /**
+     * getter of $excludedFunctionNames
+     *
+     * @return array
+     */
+    private function getExcludedFunctionNames()
+    {
+        return $this->excludedFunctionNames;
     }
 
 }

@@ -75,6 +75,26 @@ class ClassLoader
     }
 
     /**
+     * load a php class
+     *
+     * @param string $className
+     * @throws \Exception
+     * @return mixed|null
+     */
+    public function load($className)
+    {
+        $classPath = $this->getClassPath($className);
+        if (is_file($classPath)) {
+            return include_once $classPath;
+        }
+        throw new \Exception(sprintf(
+            'No file found for class %s with the path %s',
+            $className,
+            $classPath
+        ), E_USER_ERROR);
+    }
+
+    /**
      * get the path of the file containing the class $className
      *
      * @param string $className

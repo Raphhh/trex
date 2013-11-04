@@ -343,6 +343,25 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * test the load of a class file
+     */
+    public function testLoadOk()
+    {
+        $this->assertSame('Foo_test', ClassLoader::getInstance()->load('TRexTests\Loader\resources\Foo'));
+    }
+
+    /**
+     * test the load of a class file when there is no such file
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage No file found for class TRexTests\Loader\resources\Bar with the path
+     */
+    public function testLoadKo()
+    {
+        $this->assertSame(null, ClassLoader::getInstance()->load('TRexTests\Loader\resources\Bar'));
+    }
+
+    /**
      * return the root dir for $dir
      *
      * @param $dir

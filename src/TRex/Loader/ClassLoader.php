@@ -440,5 +440,4 @@ class ClassLoader
     {
         return $this->excludedFunctionNames;
     }
-
 }

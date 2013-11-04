@@ -119,7 +119,7 @@ class ClassLoader
     public function load($className)
     {
         $classPath = $this->getClassPath($className);
-        if (is_file($classPath)) {
+        if ($classPath && is_file($classPath)) {
             return include_once $classPath;
 
         } elseif ($this->hasToDisplayError()) {
@@ -145,13 +145,10 @@ class ClassLoader
     {
         $className = ltrim($className, '\\');
         $vendor = $this->extractVendor($className);
-        if ($vendor) {
-            if ($this->hasVendor($vendor)) {
-                return $this->getRealPath($vendor) . $this->parseClassPath($className);
-            }
-            trigger_error(sprintf('Detected vendor %s was not recorded. Class %s.', $vendor, $className), E_USER_ERROR);
+        if ($this->hasVendor($vendor)) {
+            return $this->getRealPath($vendor) . $this->parseClassPath($className);
         }
-        return $this->getBasePath() . $this->parseClassPath($className);
+        return '';
     }
 
     /**

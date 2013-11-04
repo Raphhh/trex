@@ -325,21 +325,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * test the conversion of a class path with a vendor not added before.
-     *
-     * @expectedException \PHPUnit_Framework_Error
-     * @expectedExceptionMessage Detected vendor Vendor2 was not recorded
      */
     public function testGetClassPathWithNotAddedVendor()
     {
-        $this->assertSame(
-            $this->getFilePath(
-                sprintf(
-                    'Vendor2%sClassName.php',
-                    DIRECTORY_SEPARATOR
-                )
-            ),
-            ClassLoader::getInstance()->getClassPath('Vendor2\ClassName')
-        );
+        $this->assertSame('', ClassLoader::getInstance()->getClassPath('Vendor2\ClassName'));
     }
 
     /**
@@ -442,11 +431,11 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
         return array(
             array(
                 'ClassName',
-                $this->getFilePath('ClassName.php')
+                '' //only class with vendor
             ),
             array(
                 '\ClassName',
-                $this->getFilePath('ClassName.php')
+                '' //only class with vendor
             ),
             array(
                 'Vendor\ClassName',

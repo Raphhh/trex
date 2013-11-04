@@ -20,11 +20,12 @@ You can ask to TRex\Loader\ClassLoader to load a specific class.
 
 See how to add a vendor if you want to use it for a specific vendor class.
 
-## Resolve root dir
+## Resolve path
 
-TRex\Loader\ClassLoader can resolve the root directory of a vendor. The root directory is the path to the directory containing a vendor package.
+TRex\Loader\ClassLoader can resolve the root directory and real source path of a vendor. The root directory is the path to the directory containing a vendor package. The real path is the absolute path to the source.
 
     TRex\Loader\ClassLoader::getInstance->getRootDir('Vendor'); //$ROOT_DIR
+    TRex\Loader\ClassLoader::getInstance->getRealPath('Vendor'); //$ROOT_DIR/src/
 
 See how to add a vendor if you want to use it for a specific vendor class.
 
@@ -66,6 +67,7 @@ You can get a vendor source path and root dir.
 
     TRex\Loader\ClassLoader::getInstance->getSourcePath('Vendor'); // "library/path/to/src/"
     TRex\Loader\ClassLoader::getInstance->getRootDir('Vendor'); // "$ROOT_DIR/library/"
+    TRex\Loader\ClassLoader::getInstance->getRealPath('Vendor'); // "$ROOT_DIR/library/path/to/src/"
 
 You can remove a vendor.
 
@@ -117,5 +119,7 @@ Your vendor name will be "YourLib" and your path will be "yourLib/src".
 You will have the following behavior:
 
     TRex\Loader\ClassLoader::getInstance->addVendor('YourLib', 'yourLib/src/');
+
     TRex\Loader\ClassLoader::getInstance->getSourcePath('YourLib'); // "yourLib/src/"
     TRex\Loader\ClassLoader::getInstance->getRootDir('YourLib'); // "/Vendors/yourLib/"
+    TRex\Loader\ClassLoader::getInstance->getRealPath('YourLib');// "/Vendors/yourLib/src/"

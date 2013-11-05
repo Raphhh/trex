@@ -144,7 +144,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      * get a vendor source path witch has been added without an ending DIRECTORY_SEPARATOR
      *
      * @expectedException \PHPUnit_Framework_Error_Notice
-     * @expectedExceptionMessage Vendor source path must end with
+     * @expectedExceptionMessage Path must end with correct directory separator
      */
     public function testGetSourcePathWithoutSlash()
     {
@@ -381,6 +381,47 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue(ClassLoader::getInstance()->register());
         $this->assertInstanceOf('TRexTests\Loader\resources\Bar', new \TRexTests\Loader\resources\Bar());
+    }
+
+    /**
+     * test setter and getter of $basePath
+     *
+     */
+    public function testSetBasePath()
+    {
+        $basePath = ClassLoader::getInstance()->getBasePath();
+        ClassLoader::getInstance()->setBasePath('test' . DIRECTORY_SEPARATOR);
+        $this->assertSame('test' . DIRECTORY_SEPARATOR, ClassLoader::getInstance()->getBasePath());
+        ClassLoader::getInstance()->setBasePath($basePath);
+    }
+
+    /**
+     * test setter and getter of $basePath without an ending directory separator
+     *
+     * @expectedException \PHPUnit_Framework_Error_Notice
+     * @expectedExceptionMessage Path must end with correct directory separator
+     */
+    public function testSetBasePathWithoutDireSeparator()
+    {
+        $basePath = ClassLoader::getInstance()->getBasePath();
+        ClassLoader::getInstance()->setBasePath('test');
+        $this->assertSame('test' . DIRECTORY_SEPARATOR, ClassLoader::getInstance()->getBasePath());
+        ClassLoader::getInstance()->setBasePath($basePath);
+    }
+
+    /**
+     * real path and root dir are impacted by a new base path
+     */
+    public function testRealPathWithNewBasePath()
+    {
+        $basePath = ClassLoader::getInstance()->getBasePath();
+        ClassLoader::getInstance()->setBasePath(str_replace('/', DIRECTORY_SEPARATOR, '/specific/base/path/'));
+        ClassLoader::getInstance()->addVendor(__FUNCTION__, str_replace('/', DIRECTORY_SEPARATOR, 'lib/src/'));
+        $this->assertSame(
+            str_replace('/', DIRECTORY_SEPARATOR, '/specific/base/path/lib/src/'),
+            ClassLoader::getInstance()->getRealPath(__FUNCTION__)
+        );
+        ClassLoader::getInstance()->setBasePath($basePath);
     }
 
     /**

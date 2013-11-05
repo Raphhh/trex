@@ -173,7 +173,7 @@ class ClassLoader
     {
         if (!$this->hasVendor($name)) {
             $this->vendors[$name] = array(
-                'sourcePath' => $this->normalizeSourcePath($sourcePath),
+                'sourcePath' => $this->normalizePath($sourcePath),
             );
             return true;
         }
@@ -250,6 +250,29 @@ class ClassLoader
     }
 
     /**
+     * getter of $basePath
+     *
+     * @return string
+     */
+    public function getBasePath()
+    {
+        if (null === $this->basePath) {
+            $this->setBasePath($this->buildBasePath());
+        }
+        return $this->basePath;
+    }
+
+    /**
+     * setter of $basePath
+     *
+     * @param string $basePath
+     */
+    public function setBasePath($basePath)
+    {
+        $this->basePath = $this->normalizePath($basePath);
+    }
+
+    /**
      * extract path dynamically
      *
      * @param $vendorName
@@ -269,21 +292,21 @@ class ClassLoader
     }
 
     /**
-     * test if a source path is well formatted and normalize it.
+     * test if a path is well formatted and normalize it.
      *
-     * @param string $sourcePath
+     * @param string $path
      * @return string
      */
-    private function normalizeSourcePath($sourcePath)
+    private function normalizePath($path)
     {
-        if (substr($sourcePath, -1) !== DIRECTORY_SEPARATOR) {
+        if (substr($path, -1) !== DIRECTORY_SEPARATOR) {
             trigger_error(
-                sprintf('Vendor source path must end with correct directory separator "%s".', DIRECTORY_SEPARATOR),
+                sprintf('Path must end with correct directory separator "%s".', DIRECTORY_SEPARATOR),
                 E_USER_NOTICE
             );
-            $sourcePath .= DIRECTORY_SEPARATOR;
+            $path .= DIRECTORY_SEPARATOR;
         }
-        return $sourcePath;
+        return $path;
     }
 
     /**
@@ -330,7 +353,7 @@ class ClassLoader
         if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) { //TODO: or simply strpos($path, DIRECTORY_SEPARATOR)?
             return $matches[1] . DIRECTORY_SEPARATOR;
         }
-        return ''; //this case does not normally happen, because self::normalizeSourcePath add to $path (which is the source path of a vendor) a directory separator.
+        return ''; //this case does not normally happen, because self::normalizePath add to $path (which is the source path of a vendor) a directory separator.
     }
 
     /**
@@ -394,33 +417,11 @@ class ClassLoader
     }
 
     /**
-     * getter of $basePath
-     *
-     * @return string
-     */
-    private function getBasePath()
-    {
-        if (null === $this->basePath) {
-            $this->setBasePath($this->buildBasePath());
-        }
-        return $this->basePath;
-    }
-
-    /**
-     * setter of $basePath
-     *
-     * @param string $basePath
-     */
-    private function setBasePath($basePath)
-    {
-        $this->basePath = $basePath;
-    }
-
-    /**
      * builder of $basePath
      *
      * @return string
      * @throws \DomainException
+     * @todo not unit tested
      */
     private function buildBasePath()
     {
@@ -428,7 +429,7 @@ class ClassLoader
         if (preg_match('/(.*?)trex/i', __DIR__, $matches)) {
             return $matches[1];
         }
-        throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__)); //todo: exception not unit tested
+        throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__));
     }
 
     /**

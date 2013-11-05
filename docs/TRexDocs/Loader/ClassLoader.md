@@ -127,3 +127,10 @@ You will have the following behavior:
     TRex\Loader\ClassLoader::getInstance()->getSourcePath('YourLib'); // "yourLib/src/"
     TRex\Loader\ClassLoader::getInstance()->getRootDir('YourLib'); // "/Vendors/yourLib/"
     TRex\Loader\ClassLoader::getInstance()->getRealPath('YourLib');// "/Vendors/yourLib/src/"
+
+You can redefine the default behavior in setting a new absolute base path from where every path will be resolved.
+
+    TRex\Loader\ClassLoader::getInstance()->setBasePath('/specific/base/path/');
+
+    TRex\Loader\ClassLoader::getInstance()->addVendor('YourLib', 'yourLib/src/');
+    TRex\Loader\ClassLoader::getInstance()->getRealPath('YourLib');// "/specific/base/path/yourLib/src/"

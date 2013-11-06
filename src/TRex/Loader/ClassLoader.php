@@ -13,27 +13,27 @@ class ClassLoader
 {
 
     /**
-     * extension of php file
+     * Extension of PHP file.
      */
     const FILE_EXTENSION = '.php';
 
     /**
-     * unique instance of the current class
-     * singleton pattern
+     * Unique instance of the current class.
+     * Singleton pattern.
      *
      * @var ClassLoader
      */
     private static $instance;
 
     /**
-     * absolute path of common root
+     * Absolute path of common root.
      *
      * @var string
      */
     private $basePath;
 
     /**
-     * list of default vendors with their source path
+     * List of default vendors with their source path.
      *
      * @var array
      */
@@ -47,7 +47,7 @@ class ClassLoader
     );
 
     /*
-     * list of functions not throwing exception
+     * List of functions not throwing exception.
      *
      * @var array
      */
@@ -60,7 +60,7 @@ class ClassLoader
     );
 
     /**
-     * get $instance
+     * get $instance.
      *
      * @return ClassLoader
      */
@@ -74,21 +74,22 @@ class ClassLoader
     }
 
     /**
-     * ClassLoader is a singleton and can not be instantiate directly
+     * ClassLoader is a singleton and can not be instantiate directly.
      */
     private function __construct()
     {
     }
 
     /**
-     * ClassLoader is a singleton and can not be clone directly
+     * ClassLoader is a singleton and can not be clone directly.
      */
     private function __clone()
     {
     }
 
     /**
-     * start auto-loading of php classes
+     * Start auto-loading of php classes.
+     * Call automatically self::load when a new class is used.
      *
      * @param array $vendors
      * @return bool
@@ -100,7 +101,7 @@ class ClassLoader
     }
 
     /**
-     * stop auto-loading of php classes
+     * Stop auto-loading of php classes.
      *
      * @return bool
      */
@@ -110,7 +111,9 @@ class ClassLoader
     }
 
     /**
-     * load a php class
+     * Load a php class.
+     * If no class is founded, a exception is thrown.
+     * Return the result of the included file of null if no file included.
      *
      * @param string $className
      * @throws \Exception
@@ -136,7 +139,8 @@ class ClassLoader
     }
 
     /**
-     * get the path of the file containing the class $className
+     * Get the path of the file containing the class $className.
+     * If the class has a no vendor or a vendor not recoded, a empty string will be returned.
      *
      * @param string $className
      * @return string
@@ -152,7 +156,7 @@ class ClassLoader
     }
 
     /**
-     * indicate if a vendor has been already added
+     * Indicate if a vendor has been already added.
      *
      * @param string $vendorName
      * @return bool
@@ -163,7 +167,7 @@ class ClassLoader
     }
 
     /**
-     * add vendor data
+     * Add vendor data.
      *
      * @param string $name
      * @param string $sourcePath
@@ -181,8 +185,9 @@ class ClassLoader
     }
 
     /**
-     * add a list of vendor data
-     * keys are names and values are source path
+     * Add a list of vendor data.
+     * Keys are names and values are source path;
+     * See self::addVendor().
      *
      * @param array $vendors
      * @return bool
@@ -197,7 +202,7 @@ class ClassLoader
     }
 
     /**
-     * remove a vendor
+     * Remove a vendor.
      *
      * @param string $vendorName
      * @return bool
@@ -212,7 +217,7 @@ class ClassLoader
     }
 
     /**
-     * get a vendor source path
+     * Get a vendor source path.
      *
      * @param string $vendorName
      * @return string
@@ -226,8 +231,8 @@ class ClassLoader
     }
 
     /**
-     * get a vendor root dir
-     * the root dir is the absolute path to the first directory of the source path
+     * Get a vendor root dir.
+     * The root dir is the absolute path to the first directory of the source path.
      *
      * @param string $vendorName
      * @return string
@@ -238,8 +243,8 @@ class ClassLoader
     }
 
     /**
-     * get a vendor real path
-     * the real path is the absolute path to the source
+     * Get a vendor real path.
+     * The real path is the absolute path to the source.
      *
      * @param string $vendorName
      * @return string
@@ -250,7 +255,7 @@ class ClassLoader
     }
 
     /**
-     * getter of $basePath
+     * Getter of $basePath.
      *
      * @return string
      */
@@ -263,7 +268,7 @@ class ClassLoader
     }
 
     /**
-     * setter of $basePath
+     * Setter of $basePath.
      *
      * @param string $basePath
      */
@@ -273,10 +278,10 @@ class ClassLoader
     }
 
     /**
-     * extract path dynamically
+     * Extract vendor paths dynamically.
      *
-     * @param $vendorName
-     * @param $key
+     * @param string $vendorName
+     * @param string $key
      * @param callable $callback
      * @return string
      */
@@ -292,7 +297,7 @@ class ClassLoader
     }
 
     /**
-     * test if a path is well formatted and normalize it.
+     * Test if a path is well formatted and normalize it.
      *
      * @param string $path
      * @return string
@@ -310,7 +315,7 @@ class ClassLoader
     }
 
     /**
-     * resolve an absolute root dir to the first directory of $sourcePath
+     * Resolve an absolute root dir to the first directory of $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/
@@ -324,7 +329,7 @@ class ClassLoader
     }
 
     /**
-     * resolve an absolute path including $sourcePath
+     * Resolve an absolute path including $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/src/
@@ -335,11 +340,11 @@ class ClassLoader
      */
     private function resolveRealPath($sourcePath)
     {
-        return $this->getBasePath($sourcePath) . $sourcePath;
+        return $this->getBasePath() . $sourcePath;
     }
 
     /**
-     * extract the first directory of $path
+     * Extract the first directory of $path.
      *
      * ex:
      * trex/src => trex/
@@ -357,9 +362,9 @@ class ClassLoader
     }
 
     /**
-     * extract the vendor of a class name
+     * Extract the vendor of a class name.
      *
-     * @param $className
+     * @param string $className
      * @return string
      */
     private function extractVendor($className)
@@ -372,7 +377,7 @@ class ClassLoader
     }
 
     /**
-     * convert a class name in a file path
+     * Convert a class name in a file path.
      *
      * @param $className
      * @return string
@@ -387,7 +392,7 @@ class ClassLoader
     }
 
     /**
-     * indicates if the calling context requires to display error
+     * Indicate if the calling context requires to display error.
      *
      * @return bool
      */
@@ -398,7 +403,7 @@ class ClassLoader
     }
 
     /**
-     * return the calling context
+     * Return the calling context.
      *
      * @return array
      */
@@ -417,7 +422,7 @@ class ClassLoader
     }
 
     /**
-     * builder of $basePath
+     * Builder of $basePath.
      *
      * @return string
      * @throws \DomainException
@@ -433,7 +438,7 @@ class ClassLoader
     }
 
     /**
-     * getter of $excludedFunctionNames
+     * Getter of $excludedFunctionNames.
      *
      * @return array
      */

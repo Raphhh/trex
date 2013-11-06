@@ -1,0 +1,93 @@
+<?php
+namespace TRexTests\Core;
+
+use TRexTests\Core\resources\Foo;
+
+/**
+ * Class ObjectTest
+ * @package TRexTests\Core
+ */
+class ObjectTest extends \PHPUnit_Framework_TestCase
+{
+
+    /**
+     * Test if Object is abstract.
+     */
+    public function testAbstract()
+    {
+        $reflectedClass = new \ReflectionClass('TRex\Core\Object');
+        $this->assertTrue($reflectedClass->isAbstract());
+    }
+
+    /**
+     * Test property is not accessible when Object is not dynamical.
+     *
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Try to access to an undefined property
+     */
+    public function test__getPrevented()
+    {
+        $foo = new Foo();
+        $this->assertNull($foo->none);
+    }
+
+    /**
+     * Test property is accessible by getter when Object is dynamical.
+     */
+    public function test__getByGetter()
+    {
+        $foo = new Foo();
+        $foo->setIsDynamical(true);
+        $this->assertSame('BAR', $foo->bar);
+    }
+
+    /**
+     * Test property is directly accessible when Object is dynamical.
+     *
+     * @expectedException \PHPUnit_Framework_Error_Notice
+     */
+    public function test__getAllowed()
+    {
+        $foo = new Foo();
+        $foo->setIsDynamical(true);
+        $this->assertNull($foo->none);
+    }
+
+    /**
+     * Test property is not editable when Object is not dynamical.
+     *
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Try to mutate an undefined property
+     */
+    public function test__setPrevented()
+    {
+        $foo = new Foo();
+        $foo->none = 'none';
+        $this->assertFalse(property_exists($foo, 'none'));
+    }
+
+    /**
+     * Test property is editable by setter when Object is dynamical.
+     */
+    public function test__setByGetter()
+    {
+        $foo = new Foo();
+        $foo->setIsDynamical(true);
+        $foo->bar = 'bar';
+
+        $reflectedProperty = new \ReflectionProperty($foo, 'bar');
+        $reflectedProperty->setAccessible(true);
+        $this->assertSame('BAR', $reflectedProperty->getValue($foo));
+    }
+
+    /**
+     * Test property is directly editable when Object is dynamical.
+     */
+    public function test__setAllowed()
+    {
+        $foo = new Foo();
+        $foo->setIsDynamical(true);
+        $foo->none = 'none';
+        $this->assertTrue(property_exists($foo, 'none'));
+    }
+}

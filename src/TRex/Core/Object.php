@@ -27,7 +27,7 @@ abstract class Object
      * {@inheritDoc}
      *
      * $data is initial data to set in the object. Keys are property names, and value are initial property values.
-     * $data could be a JSON string or an array.
+     * $data could be a JSON string, an array or an array castable object.
      *
      * @param mixed $data
      */
@@ -176,7 +176,7 @@ abstract class Object
 
     /**
      * Format $data to an array.
-     * $data could be a JSON string.
+     * $data could be a JSON string or an object.
      *
      * @param mixed $data
      * @return array
@@ -189,6 +189,9 @@ abstract class Object
         if(is_array($data)){
             return $data;
         }
-        throw new \InvalidArgumentException(sprintf('$data must be a JSON or an array: %s given.', gettype($data)));
+        if(is_object($data)){
+            return (array) $data;
+        }
+        throw new \InvalidArgumentException(sprintf('$data must be a JSON, an array or an array castable object: %s given.', gettype($data)));
     }
 }

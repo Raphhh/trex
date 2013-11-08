@@ -84,8 +84,32 @@ You can hydrate an object from a JSON string.
     $foo = new Foo('{"a": 123}');
     echo $foo->getA(); //123
 
+### From object
 
-# Object export
+You can hydrate an object from an array castable object.
+
+    class Foo extends TRex/Core/Object{
+
+    	private $a;
+
+    	function getA(){
+    		return $this->a;
+    	}
+
+    	function setA($a){
+    		$this->a = a;
+    	}
+
+    }
+
+    $data = new \stdClass();
+    $data->a = 123;
+
+    $foo = new Foo($data);
+    echo $foo->getA(); //123
+
+
+## Object export
 
 Object export recovers its properties and transmits in a format independent of the object. by default, every property is exported, included protected and private one. In the same way, properties of parents are exported. If a parent property has the same name as a child, only the child's one is exported.
 

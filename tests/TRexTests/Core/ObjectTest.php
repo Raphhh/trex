@@ -136,4 +136,19 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
         $reflectedProperty->setAccessible(true);
         $this->assertSame('TEST', $reflectedProperty->getValue($foo));
     }
+
+
+    /**
+     * Test hydration with an Object.
+     */
+    public function test__constructWithAnObject()
+    {
+        $data = new \stdClass();
+        $data->bar = 'test';
+        $foo = new Foo($data);
+
+        $reflectedProperty = new \ReflectionProperty($foo, 'bar');
+        $reflectedProperty->setAccessible(true);
+        $this->assertSame('TEST', $reflectedProperty->getValue($foo));
+    }
 }

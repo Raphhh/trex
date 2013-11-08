@@ -27,12 +27,15 @@ abstract class Object
      * {@inheritDoc}
      *
      * $data is initial data to set in the object. Keys are property names, and value are initial property values.
+     * $data could be a JSON string or an array.
      *
-     * @param array $data
+     * @param mixed $data
      */
-    public function __construct(array $data = array())
+    public function __construct($data = null)
     {
-        $this->initProperties($data);
+        if($data){
+            $this->initProperties($this->formatData($data));
+        }
     }
 
     /**
@@ -169,5 +172,23 @@ abstract class Object
         foreach ($data as $propertyName => $value) {
             $this->set($propertyName, $value);
         }
+    }
+
+    /**
+     * Format $data to an array.
+     * $data could be a JSON string.
+     *
+     * @param mixed $data
+     * @return array
+     * @throws \InvalidArgumentException
+     */
+    private function formatData($data){
+        if(is_string($data)){
+            return json_decode($data, true);
+        }
+        if(is_array($data)){
+            return $data;
+        }
+        throw new \InvalidArgumentException(sprintf('$data must be a JSON or an array: %s given.', gettype($data)));
     }
 }

@@ -147,4 +147,15 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertObjectNotHasAttribute('none', new Foo(['none' => 'test']));
     }
+
+    /**
+     * Test hydration with non valid data.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $data must be a JSON, an array or an array castable object: integer given.
+     */
+    public function test__constructWithAnNonValidData()
+    {
+        $this->assertObjectNotHasAttribute('none', new Foo(123));
+    }
 }

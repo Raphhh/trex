@@ -25,13 +25,11 @@ abstract class Object
     public function __get($propertyName)
     {
         if (!$this->isDynamical()) {
-            throw new \RuntimeException('Try to access to an undefined property: ' . get_class($this) . '::' . $propertyName);
+            throw new \RuntimeException(sprintf('Try to access to an undefined property: %s::%s', get_class($this), $propertyName));
+        } elseif (method_exists($this, 'get' . $propertyName)) {
+            return $this->{'get' . $propertyName}();
         } else {
-            if (method_exists($this, 'get' . $propertyName)) {
-                return $this->{'get' . $propertyName}();
-            } else {
-                return $this->$propertyName;
-            }
+            return $this->$propertyName;
         }
     }
 
@@ -46,13 +44,11 @@ abstract class Object
     public function __set($propertyName, $value)
     {
         if (!$this->isDynamical()) {
-            throw new \RuntimeException('Try to mutate an undefined property: ' . get_class($this) . '::' . $propertyName);
+            throw new \RuntimeException(sprintf('Try to mutate an undefined property: %s::%s', get_class($this), $propertyName));
+        } elseif (method_exists($this, 'set' . $propertyName)) {
+            return $this->{'set' . $propertyName}($value);
         } else {
-            if (method_exists($this, 'set' . $propertyName)) {
-                return $this->{'set' . $propertyName}($value);
-            } else {
-                return $this->$propertyName = $value;
-            }
+            return $this->$propertyName = $value;
         }
     }
 

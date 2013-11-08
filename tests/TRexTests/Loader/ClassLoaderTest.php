@@ -347,7 +347,16 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadKo()
     {
-        $this->assertSame(null, ClassLoader::getInstance()->load('TRexTests\Loader\resources\None'));
+        $this->assertNull(ClassLoader::getInstance()->load('TRexTests\Loader\resources\None'));
+    }
+
+    /**
+     * test the load of a class file when the class has no vendor recorded
+     *
+     */
+    public function testLoadWithoutVendor()
+    {
+        $this->assertNull(ClassLoader::getInstance()->load('None\None'));
     }
 
     /**

@@ -23,7 +23,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      * Test property is not accessible when Object is not dynamical.
      *
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Try to access to an undefined property
+     * @expectedExceptionMessage Try to access to an undefined property: TRexTests\Core\resources\Foo::none
      */
     public function test__getPrevented()
     {
@@ -57,7 +57,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      * Test property is not editable when Object is not dynamical.
      *
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Try to mutate an undefined property
+     * @expectedExceptionMessage Try to mutate an undefined property: TRexTests\Core\resources\Foo::none
      */
     public function test__setPrevented()
     {

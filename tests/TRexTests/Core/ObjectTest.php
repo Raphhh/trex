@@ -90,4 +90,26 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
         $foo->none = 'none';
         $this->assertTrue(property_exists($foo, 'none'));
     }
+
+    /**
+     * Test dynamical methods logic.
+     */
+    public function test__call()
+    {
+        $foo = new Foo();
+        $foo->addMethod('bar', function($arg){ return $this->bar . $arg; });
+        $this->assertSame('barb', $foo->bar('b'));
+    }
+
+    /**
+     * Test dynamical methods logic with no method added.
+     *
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Try to call an undefined method: TRexTests\Core\resources\Foo::bar()
+     */
+    public function test__callWithoutAddedMethod()
+    {
+        $foo = new Foo();
+        $this->assertNull($foo->bar('b'));
+    }
 }

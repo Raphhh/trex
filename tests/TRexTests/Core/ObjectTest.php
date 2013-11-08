@@ -73,11 +73,8 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     {
         $foo = new Foo();
         $foo->setIsDynamical(true);
-        $foo->bar = 'bar';
-
-        $reflectedProperty = new \ReflectionProperty($foo, 'bar');
-        $reflectedProperty->setAccessible(true);
-        $this->assertSame('BAR', $reflectedProperty->getValue($foo));
+        $foo->bar = 'test';
+        $this->assertAttributeSame('TEST', 'bar', $foo);
     }
 
     /**
@@ -118,11 +115,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function test__constructWithArray()
     {
-        $foo = new Foo(['bar' => 'test']);
-
-        $reflectedProperty = new \ReflectionProperty($foo, 'bar');
-        $reflectedProperty->setAccessible(true);
-        $this->assertSame('TEST', $reflectedProperty->getValue($foo));
+        $this->assertAttributeSame('TEST', 'bar', new Foo(['bar' => 'test']));
     }
 
     /**
@@ -130,11 +123,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function test__constructWithJson()
     {
-        $foo = new Foo('{"bar": "test"}');
-
-        $reflectedProperty = new \ReflectionProperty($foo, 'bar');
-        $reflectedProperty->setAccessible(true);
-        $this->assertSame('TEST', $reflectedProperty->getValue($foo));
+        $this->assertAttributeSame('TEST', 'bar', new Foo('{"bar": "test"}'));
     }
 
 
@@ -145,11 +134,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     {
         $data = new \stdClass();
         $data->bar = 'test';
-        $foo = new Foo($data);
-
-        $reflectedProperty = new \ReflectionProperty($foo, 'bar');
-        $reflectedProperty->setAccessible(true);
-        $this->assertSame('TEST', $reflectedProperty->getValue($foo));
+        $this->assertAttributeSame('TEST', 'bar', new Foo($data));
     }
 
     /**
@@ -160,7 +145,6 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      */
     public function test__constructWithAnNonValidPropertyName()
     {
-        $foo = new Foo(['none' => 'test']);
-        $this->assertObjectNotHasAttribute('none', $foo);
+        $this->assertObjectNotHasAttribute('none', new Foo(['none' => 'test']));
     }
 }

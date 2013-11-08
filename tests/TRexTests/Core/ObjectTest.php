@@ -112,4 +112,16 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
         $foo = new Foo();
         $this->assertNull($foo->bar('b'));
     }
+
+    /**
+     * Test hydration with an array.
+     */
+    public function test__construct()
+    {
+        $foo = new Foo(['bar' => 'test']);
+
+        $reflectedProperty = new \ReflectionProperty($foo, 'bar');
+        $reflectedProperty->setAccessible(true);
+        $this->assertSame('TEST', $reflectedProperty->getValue($foo));
+    }
 }

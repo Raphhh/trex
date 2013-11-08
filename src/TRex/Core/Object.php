@@ -26,6 +26,18 @@ abstract class Object
     /**
      * {@inheritDoc}
      *
+     * $data is initial data to set in the object. Keys are property names, and value are initial property values.
+     *
+     * @param array $data
+     */
+    public function __construct(array $data = array())
+    {
+        $this->initProperties($data);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param string $propertyName
      * @return mixed
      * @throws \RuntimeException
@@ -34,11 +46,8 @@ abstract class Object
     {
         if (!$this->isDynamical()) {
             throw new \RuntimeException(sprintf('Try to access to an undefined property: %s::%s', get_class($this), $propertyName));
-        } elseif (method_exists($this, 'get' . $propertyName)) {
-            return $this->{'get' . $propertyName}();
-        } else {
-            return $this->$propertyName;
         }
+        return $this->get($propertyName);
     }
 
     /**
@@ -53,11 +62,8 @@ abstract class Object
     {
         if (!$this->isDynamical()) {
             throw new \RuntimeException(sprintf('Try to mutate an undefined property: %s::%s', get_class($this), $propertyName));
-        } elseif (method_exists($this, 'set' . $propertyName)) {
-            return $this->{'set' . $propertyName}($value);
-        } else {
-            return $this->$propertyName = $value;
         }
+        $this->set($propertyName, $value);
     }
 
     /**
@@ -121,5 +127,47 @@ abstract class Object
             return $this->methods[$name];
         }
         return null;
+    }
+
+    /**
+     * Dynamical getter of $propertyName.
+     *
+     * @param $propertyName
+     * @return mixed
+     */
+    private function get($propertyName)
+    {
+        if (method_exists($this, 'get' . $propertyName)) {
+            return $this->{'get' . $propertyName}();
+        }
+        return $this->$propertyName;
+    }
+
+    /**
+     * Dynamical setter of $propertyName.
+     *
+     * @param string $propertyName
+     * @param mixed $value
+     */
+    private function set($propertyName, $value)
+    {
+        if (method_exists($this, 'set' . $propertyName)) {
+            $this->{'set' . $propertyName}($value);
+        } else{
+            $this->$propertyName = $value;
+        }
+    }
+
+    /**
+     * Init property values.
+     * $data is initial data to set in the object. Keys are property names, and value are initial property values.
+     *
+     * @param array $data
+     */
+    private function initProperties(array $data)
+    {
+        foreach ($data as $propertyName => $value) {
+            $this->set($propertyName, $value);
+        }
     }
 }

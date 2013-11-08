@@ -60,7 +60,7 @@ You can hydrate an object from an array.
 
     }
 
-    $foo = new Foo(["a": 123]);
+    $foo = new Foo(["a" => 123]);
     echo $foo->getA(); //123
 
 ### From JSON

@@ -151,4 +151,16 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
         $reflectedProperty->setAccessible(true);
         $this->assertSame('TEST', $reflectedProperty->getValue($foo));
     }
+
+    /**
+     * Test hydration with non valid property name.
+     *
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Try to mutate an undefined property: TRexTests\Core\resources\Foo::none
+     */
+    public function test__constructWithAnNonValidPropertyName()
+    {
+        $foo = new Foo(['none' => 'test']);
+        $this->assertObjectNotHasAttribute('none', $foo);
+    }
 }

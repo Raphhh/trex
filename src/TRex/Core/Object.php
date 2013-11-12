@@ -33,7 +33,7 @@ abstract class Object
      */
     public function __construct($data = null)
     {
-        if($data){
+        if ($data) {
             $this->initProperties($this->formatData($data));
         }
     }
@@ -82,7 +82,7 @@ abstract class Object
      */
     public function __call($methodName, array $args)
     {
-        if($this->getMethod($methodName)){
+        if ($this->getMethod($methodName)) {
             return call_user_func_array($this->getMethod($methodName), $args);
         }
         throw new \RuntimeException(sprintf('Try to call an undefined method: %s::%s()', get_class($this), $methodName));
@@ -114,7 +114,8 @@ abstract class Object
      * @param string $name
      * @param \Closure $method
      */
-    public function addMethod($name, \Closure $method){
+    public function addMethod($name, \Closure $method)
+    {
         $this->methods[$name] = \Closure::bind($method, $this, get_class($this));
     }
 
@@ -126,7 +127,7 @@ abstract class Object
      */
     private function getMethod($name)
     {
-        if(isset($this->methods[$name])){
+        if (isset($this->methods[$name])) {
             return $this->methods[$name];
         }
         return null;
@@ -156,7 +157,7 @@ abstract class Object
     {
         if (method_exists($this, 'set' . $propertyName)) {
             $this->{'set' . $propertyName}($value);
-        } else{
+        } else {
             $this->$propertyName = $value;
         }
     }
@@ -182,15 +183,16 @@ abstract class Object
      * @return array
      * @throws \InvalidArgumentException
      */
-    private function formatData($data){
-        if(is_string($data)){
+    private function formatData($data)
+    {
+        if (is_string($data)) {
             return json_decode($data, true);
         }
-        if(is_array($data)){
+        if (is_array($data)) {
             return $data;
         }
-        if(is_object($data)){
-            return (array) $data;
+        if (is_object($data)) {
+            return (array)$data;
         }
         throw new \InvalidArgumentException(sprintf('$data must be a JSON, an array or an array castable object: %s given.', gettype($data)));
     }

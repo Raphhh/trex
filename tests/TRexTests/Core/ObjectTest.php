@@ -94,7 +94,12 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     public function test__call()
     {
         $foo = new Foo();
-        $foo->addMethod('bar', function($arg){ return $this->bar . $arg; });
+        $foo->addMethod(
+            'bar',
+            function ($arg) {
+                return $this->bar . $arg;
+            }
+        );
         $this->assertSame('barb', $foo->bar('b'));
     }
 

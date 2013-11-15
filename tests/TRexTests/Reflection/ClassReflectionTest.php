@@ -1,0 +1,91 @@
+<?php
+namespace TRexTests\Reflection;
+
+use TRex\Reflection\AttributeReflection;
+use TRex\Reflection\ClassReflection;
+
+/**
+ * Class ClassReflectionTest
+ * @package TRexTests\Reflection
+ */
+class ClassReflectionTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * Test array conversion.
+     */
+    public function testToArray()
+    {
+        $reflectedClass = new ClassReflection('TRexTests\Reflection\resources\Foo');
+        $this->assertSame(array(), $reflectedClass->toArray());
+    }
+
+    /**
+     * Test the recovery of the name.
+     */
+    public function testGetName()
+    {
+        $reflectedClass = new ClassReflection('TRexTests\Reflection\resources\Foo');
+        $this->assertSame('TRexTests\Reflection\resources\Foo', $reflectedClass->getName());
+    }
+
+    /**
+     * Test if a class is transient.
+     */
+    public function testIsTransientTrue()
+    {
+        $reflectedClass = new ClassReflection('TRexTests\Reflection\resources\Foo');
+        $this->assertTrue($reflectedClass->isTransient());
+    }
+
+    /**
+     * Test if a class is not transient.
+     */
+    public function testIsTransientFalse()
+    {
+        $reflectedClass = new ClassReflection('TRexTests\Reflection\resources\Bar');
+        $this->assertFalse($reflectedClass->isTransient());
+    }
+
+    /**
+     * Test GetReflection properties without any filter.
+     */
+    public function testGetReflectionPropertiesWithoutFilter()
+    {
+        $reflectedClass = new ClassReflection('TRexTests\Reflection\resources\Foo');
+        $reflectedProperties = $reflectedClass->getReflectionProperties();
+        $this->assertTrue(is_array($reflectedProperties));
+        $this->assertCount(4, $reflectedProperties);
+
+        $this->assertInstanceOf('TRex\Reflection\PropertyReflection', $reflectedProperties[0]);
+        $this->assertSame('TRexTests\Reflection\resources\Foo::foo', $reflectedProperties[0]->getName(true));
+
+        $this->assertInstanceOf('TRex\Reflection\PropertyReflection', $reflectedProperties[1]);
+        $this->assertSame('TRexTests\Reflection\resources\Foo::bar', $reflectedProperties[1]->getName(true));
+
+        $this->assertInstanceOf('TRex\Reflection\PropertyReflection', $reflectedProperties[2]);
+        $this->assertSame('TRexTests\Reflection\resources\Bar::foo', $reflectedProperties[2]->getName(true));
+
+        $this->assertInstanceOf('TRex\Reflection\PropertyReflection', $reflectedProperties[3]);
+        $this->assertSame('TRexTests\Reflection\resources\Bar::bar', $reflectedProperties[3]->getName(true));
+    }
+
+    /**
+     * Test GetReflection properties with an example of a filter.
+     */
+    public function testGetReflectionPropertiesWithFilter()
+    {
+        $reflectedClass = new ClassReflection('TRexTests\Reflection\resources\Foo');
+        $reflectedProperties = $reflectedClass->getReflectionProperties(
+            AttributeReflection::PUBLIC_FILTER | AttributeReflection::PROTECTED_FILTER
+        );
+        $this->assertTrue(is_array($reflectedProperties));
+        $this->assertCount(2, $reflectedProperties);
+
+        $this->assertInstanceOf('TRex\Reflection\PropertyReflection', $reflectedProperties[0]);
+        $this->assertSame('TRexTests\Reflection\resources\Foo::foo', $reflectedProperties[0]->getName(true));
+
+        $this->assertInstanceOf('TRex\Reflection\PropertyReflection', $reflectedProperties[1]);
+        $this->assertSame('TRexTests\Reflection\resources\Foo::bar', $reflectedProperties[1]->getName(true));
+    }
+}
+ 

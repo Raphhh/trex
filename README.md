@@ -1,5 +1,9 @@
 # README
 
+[![Build Status](https://travis-ci.org/Raphhh/trex.png?branch=Object-Reflection)](https://travis-ci.org/Raphhh/trex)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Raphhh/trex/badges/quality-score.png?s=c5dc0874bf12e9c757c2f46a3439e91289bf07bc)](https://scrutinizer-ci.com/g/Raphhh/trex/)
+[![Code Coverage](https://scrutinizer-ci.com/g/Raphhh/trex/badges/coverage.png?s=ea0eee6ed113b03abd872b715217f554db09b647)](https://scrutinizer-ci.com/g/Raphhh/trex/)
+
 ## What is TRex?
 
 TRex is a light toolbox with low level classes implemented with standard missing features.
@@ -134,10 +138,3 @@ You can cache your method result without using a local property.
 ## Ressources
 
 For documentation, see TRex/docs/
-
-[Scrutinizer Build][1]
-[Travis Build][2]
-
-[1]: https://scrutinizer-ci.com/g/Raphhh/trex/
-[2]: https://travis-ci.org/Raphhh/trex/
-

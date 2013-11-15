@@ -120,7 +120,17 @@ abstract class Object
     }
 
     /**
-     * Getter of $methods.
+     * Convert object to array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array();
+    }
+
+    /**
+     *  Getter of $methods.
      *
      * @param string $name
      * @return array

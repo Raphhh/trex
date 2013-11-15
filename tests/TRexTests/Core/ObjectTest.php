@@ -163,4 +163,13 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertObjectNotHasAttribute('none', new Foo(123));
     }
+
+    /**
+     * Test simple array conversion.
+     */
+    public function testToArray()
+    {
+        $foo = new Foo();
+        $this->assertSame(array(), $foo->toArray());
+    }
 }

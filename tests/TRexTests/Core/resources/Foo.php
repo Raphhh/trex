@@ -1,19 +1,23 @@
 <?php
 namespace TRexTests\Core\resources;
 
-use TRex\Core\Object;
-
 /**
  * Class Foo
  * @package TRexTests\Core\resources
  */
-class Foo extends Object
+class Foo extends Bar
 {
+
+    /**
+     * @transient
+     * @var string
+     */
+    private $bar = 'bar';
 
     /**
      * @var string
      */
-    private $bar = 'bar';
+    private $foo = 'foo from foo';
 
     /**
      * @param string $bar
@@ -29,5 +33,25 @@ class Foo extends Object
     public function getBar()
     {
         return strtoupper($this->bar);
+    }
+
+    /**
+     * Setter of $foo.
+     *
+     * @param string $foo
+     */
+    public function setFoo($foo)
+    {
+        $this->foo = $foo;
+    }
+
+    /**
+     * Getter of $foo.
+     *
+     * @return string
+     */
+    public function getFoo()
+    {
+        return $this->foo;
     }
 }

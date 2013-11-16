@@ -1,11 +1,16 @@
 <?php
 namespace TRex\Core;
 
+use TRex\Reflection\AttributeReflection;
+use TRex\Serialization\Caster;
+use TRex\Serialization\IArrayCastable;
+
 /**
  * Class Object
  * @package TRex\Core
+ * @transient
  */
-abstract class Object
+abstract class Object implements IArrayCastable
 {
 
     /**
@@ -17,7 +22,7 @@ abstract class Object
 
     /**
      * List of dynamically added methods.
-     * These methods are binded closures and can be called with selff:__call().
+     * These methods are binded closures and can be called with self:__call().
      *
      * @var \Closure[]
      */
@@ -122,11 +127,15 @@ abstract class Object
     /**
      * Convert object to array.
      *
+     * @param int $filter
+     * @param bool $isFullName
+     * @param bool $isRecursive
      * @return array
      */
-    public function toArray()
+    public function toArray($filter = AttributeReflection::NO_FILTER, $isFullName = false, $isRecursive = true)
     {
-        return array();
+        $caster = new Caster();
+        return $caster->castToArray($this, $filter, $isFullName, $isRecursive);
     }
 
     /**
@@ -146,7 +155,7 @@ abstract class Object
     /**
      * Dynamical getter of $propertyName.
      *
-     * @param $propertyName
+     * @param string $propertyName
      * @return mixed
      */
     private function get($propertyName)

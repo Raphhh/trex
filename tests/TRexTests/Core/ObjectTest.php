@@ -131,7 +131,6 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeSame('TEST', 'bar', new Foo('{"bar": "test"}'));
     }
 
-
     /**
      * Test hydration with an Object.
      */
@@ -170,6 +169,12 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     public function testToArray()
     {
         $foo = new Foo();
-        $this->assertSame(array(), $foo->toArray());
+        $this->assertSame(
+            array(
+                'foo' => 'foo from foo',
+                'bar' => 'bar from bar'
+            ),
+            $foo->toArray()
+        );
     }
 }

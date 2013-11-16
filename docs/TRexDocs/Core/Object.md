@@ -111,9 +111,11 @@ You can hydrate an object from an array castable object.
 
 ## Object export
 
-Object export recovers its properties and transmits in a format independent of the object. by default, every property is exported, included protected and private one. In the same way, properties of parents are exported. If a parent property has the same name as a child, only the child's one is exported.
+Object export recovers its properties and transmits in a format independent of the object. By default, every property is exported, included protected and private one. In the same way, properties of parents are exported. If a parent property has the same name as a child, only the child's one is exported.
 
-You can also hid some properties and prevent their exportation. You just have to specify it in the comment of these properties with the special tag @transient.
+You can also hid some properties and prevent their exportation. You just have to specify it in the comment of these properties with the special tag @transient. This tag applies on all the properties of a class when it is added to the class comments.
+
+You can also filter properties on their visibility (private/protected/public).
 
 ### To array
 
@@ -150,7 +152,7 @@ You can easily convert your object to JSON, choosing witch property you what to 
 
     echo new Foo(); //{a: "a"} => only non transient property
 
-## object cast
+### To object
 
 You can transform your object to an other object.
 
@@ -174,5 +176,5 @@ You can transform your object to an other object.
 
     $foo = new Foo();
     $bar = $foo->castTo('\Bar');
-    echo $bar->$a; // 'a';
+    echo $bar->$a; // null;
     echo $bar->$c; // 'b';

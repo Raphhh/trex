@@ -18,14 +18,6 @@ class ClassLoader
     const FILE_EXTENSION = '.php';
 
     /**
-     * Unique instance of the current class.
-     * Singleton pattern.
-     *
-     * @var ClassLoader
-     */
-    private static $instance;
-
-    /**
      * Absolute path of common root.
      *
      * @var string
@@ -60,34 +52,6 @@ class ClassLoader
     );
 
     /**
-     * get $instance.
-     *
-     * @return ClassLoader
-     */
-    public static function getInstance()
-    {
-        if (null === self::$instance) {
-            $className = get_called_class();
-            self::$instance = new $className();
-        }
-        return self::$instance;
-    }
-
-    /**
-     * ClassLoader is a singleton and can not be instantiate directly.
-     */
-    private function __construct()
-    {
-    }
-
-    /**
-     * ClassLoader is a singleton and can not be clone directly.
-     */
-    private function __clone()
-    {
-    }
-
-    /**
      * Start auto-loading of php classes.
      * Call automatically self::load when a new class is used.
      *
@@ -97,7 +61,7 @@ class ClassLoader
     public function register(array $vendors = array())
     {
         $this->addVendors($vendors);
-        return spl_autoload_register(array(self::getInstance(), 'load'));
+        return spl_autoload_register(array($this, 'load'));
     }
 
     /**
@@ -107,7 +71,7 @@ class ClassLoader
      */
     public function unRegister()
     {
-        return spl_autoload_unregister(array(self::getInstance(), 'load'));
+        return spl_autoload_unregister(array($this, 'load'));
     }
 
     /**

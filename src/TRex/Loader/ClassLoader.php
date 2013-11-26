@@ -40,9 +40,6 @@ class ClassLoader
         'TRex' => array(
             'sourcePath' => 'trex/src/',
         ),
-        'TRexTests' => array(
-            'sourcePath' => 'trex/tests/',
-        ),
     );
 
     /*

@@ -1,5 +1,5 @@
 <?php
-namespace TRexTests\Loader\resources;
+namespace TRex\Loader\resources;
 
 class Foo
 {

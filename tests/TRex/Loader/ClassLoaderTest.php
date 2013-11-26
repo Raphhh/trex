@@ -1,11 +1,9 @@
 <?php
-namespace TRexTests\Loader;
-
-use TRex\Loader\ClassLoader;
+namespace TRex\Loader;
 
 /**
  * Class ClassLoaderTest
- * @package TRexTests\Loader
+ * @package TRex\Loader
  */
 class ClassLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -266,7 +264,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $classLoader = new ClassLoader();
         $this->assertSame('trex/src/', $classLoader->getSourcePath('TRex'));
-        $this->assertSame('trex/tests/', $classLoader->getSourcePath('TRexTests'));
     }
 
     /**
@@ -276,7 +273,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $classLoader = new ClassLoader();
         $this->assertSame($this->getBaseDir('trex'), $classLoader->getRootDir('TRex'));
-        $this->assertSame($this->getBaseDir('trex'), $classLoader->getRootDir('TRexTests'));
     }
 
     /**
@@ -311,20 +307,24 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadOk()
     {
-        $classLoader = new ClassLoader();
-        $this->assertSame('Foo_test', $classLoader->load('TRexTests\Loader\resources\Foo'));
+        $classLoader = new ClassLoader(true);
+        $classLoader->removeVendor('TRex');
+        $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
+        $this->assertSame('Foo_test', $classLoader->load('TRex\Loader\resources\Foo'));
     }
 
     /**
      * test the load of a class file when there is no such file
      *
      * @expectedException \Exception
-     * @expectedExceptionMessage No file found for class TRexTests\Loader\resources\None with the path
+     * @expectedExceptionMessage No file found for class TRex\Loader\resources\None with the path
      */
     public function testLoadKoWithError()
     {
         $classLoader = new ClassLoader(true);
-        $this->assertSame(null, $classLoader->load('TRexTests\Loader\resources\None'));
+        $classLoader->removeVendor('TRex');
+        $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
+        $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
     }
 
     /**
@@ -333,7 +333,9 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoadKoWithoutError()
     {
         $classLoader = new ClassLoader();
-        $this->assertSame(null, $classLoader->load('TRexTests\Loader\resources\None'));
+        $classLoader->removeVendor('TRex');
+        $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
+        $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
     }
 
     /**
@@ -422,11 +424,11 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function provideFunctionNames()
     {
         return array(
-            array('class_exists', array('TRexTests\Loader\resources\None')),
-            array('get_parent_class', array('TRexTests\Loader\resources\None')),
-            array('interface_exists', array('TRexTests\Loader\resources\None')),
-            array('is_subclass_of', array(new \stdClass(), 'TRexTests\Loader\resources\None')),
-            array('is_a', array(new \stdClass(), 'TRexTests\Loader\resources\None')),
+            array('class_exists', array('TRex\Loader\resources\None')),
+            array('get_parent_class', array('TRex\Loader\resources\None')),
+            array('interface_exists', array('TRex\Loader\resources\None')),
+            array('is_subclass_of', array(new \stdClass(), 'TRex\Loader\resources\None')),
+            array('is_a', array(new \stdClass(), 'TRex\Loader\resources\None')),
         );
     }
 

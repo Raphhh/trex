@@ -18,14 +18,6 @@ class ClassLoader
     const FILE_EXTENSION = '.php';
 
     /**
-     * Unique instance of the current class.
-     * Singleton pattern.
-     *
-     * @var ClassLoader
-     */
-    private static $instance;
-
-    /**
      * Absolute path of common root.
      *
      * @var string
@@ -33,18 +25,18 @@ class ClassLoader
     private $basePath;
 
     /**
-     * List of default vendors with their source path.
+     * Indiquates if self::load displays an exception.
+     *
+     * @var bool
+     */
+    private $isErrorDisplayed;
+
+    /**
+     * List of vendors with their source path.
      *
      * @var array
      */
-    private $vendors = array(
-        'TRex' => array(
-            'sourcePath' => 'trex/src/',
-        ),
-        'TRexTests' => array(
-            'sourcePath' => 'trex/tests/',
-        ),
-    );
+    private $vendors = array();
 
     /*
      * List of functions not throwing exception.
@@ -59,33 +51,31 @@ class ClassLoader
         'is_a',
     );
 
+    public function __construct($isErrorDisplayed = false)
+    {
+        $this->setIsErrorDisplayed($isErrorDisplayed);
+    }
+
     /**
-     * get $instance.
+     * Setter of $isErrorDisplayed
      *
-     * @return ClassLoader
+     * @param boolean $isErrorDisplayed
      */
-    public static function getInstance()
+    public function setIsErrorDisplayed($isErrorDisplayed)
     {
-        if (null === self::$instance) {
-            $className = get_called_class();
-            self::$instance = new $className();
-        }
-        return self::$instance;
+        $this->isErrorDisplayed = (boolean)$isErrorDisplayed;
     }
 
     /**
-     * ClassLoader is a singleton and can not be instantiate directly.
+     * Getter of $isErrorDisplayed
+     *
+     * @return boolean
      */
-    private function __construct()
+    public function isErrorDisplayed()
     {
+        return $this->isErrorDisplayed;
     }
 
-    /**
-     * ClassLoader is a singleton and can not be clone directly.
-     */
-    private function __clone()
-    {
-    }
 
     /**
      * Start auto-loading of php classes.
@@ -97,7 +87,7 @@ class ClassLoader
     public function register(array $vendors = array())
     {
         $this->addVendors($vendors);
-        return spl_autoload_register(array(self::getInstance(), 'load'));
+        return spl_autoload_register(array($this, 'load'));
     }
 
     /**
@@ -107,7 +97,7 @@ class ClassLoader
      */
     public function unRegister()
     {
-        return spl_autoload_unregister(array(self::getInstance(), 'load'));
+        return spl_autoload_unregister(array($this, 'load'));
     }
 
     /**
@@ -125,7 +115,7 @@ class ClassLoader
         if ($classPath && is_file($classPath)) {
             return include_once $classPath;
 
-        } elseif ($this->hasToDisplayError()) {
+        } elseif ($this->isErrorDisplayed() && $this->hasToDisplayError()) {
             throw new \Exception(
                 sprintf(
                     'No file found for class %s with the path %s',

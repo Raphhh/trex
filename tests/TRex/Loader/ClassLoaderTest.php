@@ -1,48 +1,12 @@
 <?php
-namespace TRexTests\Loader;
-
-use TRex\Loader\ClassLoader;
+namespace TRex\Loader;
 
 /**
  * Class ClassLoaderTest
- * @package TRexTests\Loader
+ * @package TRex\Loader
  */
 class ClassLoaderTest extends \PHPUnit_Framework_TestCase
 {
-
-    /**
-     * ClassLoader is a singleton and can not be instantiate directly
-     */
-    public function test__construct()
-    {
-        $reflectedClass = new \ReflectionClass('TRex\Loader\ClassLoader');
-        $this->assertFalse($reflectedClass->isInstantiable());
-    }
-
-    /**
-     * ClassLoader is a singleton and can not be clone directly
-     */
-    public function test__clone()
-    {
-        $reflectedClass = new \ReflectionClass('TRex\Loader\ClassLoader');
-        $this->assertFalse($reflectedClass->isCloneable());
-    }
-
-    /**
-     * test the type of return
-     */
-    public function testGetInstanceType()
-    {
-        $this->assertInstanceOf('\TRex\Loader\ClassLoader', ClassLoader::getInstance());
-    }
-
-    /**
-     * test the unique instance of the return
-     */
-    public function testGetInstanceUnique()
-    {
-        $this->assertSame(ClassLoader::getInstance(), ClassLoader::getInstance());
-    }
 
     /**
      * has an undefined vendor
@@ -51,14 +15,15 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasVendorNotAdded()
     {
-        $vendorData = array(
+        $provider = array(
+            'classLoader' => new ClassLoader(),
             'name' => 'Vendor',
             'sourcePath' => sprintf('vendor%ssrc%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR),
             'realPath' => $this->getBaseDir(sprintf('vendor%ssrc', DIRECTORY_SEPARATOR)),
             'rootDir' => $this->getBaseDir('vendor'),
         );
-        $this->assertFalse(ClassLoader::getInstance()->hasVendor($vendorData['name']));
-        return $vendorData;
+        $this->assertFalse($provider['classLoader']->hasVendor($provider['name']));
+        return $provider;
     }
 
     /**
@@ -66,10 +31,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testHasVendorNotAdded
      */
-    public function testGetSourcePathNotAdded(array $vendorData)
+    public function testGetSourcePathNotAdded(array $provider)
     {
-        $this->assertSame('', ClassLoader::getInstance()->getSourcePath($vendorData['name']));
-        return $vendorData;
+        $this->assertSame('', $provider['classLoader']->getSourcePath($provider['name']));
+        return $provider;
     }
 
     /**
@@ -77,10 +42,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testGetSourcePathNotAdded
      */
-    public function testGetRootDirNotAdded(array $vendorData)
+    public function testGetRootDirNotAdded(array $provider)
     {
-        $this->assertSame('', ClassLoader::getInstance()->getRootDir($vendorData['name']));
-        return $vendorData;
+        $this->assertSame('', $provider['classLoader']->getRootDir($provider['name']));
+        return $provider;
     }
 
     /**
@@ -88,10 +53,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testGetRootDirNotAdded
      */
-    public function testGetRealPathNotAdded(array $vendorData)
+    public function testGetRealPathNotAdded(array $provider)
     {
-        $this->assertSame('', ClassLoader::getInstance()->getRealPath($vendorData['name']));
-        return $vendorData;
+        $this->assertSame('', $provider['classLoader']->getRealPath($provider['name']));
+        return $provider;
     }
 
     /**
@@ -99,10 +64,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testGetRealPathNotAdded
      */
-    public function testRemoveVendorNotExisting(array $vendorData)
+    public function testRemoveVendorNotExisting(array $provider)
     {
-        $this->assertFalse(ClassLoader::getInstance()->removeVendor($vendorData['name']));
-        return $vendorData;
+        $this->assertFalse($provider['classLoader']->removeVendor($provider['name']));
+        return $provider;
     }
 
     /**
@@ -110,10 +75,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testGetSourcePathNotAdded
      */
-    public function testAddVendorFirst(array $vendorData)
+    public function testAddVendorFirst(array $provider)
     {
-        $this->assertTrue(ClassLoader::getInstance()->addVendor($vendorData['name'], $vendorData['sourcePath']));
-        return $vendorData;
+        $this->assertTrue($provider['classLoader']->addVendor($provider['name'], $provider['sourcePath']));
+        return $provider;
     }
 
     /**
@@ -121,10 +86,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testAddVendorFirst
      */
-    public function testAddVendorSecond(array $vendorData)
+    public function testAddVendorSecond(array $provider)
     {
-        $this->assertFalse(ClassLoader::getInstance()->addVendor($vendorData['name'], $vendorData['sourcePath']));
-        return $vendorData;
+        $this->assertFalse($provider['classLoader']->addVendor($provider['name'], $provider['sourcePath']));
+        return $provider;
     }
 
     /**
@@ -132,8 +97,9 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVendorWithRelativePath()
     {
+        $classLoader = new ClassLoader();
         $this->assertTrue(
-            ClassLoader::getInstance()->addVendor(
+            $classLoader->addVendor(
                 __FUNCTION__,
                 sprintf('..%s%s%sPath%s', DIRECTORY_SEPARATOR, __FUNCTION__, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR)
             )
@@ -148,14 +114,15 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetSourcePathWithoutSlash()
     {
-        $vendorData = array(
+        $classLoader = new ClassLoader();
+        $provider = array(
             'name' => __FUNCTION__,
             'sourcePath' => sprintf('%s%sPath', __FUNCTION__, DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR)
         );
-        $this->assertTrue(ClassLoader::getInstance()->addVendor($vendorData['name'], $vendorData['sourcePath']));
+        $this->assertTrue($classLoader->addVendor($provider['name'], $provider['sourcePath']));
         $this->assertSame(
-            $vendorData['sourcePath'] . DIRECTORY_SEPARATOR,
-            ClassLoader::getInstance()->getSourcePath($vendorData['name'])
+            $provider['sourcePath'] . DIRECTORY_SEPARATOR,
+            $classLoader->getSourcePath($provider['name'])
         );
     }
 
@@ -164,10 +131,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testAddVendorFirst
      */
-    public function testHasVendorAfterAdd(array $vendorData)
+    public function testHasVendorAfterAdd(array $provider)
     {
-        $this->assertTrue(ClassLoader::getInstance()->hasVendor($vendorData['name']));
-        return $vendorData;
+        $this->assertTrue($provider['classLoader']->hasVendor($provider['name']));
+        return $provider;
     }
 
     /**
@@ -175,13 +142,13 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testHasVendorAfterAdd
      */
-    public function testGetSourcePathAfterAdd(array $vendorData)
+    public function testGetSourcePathAfterAdd(array $provider)
     {
         $this->assertSame(
-            $vendorData['sourcePath'],
-            ClassLoader::getInstance()->getSourcePath($vendorData['name'])
+            $provider['sourcePath'],
+            $provider['classLoader']->getSourcePath($provider['name'])
         );
-        return $vendorData;
+        return $provider;
     }
 
     /**
@@ -189,13 +156,13 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testGetSourcePathAfterAdd
      */
-    public function testGetRootDirAfterAdd(array $vendorData)
+    public function testGetRootDirAfterAdd(array $provider)
     {
         $this->assertSame(
-            $vendorData['rootDir'],
-            ClassLoader::getInstance()->getRootDir($vendorData['name'])
+            $provider['rootDir'],
+            $provider['classLoader']->getRootDir($provider['name'])
         );
-        return $vendorData;
+        return $provider;
     }
 
     /**
@@ -203,13 +170,13 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testGetRootDirAfterAdd
      */
-    public function testGetRealPathAfterAdd(array $vendorData)
+    public function testGetRealPathAfterAdd(array $provider)
     {
         $this->assertSame(
-            $vendorData['realPath'],
-            ClassLoader::getInstance()->getRealPath($vendorData['name'])
+            $provider['realPath'],
+            $provider['classLoader']->getRealPath($provider['name'])
         );
-        return $vendorData;
+        return $provider;
     }
 
     /**
@@ -217,10 +184,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testGetRealPathAfterAdd
      */
-    public function testRemoveVendorExisting(array $vendorData)
+    public function testRemoveVendorExisting(array $provider)
     {
-        $this->assertTrue(ClassLoader::getInstance()->removeVendor($vendorData['name']));
-        return $vendorData;
+        $this->assertTrue($provider['classLoader']->removeVendor($provider['name']));
+        return $provider;
     }
 
     /**
@@ -228,10 +195,10 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      *
      * @depends testRemoveVendorExisting
      */
-    public function testHasVendorAfterRemove(array $vendorData)
+    public function testHasVendorAfterRemove(array $provider)
     {
-        $this->assertFalse(ClassLoader::getInstance()->hasVendor($vendorData['name']));
-        return $vendorData;
+        $this->assertFalse($provider['classLoader']->hasVendor($provider['name']));
+        return $provider;
     }
 
     /**
@@ -239,8 +206,9 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVendors()
     {
+        $classLoader = new ClassLoader();
         $this->assertTrue(
-            ClassLoader::getInstance()->addVendors(
+            $classLoader->addVendors(
                 array(
                     sprintf('%s1', __FUNCTION__) => sprintf(
                         '%s1%sPath%s',
@@ -258,8 +226,8 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->assertTrue(ClassLoader::getInstance()->hasVendor(sprintf('%s1', __FUNCTION__)));
-        $this->assertTrue(ClassLoader::getInstance()->hasVendor(sprintf('%s2', __FUNCTION__)));
+        $this->assertTrue($classLoader->hasVendor(sprintf('%s1', __FUNCTION__)));
+        $this->assertTrue($classLoader->hasVendor(sprintf('%s2', __FUNCTION__)));
 
     }
 
@@ -268,8 +236,9 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddVendorsWithDouble()
     {
+        $classLoader = new ClassLoader();
         $this->assertTrue(
-            ClassLoader::getInstance()->addVendors(
+            $classLoader->addVendors(
                 array(
                     sprintf('%s', __FUNCTION__) => sprintf(
                         '%s%sPath%s',
@@ -289,24 +258,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test the default config with TRex path
-     */
-    public function testGetSourcePathDefault()
-    {
-        $this->assertSame('trex/src/', ClassLoader::getInstance()->getSourcePath('TRex'));
-        $this->assertSame('trex/tests/', ClassLoader::getInstance()->getSourcePath('TRexTests'));
-    }
-
-    /**
-     * test the default config with TRex root dir
-     */
-    public function testGetRootDirDefault()
-    {
-        $this->assertSame($this->getBaseDir('trex'), ClassLoader::getInstance()->getRootDir('TRex'));
-        $this->assertSame($this->getBaseDir('trex'), ClassLoader::getInstance()->getRootDir('TRexTests'));
-    }
-
-    /**
      * test the conversion of a class path
      *
      * @param string $className
@@ -316,11 +267,12 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClassPath($className, $path)
     {
-        ClassLoader::getInstance()->addVendor(
+        $classLoader = new ClassLoader();
+        $classLoader->addVendor(
             'Vendor',
             sprintf('vendor%ssrc%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR)
         );
-        $this->assertSame($path, ClassLoader::getInstance()->getClassPath($className));
+        $this->assertSame($path, $classLoader->getClassPath($className));
     }
 
     /**
@@ -328,7 +280,8 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClassPathWithNotAddedVendor()
     {
-        $this->assertSame('', ClassLoader::getInstance()->getClassPath('Vendor2\ClassName'));
+        $classLoader = new ClassLoader();
+        $this->assertSame('', $classLoader->getClassPath('Vendor2\ClassName'));
     }
 
     /**
@@ -336,18 +289,32 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadOk()
     {
-        $this->assertSame('Foo_test', ClassLoader::getInstance()->load('TRexTests\Loader\resources\Foo'));
+        $classLoader = new ClassLoader(true);
+        $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
+        $this->assertSame('Foo_test', $classLoader->load('TRex\Loader\resources\Foo'));
     }
 
     /**
      * test the load of a class file when there is no such file
      *
      * @expectedException \Exception
-     * @expectedExceptionMessage No file found for class TRexTests\Loader\resources\None with the path
+     * @expectedExceptionMessage No file found for class TRex\Loader\resources\None with the path
      */
-    public function testLoadKo()
+    public function testLoadKoWithError()
     {
-        $this->assertSame(null, ClassLoader::getInstance()->load('TRexTests\Loader\resources\None'));
+        $classLoader = new ClassLoader(true);
+        $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
+        $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
+    }
+
+    /**
+     * test the load of a class file when there is no such file, but error is muted.
+     */
+    public function testLoadKoWithoutError()
+    {
+        $classLoader = new ClassLoader();
+        $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
+        $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
     }
 
     /**
@@ -364,23 +331,24 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test deactivation of autoloading
-     */
-    public function testUnRegister()
-    {
-        $this->assertTrue(ClassLoader::getInstance()->unRegister());
-        $this->assertfalse(class_exists('TRexTests\Loader\resources\Bar'));
-    }
-
-    /**
      * test activation of autoloading
      *
-     * @depends testUnRegister
      */
     public function testRegister()
     {
-        $this->assertTrue(ClassLoader::getInstance()->register());
-        $this->assertInstanceOf('TRexTests\Loader\resources\Bar', new \TRexTests\Loader\resources\Bar());
+        $classLoader = new ClassLoader();
+        $this->assertTrue($classLoader->register());
+        return $classLoader;
+    }
+
+    /**
+     * test deactivation of autoloading
+     *
+     * @depends testRegister
+     */
+    public function testUnRegister(ClassLoader $classLoader)
+    {
+        $this->assertTrue($classLoader->unRegister());
     }
 
     /**
@@ -389,10 +357,11 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetBasePath()
     {
-        $basePath = ClassLoader::getInstance()->getBasePath();
-        ClassLoader::getInstance()->setBasePath('test' . DIRECTORY_SEPARATOR);
-        $this->assertSame('test' . DIRECTORY_SEPARATOR, ClassLoader::getInstance()->getBasePath());
-        ClassLoader::getInstance()->setBasePath($basePath);
+        $classLoader = new ClassLoader();
+        $basePath = $classLoader->getBasePath();
+        $classLoader->setBasePath('test' . DIRECTORY_SEPARATOR);
+        $this->assertSame('test' . DIRECTORY_SEPARATOR, $classLoader->getBasePath());
+        $classLoader->setBasePath($basePath);
     }
 
     /**
@@ -403,10 +372,11 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetBasePathWithoutDireSeparator()
     {
-        $basePath = ClassLoader::getInstance()->getBasePath();
-        ClassLoader::getInstance()->setBasePath('test');
-        $this->assertSame('test' . DIRECTORY_SEPARATOR, ClassLoader::getInstance()->getBasePath());
-        ClassLoader::getInstance()->setBasePath($basePath);
+        $classLoader = new ClassLoader();
+        $basePath = $classLoader->getBasePath();
+        $classLoader->setBasePath('test');
+        $this->assertSame('test' . DIRECTORY_SEPARATOR, $classLoader->getBasePath());
+        $classLoader->setBasePath($basePath);
     }
 
     /**
@@ -414,14 +384,15 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRealPathWithNewBasePath()
     {
-        $basePath = ClassLoader::getInstance()->getBasePath();
-        ClassLoader::getInstance()->setBasePath(str_replace('/', DIRECTORY_SEPARATOR, '/specific/base/path/'));
-        ClassLoader::getInstance()->addVendor(__FUNCTION__, str_replace('/', DIRECTORY_SEPARATOR, 'lib/src/'));
+        $classLoader = new ClassLoader();
+        $basePath = $classLoader->getBasePath();
+        $classLoader->setBasePath(str_replace('/', DIRECTORY_SEPARATOR, '/specific/base/path/'));
+        $classLoader->addVendor(__FUNCTION__, str_replace('/', DIRECTORY_SEPARATOR, 'lib/src/'));
         $this->assertSame(
             str_replace('/', DIRECTORY_SEPARATOR, '/specific/base/path/lib/src/'),
-            ClassLoader::getInstance()->getRealPath(__FUNCTION__)
+            $classLoader->getRealPath(__FUNCTION__)
         );
-        ClassLoader::getInstance()->setBasePath($basePath);
+        $classLoader->setBasePath($basePath);
     }
 
     /**
@@ -432,11 +403,11 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function provideFunctionNames()
     {
         return array(
-            array('class_exists', array('TRexTests\Loader\resources\None')),
-            array('get_parent_class', array('TRexTests\Loader\resources\None')),
-            array('interface_exists', array('TRexTests\Loader\resources\None')),
-            array('is_subclass_of', array(new \stdClass(), 'TRexTests\Loader\resources\None')),
-            array('is_a', array(new \stdClass(), 'TRexTests\Loader\resources\None')),
+            array('class_exists', array('TRex\Loader\resources\None')),
+            array('get_parent_class', array('TRex\Loader\resources\None')),
+            array('interface_exists', array('TRex\Loader\resources\None')),
+            array('is_subclass_of', array(new \stdClass(), 'TRex\Loader\resources\None')),
+            array('is_a', array(new \stdClass(), 'TRex\Loader\resources\None')),
         );
     }
 

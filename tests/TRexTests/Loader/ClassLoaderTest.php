@@ -321,7 +321,16 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      * @expectedException \Exception
      * @expectedExceptionMessage No file found for class TRexTests\Loader\resources\None with the path
      */
-    public function testLoadKo()
+    public function testLoadKoWithError()
+    {
+        $classLoader = new ClassLoader(true);
+        $this->assertSame(null, $classLoader->load('TRexTests\Loader\resources\None'));
+    }
+
+    /**
+     * test the load of a class file when there is no such file, but error is muted.
+     */
+    public function testLoadKoWithoutError()
     {
         $classLoader = new ClassLoader();
         $this->assertSame(null, $classLoader->load('TRexTests\Loader\resources\None'));

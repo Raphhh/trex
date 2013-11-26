@@ -25,6 +25,13 @@ class ClassLoader
     private $basePath;
 
     /**
+     * Indiquates if self::load displays an exception.
+     *
+     * @var bool
+     */
+    private $isErrorDisplayed;
+
+    /**
      * List of default vendors with their source path.
      *
      * @var array
@@ -50,6 +57,32 @@ class ClassLoader
         'is_subclass_of',
         'is_a',
     );
+
+    public function __construct($isErrorDisplayed = false)
+    {
+        $this->setIsErrorDisplayed($isErrorDisplayed);
+    }
+
+    /**
+     * Setter of $isErrorDisplayed
+     *
+     * @param boolean $isErrorDisplayed
+     */
+    public function setIsErrorDisplayed($isErrorDisplayed)
+    {
+        $this->isErrorDisplayed = (boolean)$isErrorDisplayed;
+    }
+
+    /**
+     * Getter of $isErrorDisplayed
+     *
+     * @return boolean
+     */
+    public function isErrorDisplayed()
+    {
+        return $this->isErrorDisplayed;
+    }
+
 
     /**
      * Start auto-loading of php classes.
@@ -89,7 +122,7 @@ class ClassLoader
         if ($classPath && is_file($classPath)) {
             return include_once $classPath;
 
-        } elseif ($this->hasToDisplayError()) {
+        } elseif ($this->isErrorDisplayed() && $this->hasToDisplayError()) {
             throw new \Exception(
                 sprintf(
                     'No file found for class %s with the path %s',

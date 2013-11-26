@@ -32,15 +32,11 @@ class ClassLoader
     private $isErrorDisplayed;
 
     /**
-     * List of default vendors with their source path.
+     * List of vendors with their source path.
      *
      * @var array
      */
-    private $vendors = array(
-        'TRex' => array(
-            'sourcePath' => 'trex/src/',
-        ),
-    );
+    private $vendors = array();
 
     /*
      * List of functions not throwing exception.

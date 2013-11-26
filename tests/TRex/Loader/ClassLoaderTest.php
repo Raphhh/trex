@@ -258,24 +258,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test the default config with TRex path
-     */
-    public function testGetSourcePathDefault()
-    {
-        $classLoader = new ClassLoader();
-        $this->assertSame('trex/src/', $classLoader->getSourcePath('TRex'));
-    }
-
-    /**
-     * test the default config with TRex root dir
-     */
-    public function testGetRootDirDefault()
-    {
-        $classLoader = new ClassLoader();
-        $this->assertSame($this->getBaseDir('trex'), $classLoader->getRootDir('TRex'));
-    }
-
-    /**
      * test the conversion of a class path
      *
      * @param string $className
@@ -308,7 +290,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoadOk()
     {
         $classLoader = new ClassLoader(true);
-        $classLoader->removeVendor('TRex');
         $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
         $this->assertSame('Foo_test', $classLoader->load('TRex\Loader\resources\Foo'));
     }
@@ -322,7 +303,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoadKoWithError()
     {
         $classLoader = new ClassLoader(true);
-        $classLoader->removeVendor('TRex');
         $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
         $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
     }
@@ -333,7 +313,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoadKoWithoutError()
     {
         $classLoader = new ClassLoader();
-        $classLoader->removeVendor('TRex');
         $classLoader->addVendor('TRex', sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR));
         $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
     }

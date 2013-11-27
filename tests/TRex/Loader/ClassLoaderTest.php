@@ -278,7 +278,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(
             'Foo_test',
             $classLoader->load('TRex\Loader\resources\Foo'),
-            sprintf('Class not found at "%s"', $classLoader->getRealPath('TRex'))
+            sprintf('Class not found at "%s"', $classLoader->getClassPath('TRex\Loader\resources\Foo'))
         );
 		return $classLoader;
     }

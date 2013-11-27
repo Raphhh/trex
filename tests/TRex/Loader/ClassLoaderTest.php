@@ -275,7 +275,11 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
 				$this->getFilePath(sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR))
 			)
 		);
-        $this->assertSame('Foo_test', $classLoader->load('TRex\Loader\resources\Foo'));
+        $this->assertSame(
+            'Foo_test',
+            $classLoader->load('TRex\Loader\resources\Foo'),
+            sprintf('Class not found at "%s"', $classLoader->getRealPath('TRex'))
+        );
 		return $classLoader;
     }
 

@@ -18,11 +18,11 @@ class ClassLoader
     const FILE_EXTENSION = '.php';
 
     /**
-     * Absolute path of common root.
+     * Common root of all paths.
      *
      * @var string
      */
-    private $basePath;
+    private $basePath = '';
 
     /**
      * Indiquates if self::load displays an exception.
@@ -51,31 +51,15 @@ class ClassLoader
         'is_a',
     );
 
-    public function __construct($isErrorDisplayed = false)
+	/**
+	 * Constructor
+	 * 
+	 * @param bool $isErrorDisplayed
+	 */
+	public function __construct($isErrorDisplayed = false)
     {
         $this->setIsErrorDisplayed($isErrorDisplayed);
     }
-
-    /**
-     * Setter of $isErrorDisplayed
-     *
-     * @param boolean $isErrorDisplayed
-     */
-    public function setIsErrorDisplayed($isErrorDisplayed)
-    {
-        $this->isErrorDisplayed = (boolean)$isErrorDisplayed;
-    }
-
-    /**
-     * Getter of $isErrorDisplayed
-     *
-     * @return boolean
-     */
-    public function isErrorDisplayed()
-    {
-        return $this->isErrorDisplayed;
-    }
-
 
     /**
      * Start auto-loading of php classes.
@@ -138,9 +122,9 @@ class ClassLoader
     public function getClassPath($className)
     {
         $className = ltrim($className, '\\');
-        $vendor = $this->extractVendor($className);
-        if ($this->hasVendor($vendor)) {
-            return $this->getRealPath($vendor) . $this->parseClassPath($className);
+        $vendorName = $this->extractVendorName($className);
+        if ($this->hasVendor($vendorName)) {
+            return $this->getRealPath($vendorName) . $this->parseClassPath($className);
         }
         return '';
     }
@@ -251,9 +235,6 @@ class ClassLoader
      */
     public function getBasePath()
     {
-        if (null === $this->basePath) {
-            $this->setBasePath($this->buildBasePath());
-        }
         return $this->basePath;
     }
 
@@ -266,6 +247,26 @@ class ClassLoader
     {
         $this->basePath = $this->normalizePath($basePath);
     }
+
+	/**
+	 * Setter of $isErrorDisplayed
+	 *
+	 * @param boolean $isErrorDisplayed
+	 */
+	public function setIsErrorDisplayed($isErrorDisplayed)
+	{
+		$this->isErrorDisplayed = (boolean)$isErrorDisplayed;
+	}
+
+	/**
+	 * Getter of $isErrorDisplayed
+	 *
+	 * @return boolean
+	 */
+	public function isErrorDisplayed()
+	{
+		return $this->isErrorDisplayed;
+	}
 
     /**
      * Extract vendor paths dynamically.
@@ -294,18 +295,11 @@ class ClassLoader
      */
     private function normalizePath($path)
     {
-        if (substr($path, -1) !== DIRECTORY_SEPARATOR) {
-            trigger_error(
-                sprintf('Path must end with correct directory separator "%s".', DIRECTORY_SEPARATOR),
-                E_USER_NOTICE
-            );
-            $path .= DIRECTORY_SEPARATOR;
-        }
-        return $path;
+        return rtrim($path, '/\\') . DIRECTORY_SEPARATOR;
     }
 
     /**
-     * Resolve an absolute root dir to the first directory of $sourcePath.
+     * Resolve an absolute root dir to the first directory of $basePath and $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/
@@ -319,7 +313,7 @@ class ClassLoader
     }
 
     /**
-     * Resolve an absolute path including $sourcePath.
+     * Resolve an absolute path including $basePath and $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/src/
@@ -348,16 +342,16 @@ class ClassLoader
         if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) { //TODO: or simply strpos($path, DIRECTORY_SEPARATOR)?
             return $matches[1] . DIRECTORY_SEPARATOR;
         }
-        return ''; //this case does not normally happen, because self::normalizePath add to $path (which is the source path of a vendor) a directory separator.
+        return ''; //this case does not normally happen, because self::normalizePath add to $path a dir separator.
     }
 
     /**
-     * Extract the vendor of a class name.
+     * Extract the vendor name of a class name.
      *
      * @param string $className
      * @return string
      */
-    private function extractVendor($className)
+    private function extractVendorName($className)
     {
         $matches = array();
         if (preg_match('#(.*?)(/|\\\|_)#', $className, $matches)) {
@@ -389,7 +383,10 @@ class ClassLoader
     private function hasToDisplayError()
     {
         $backTraceData = $this->getBackTraceData();
-        return !(isset($backTraceData['function']) && in_array($backTraceData['function'], $this->getExcludedFunctionNames(), true));
+        return !(
+            isset($backTraceData['function'])
+            && in_array($backTraceData['function'], $this->getExcludedFunctionNames(), true)
+        );
     }
 
     /**
@@ -397,11 +394,12 @@ class ClassLoader
      *
      * @return array
      */
-    private static function getBackTraceData()
+    private function getBackTraceData()
     {
         $backTraces = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         foreach ($backTraces as $i => $backTrace) {
-            if (isset($backTrace['function']) && $backTrace['function'] === 'spl_autoload_call') { //we are at the level of autoload.
+            if (isset($backTrace['function']) && $backTrace['function'] === 'spl_autoload_call') {
+                //we are at the level of autoload.
                 if (isset($backTraces[$i + 1])) {
                     return $backTraces[$i + 1]; //The index following has the context of the autoload call.
                 }
@@ -409,22 +407,6 @@ class ClassLoader
             }
         }
         return array();
-    }
-
-    /**
-     * Builder of $basePath.
-     *
-     * @return string
-     * @throws \DomainException
-     * @todo not unit tested
-     */
-    private function buildBasePath()
-    {
-        $matches = array();
-        if (preg_match('/(.*?)trex/i', __DIR__, $matches)) {
-            return $matches[1];
-        }
-        throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__));
     }
 
     /**

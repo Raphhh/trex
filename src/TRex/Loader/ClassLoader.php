@@ -342,7 +342,7 @@ class ClassLoader
         if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) { //TODO: or simply strpos($path, DIRECTORY_SEPARATOR)?
             return $matches[1] . DIRECTORY_SEPARATOR;
         }
-        return ''; //this case does not normally happen, because self::normalizePath add to $path (which is the source path of a vendor) a directory separator.
+        return ''; //this case does not normally happen, because self::normalizePath add to $path a dir separator.
     }
 
     /**
@@ -383,7 +383,10 @@ class ClassLoader
     private function hasToDisplayError()
     {
         $backTraceData = $this->getBackTraceData();
-        return !(isset($backTraceData['function']) && in_array($backTraceData['function'], $this->getExcludedFunctionNames(), true));
+        return !(
+            isset($backTraceData['function'])
+            && in_array($backTraceData['function'], $this->getExcludedFunctionNames(), true)
+        );
     }
 
     /**
@@ -395,7 +398,8 @@ class ClassLoader
     {
         $backTraces = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         foreach ($backTraces as $i => $backTrace) {
-            if (isset($backTrace['function']) && $backTrace['function'] === 'spl_autoload_call') { //we are at the level of autoload.
+            if (isset($backTrace['function']) && $backTrace['function'] === 'spl_autoload_call') {
+                //we are at the level of autoload.
                 if (isset($backTraces[$i + 1])) {
                     return $backTraces[$i + 1]; //The index following has the context of the autoload call.
                 }

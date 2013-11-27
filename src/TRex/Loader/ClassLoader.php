@@ -391,7 +391,7 @@ class ClassLoader
      *
      * @return array
      */
-    private static function getBackTraceData()
+    private function getBackTraceData()
     {
         $backTraces = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
         foreach ($backTraces as $i => $backTrace) {

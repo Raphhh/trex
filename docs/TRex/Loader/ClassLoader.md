@@ -89,11 +89,6 @@ Vendor name and library name must be directories with an identical name. ClassNa
 
 See PSR-0 for complete specifications.
 
-#### Vendor source path
-
-The vendor source path points to the directory containing classes. The path must end with a correct directory separator ("/"), otherwise a notice will be triggered.
-The real path is the source path concatenated with base path.
-
 ### How a vendor path will be resolved?
 
 When you add a vendor, you will have the following behavior:

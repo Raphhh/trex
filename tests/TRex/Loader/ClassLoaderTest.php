@@ -94,9 +94,6 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * get a vendor source path witch has been added without an ending DIRECTORY_SEPARATOR
-     *
-     * @expectedException \PHPUnit_Framework_Error_Notice
-     * @expectedExceptionMessage Path must end with correct directory separator
      */
     public function testGetSourcePathWithoutSlash()
     {
@@ -349,21 +346,18 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testSetBasePath()
     {
         $classLoader = new ClassLoader();
-        $classLoader->setBasePath('test' . DIRECTORY_SEPARATOR);
-        $this->assertSame('test' . DIRECTORY_SEPARATOR, $classLoader->getBasePath());
+        $classLoader->setBasePath('\test/');
+        $this->assertSame('\test' . DIRECTORY_SEPARATOR, $classLoader->getBasePath());
     }
 
     /**
      * test setter and getter of $basePath without an ending directory separator
-     *
-     * @expectedException \PHPUnit_Framework_Error_Notice
-     * @expectedExceptionMessage Path must end with correct directory separator
      */
-    public function testSetBasePathWithoutDireSeparator()
+    public function testSetBasePathWithoutDirSeparator()
     {
         $classLoader = new ClassLoader();
-        $classLoader->setBasePath('test');
-        $this->assertSame('test' . DIRECTORY_SEPARATOR, $classLoader->getBasePath());
+        $classLoader->setBasePath('\test');
+        $this->assertSame('\test' . DIRECTORY_SEPARATOR, $classLoader->getBasePath());
     }
 
     /**

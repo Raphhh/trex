@@ -291,14 +291,7 @@ class ClassLoader
      */
     private function normalizePath($path)
     {
-        if (substr($path, -1) !== DIRECTORY_SEPARATOR) {
-            trigger_error(
-                sprintf('Path must end with correct directory separator "%s".', DIRECTORY_SEPARATOR),
-                E_USER_NOTICE
-            );
-            $path .= DIRECTORY_SEPARATOR;
-        }
-        return $path;
+        return rtrim($path, '/\\') . DIRECTORY_SEPARATOR;
     }
 
     /**

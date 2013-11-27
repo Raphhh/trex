@@ -122,9 +122,9 @@ class ClassLoader
     public function getClassPath($className)
     {
         $className = ltrim($className, '\\');
-        $vendor = $this->extractVendor($className);
-        if ($this->hasVendor($vendor)) {
-            return $this->getRealPath($vendor) . $this->parseClassPath($className);
+        $vendorName = $this->extractVendorName($className);
+        if ($this->hasVendor($vendorName)) {
+            return $this->getRealPath($vendorName) . $this->parseClassPath($className);
         }
         return '';
     }
@@ -346,12 +346,12 @@ class ClassLoader
     }
 
     /**
-     * Extract the vendor of a class name.
+     * Extract the vendor name of a class name.
      *
      * @param string $className
      * @return string
      */
-    private function extractVendor($className)
+    private function extractVendorName($className)
     {
         $matches = array();
         if (preg_match('#(.*?)(/|\\\|_)#', $className, $matches)) {

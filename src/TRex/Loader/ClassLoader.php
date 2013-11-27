@@ -57,27 +57,6 @@ class ClassLoader
     }
 
     /**
-     * Setter of $isErrorDisplayed
-     *
-     * @param boolean $isErrorDisplayed
-     */
-    public function setIsErrorDisplayed($isErrorDisplayed)
-    {
-        $this->isErrorDisplayed = (boolean)$isErrorDisplayed;
-    }
-
-    /**
-     * Getter of $isErrorDisplayed
-     *
-     * @return boolean
-     */
-    public function isErrorDisplayed()
-    {
-        return $this->isErrorDisplayed;
-    }
-
-
-    /**
      * Start auto-loading of php classes.
      * Call automatically self::load when a new class is used.
      *
@@ -264,6 +243,26 @@ class ClassLoader
         $this->basePath = $this->normalizePath($basePath);
     }
 
+	/**
+	 * Setter of $isErrorDisplayed
+	 *
+	 * @param boolean $isErrorDisplayed
+	 */
+	public function setIsErrorDisplayed($isErrorDisplayed)
+	{
+		$this->isErrorDisplayed = (boolean)$isErrorDisplayed;
+	}
+
+	/**
+	 * Getter of $isErrorDisplayed
+	 *
+	 * @return boolean
+	 */
+	public function isErrorDisplayed()
+	{
+		return $this->isErrorDisplayed;
+	}
+	
     /**
      * Extract vendor paths dynamically.
      *

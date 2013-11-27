@@ -248,25 +248,25 @@ class ClassLoader
         $this->basePath = $this->normalizePath($basePath);
     }
 
-	/**
-	 * Setter of $isErrorDisplayed
-	 *
-	 * @param boolean $isErrorDisplayed
-	 */
-	public function setIsErrorDisplayed($isErrorDisplayed)
-	{
-		$this->isErrorDisplayed = (boolean)$isErrorDisplayed;
-	}
+    /**
+     * Getter of $isErrorDisplayed
+     *
+     * @return boolean
+     */
+    public function isErrorDisplayed()
+    {
+        return $this->isErrorDisplayed;
+    }
 
-	/**
-	 * Getter of $isErrorDisplayed
-	 *
-	 * @return boolean
-	 */
-	public function isErrorDisplayed()
-	{
-		return $this->isErrorDisplayed;
-	}
+    /**
+     * Setter of $isErrorDisplayed
+     *
+     * @param boolean $isErrorDisplayed
+     */
+    public function setIsErrorDisplayed($isErrorDisplayed)
+    {
+        $this->isErrorDisplayed = (boolean)$isErrorDisplayed;
+    }
 
     /**
      * Extract vendor paths dynamically.

@@ -91,46 +91,24 @@ See PSR-0 for complete specifications.
 
 #### Vendor source path
 
-The vendor source path points to the directory containing classes.
-The path must contains at least the vendor directory. The vendor directory must have exactly the same name than the vendor, otherwise an exception will be thrown.
-The path must end with a correct directory separator ("/"), otherwise a notice will be triggered.
-
-    ../../path/to/src/[Vendor/Package/Class.php]
+The vendor source path points to the directory containing classes. The path must end with a correct directory separator ("/"), otherwise a notice will be triggered.
+The real path is the source path concatenated with base path.
 
 ### How a vendor path will be resolved?
 
-By default, the vendor path is resolve from directory containing TRex library. So, if your vendors is included in the same directory, you have just to specify the path to the source.
-
-Example
-
-    /
-    |
-    |`- Vendors
-    |   |
-        |`- trex
-        |`- yourLib
-        |   |
-            |`- docs
-            |`- src
-            |    |`- YourLib
-            |           |`- Package1
-            |           |`- Package2
-            |           |
-            |`- tests
-
-Your vendor name will be "YourLib" and your path will be "yourLib/src".
-
-You will have the following behavior:
+When you add a vendor, you will have the following behavior:
 
     TRex\Loader\ClassLoader::getInstance()->addVendor('YourLib', 'yourLib/src/');
 
     TRex\Loader\ClassLoader::getInstance()->getSourcePath('YourLib'); // "yourLib/src/"
-    TRex\Loader\ClassLoader::getInstance()->getRootDir('YourLib'); // "/Vendors/yourLib/"
-    TRex\Loader\ClassLoader::getInstance()->getRealPath('YourLib');// "/Vendors/yourLib/src/"
+    TRex\Loader\ClassLoader::getInstance()->getRootDir('YourLib'); // "yourLib/"
+    TRex\Loader\ClassLoader::getInstance()->getRealPath('YourLib');// "yourLib/src/"
 
-You can redefine the default behavior in setting a new absolute base path from where every path will be resolved.
+You can redefine the base path in setting a new absolute base path from where every path will be resolved.
 
     TRex\Loader\ClassLoader::getInstance()->setBasePath('/specific/base/path/');
-
     TRex\Loader\ClassLoader::getInstance()->addVendor('YourLib', 'yourLib/src/');
+
+    TRex\Loader\ClassLoader::getInstance()->getSourcePath('YourLib'); // "yourLib/src/"
+    TRex\Loader\ClassLoader::getInstance()->getRootDir('YourLib'); // "/specific/base/path/yourLib/"
     TRex\Loader\ClassLoader::getInstance()->getRealPath('YourLib');// "/specific/base/path/yourLib/src/"

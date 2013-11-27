@@ -18,11 +18,11 @@ class ClassLoader
     const FILE_EXTENSION = '.php';
 
     /**
-     * Absolute path of common root.
+     * Common root of all paths.
      *
      * @var string
      */
-    private $basePath;
+    private $basePath = '';
 
     /**
      * Indiquates if self::load displays an exception.
@@ -251,9 +251,6 @@ class ClassLoader
      */
     public function getBasePath()
     {
-        if (null === $this->basePath) {
-            $this->setBasePath($this->buildBasePath());
-        }
         return $this->basePath;
     }
 
@@ -305,7 +302,7 @@ class ClassLoader
     }
 
     /**
-     * Resolve an absolute root dir to the first directory of $sourcePath.
+     * Resolve an absolute root dir to the first directory of $basePath and $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/
@@ -319,7 +316,7 @@ class ClassLoader
     }
 
     /**
-     * Resolve an absolute path including $sourcePath.
+     * Resolve an absolute path including $basePath and $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/src/
@@ -409,22 +406,6 @@ class ClassLoader
             }
         }
         return array();
-    }
-
-    /**
-     * Builder of $basePath.
-     *
-     * @return string
-     * @throws \DomainException
-     * @todo not unit tested
-     */
-    private function buildBasePath()
-    {
-        $matches = array();
-        if (preg_match('/(.*?)trex/i', __DIR__, $matches)) {
-            return $matches[1];
-        }
-        throw new \DomainException(sprintf('%s must belong to TRex', __CLASS__));
     }
 
     /**

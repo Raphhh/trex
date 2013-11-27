@@ -51,7 +51,12 @@ class ClassLoader
         'is_a',
     );
 
-    public function __construct($isErrorDisplayed = false)
+	/**
+	 * Constructor
+	 * 
+	 * @param bool $isErrorDisplayed
+	 */
+	public function __construct($isErrorDisplayed = false)
     {
         $this->setIsErrorDisplayed($isErrorDisplayed);
     }
@@ -262,7 +267,7 @@ class ClassLoader
 	{
 		return $this->isErrorDisplayed;
 	}
-	
+
     /**
      * Extract vendor paths dynamically.
      *

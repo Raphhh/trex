@@ -272,7 +272,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(
 			$classLoader->addVendor(
 				'TRex',
-				$this->getFilePath(sprintf('trex%stests%s', DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR))
+				$this->getFilePath('tests' . DIRECTORY_SEPARATOR)
 			)
 		);
         $this->assertSame(
@@ -402,7 +402,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     private function getFilePath($file)
     {
-        return realpath(__DIR__ . '/../../../..') . DIRECTORY_SEPARATOR . $file;
+        return realpath(__DIR__ . '/../../..') . DIRECTORY_SEPARATOR . $file;
     }
 
     /**

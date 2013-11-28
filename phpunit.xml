@@ -1,5 +1,5 @@
 <phpunit
-        bootstrap="src/TRex/bootstrap.php"
+        bootstrap="tests/TRex/bootstrap.php"
         colors="true"
         strict="true"
         verbose="true"

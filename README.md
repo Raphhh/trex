@@ -11,7 +11,7 @@ TRex is a light toolbox with low level classes implemented with standard missing
 
 ## How to start?
 
-The simpliest way to start is to include the bootstrap file in your working file.
+The simplest way to start is to include the bootstrap file in your working file.
 
     include_once 'trex/src/TRex/boostrap.php';
     
@@ -25,7 +25,7 @@ In extending TRex, you have build-in features to use in your classes.
 Some examples:
 
 
-### Object hydratation from JSON
+### Object hydration from JSON
 
 You can hydrate an object from a JSON string.
 
@@ -135,6 +135,6 @@ You can cache your method result without using a local property.
     echo $result; //ab
 
 
-## Ressources
+## Resources
 
 For documentation, see TRex/docs/

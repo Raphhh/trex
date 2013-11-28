@@ -1,11 +1,11 @@
 <?php
-namespace TRexTests\Core;
+namespace TRex\Core;
 
-use TRexTests\Core\resources\Foo;
+use TRex\Core\resources\Foo;
 
 /**
  * Class ObjectTest
- * @package TRexTests\Core
+ * @package TRex\Core
  */
 class ObjectTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      * Test property is not accessible when Object is not dynamical.
      *
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Try to access to an undefined property: TRexTests\Core\resources\Foo::none
+     * @expectedExceptionMessage Try to access to an undefined property: TRex\Core\resources\Foo::none
      */
     public function test__getPrevented()
     {
@@ -57,7 +57,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      * Test property is not editable when Object is not dynamical.
      *
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Try to mutate an undefined property: TRexTests\Core\resources\Foo::none
+     * @expectedExceptionMessage Try to mutate an undefined property: TRex\Core\resources\Foo::none
      */
     public function test__setPrevented()
     {
@@ -107,7 +107,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      * Test dynamical methods logic with no method added.
      *
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Try to call an undefined method: TRexTests\Core\resources\Foo::bar()
+     * @expectedExceptionMessage Try to call an undefined method: TRex\Core\resources\Foo::bar()
      */
     public function test__callWithoutAddedMethod()
     {
@@ -145,7 +145,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
      * Test hydration with non valid property name.
      *
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Try to mutate an undefined property: TRexTests\Core\resources\Foo::none
+     * @expectedExceptionMessage Try to mutate an undefined property: TRex\Core\resources\Foo::none
      */
     public function test__constructWithAnNonValidPropertyName()
     {

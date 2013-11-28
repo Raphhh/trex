@@ -1,5 +1,5 @@
 <?php
-namespace TRexTests\Serialization\resources;
+namespace TRex\Serialization\resources;
 
 class Foo extends Bar
 {

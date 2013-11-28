@@ -1,9 +1,9 @@
 <?php
-namespace TRexTests\Serialization\resources;
+namespace TRex\Serialization\resources;
 
 /**
  * Class RecursiveArray
- * @package TRexTests\Serialization\resources
+ * @package TRex\Serialization\resources
  */
 class RecursiveArray
 {

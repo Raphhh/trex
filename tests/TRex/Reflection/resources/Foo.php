@@ -1,9 +1,9 @@
 <?php
-namespace TRexTests\Reflection\resources;
+namespace TRex\Reflection\resources;
 
 /**
  * Class Foo
- * @package TRexTests\Reflection\resources
+ * @package TRex\Reflection\resources
  * @transient
  */
 class Foo extends Bar

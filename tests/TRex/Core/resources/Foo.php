@@ -1,9 +1,9 @@
 <?php
-namespace TRexTests\Core\resources;
+namespace TRex\Core\resources;
 
 /**
  * Class Foo
- * @package TRexTests\Core\resources
+ * @package TRex\Core\resources
  */
 class Foo extends Bar
 {

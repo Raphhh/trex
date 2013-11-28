@@ -1,9 +1,9 @@
 <?php
-namespace TRexTests\Reflection;
+namespace TRex\Reflection;
 
 /**
  * Class ReflectionTest
- * @package TRexTests\Reflection
+ * @package TRex\Reflection
  */
 class ReflectionTest extends \PHPUnit_Framework_TestCase
 {

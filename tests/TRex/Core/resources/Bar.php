@@ -1,11 +1,11 @@
 <?php
-namespace TRexTests\Core\resources;
+namespace TRex\Core\resources;
 
 use TRex\Core\Object;
 
 /**
  * Class Bar
- * @package TRexTests\Core\resources
+ * @package TRex\Core\resources
  */
 class Bar extends Object
 {

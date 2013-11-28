@@ -1,12 +1,11 @@
 <?php
-namespace TRexTests\Reflection;
+namespace TRex\Reflection;
 
-use TRex\Reflection\ObjectReflection;
-use TRexTests\Reflection\resources\Foo;
+use TRex\Reflection\resources\Foo;
 
 /**
  * Class ObjectReflectionTest
- * @package TRexTests\Reflection
+ * @package TRex\Reflection
  */
 class ObjectReflectionTest extends \PHPUnit_Framework_TestCase
 {

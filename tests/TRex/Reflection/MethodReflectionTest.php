@@ -1,11 +1,9 @@
 <?php
-namespace TRexTests\Reflection;
-
-use TRex\Reflection\MethodReflection;
+namespace TRex\Reflection;
 
 /**
  * Class MethodReflectionTest
- * @package TRexTests\Reflection
+ * @package TRex\Reflection
  */
 class MethodReflectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +12,7 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testToArray()
     {
-        $reflectedMethod = new MethodReflection('TRexTests\Reflection\resources\Foo', 'getFoo');
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getFoo');
         $this->assertSame(array(), $reflectedMethod->toArray());
     }
 
@@ -23,7 +21,7 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $reflectedMethod = new MethodReflection('TRexTests\Reflection\resources\Foo', 'getFoo');
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getFoo');
         $this->assertSame('getFoo', $reflectedMethod->getName());
     }
 
@@ -32,8 +30,8 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNameFull()
     {
-        $reflectedMethod = new MethodReflection('TRexTests\Reflection\resources\Foo', 'getFoo');
-        $this->assertSame('TRexTests\Reflection\resources\Foo::getFoo', $reflectedMethod->getName(true));
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getFoo');
+        $this->assertSame('TRex\Reflection\resources\Foo::getFoo', $reflectedMethod->getName(true));
     }
 
     /**
@@ -41,7 +39,7 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsTransientTrue()
     {
-        $reflectedMethod = new MethodReflection('TRexTests\Reflection\resources\Foo', 'getFoo');
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getFoo');
         $this->assertTrue($reflectedMethod->isTransient());
     }
 
@@ -50,7 +48,7 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsTransientFalse()
     {
-        $reflectedMethod = new MethodReflection('TRexTests\Reflection\resources\Foo', 'getBar');
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getBar');
         $this->assertFalse($reflectedMethod->isTransient());
     }
 
@@ -60,10 +58,10 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
     public function testInstantiate()
     {
         $reflectedProperty = MethodReflection::instantiate(
-            new \ReflectionMethod('TRexTests\Reflection\resources\Foo', 'getFoo')
+            new \ReflectionMethod('TRex\Reflection\resources\Foo', 'getFoo')
         );
         $this->assertInstanceOf('TRex\Reflection\MethodReflection', $reflectedProperty);
-        $this->assertSame('TRexTests\Reflection\resources\Foo::getFoo', $reflectedProperty->getName(true));
+        $this->assertSame('TRex\Reflection\resources\Foo::getFoo', $reflectedProperty->getName(true));
     }
 
     /**
@@ -71,10 +69,10 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClassReflection()
     {
-        $reflectedProperty = new MethodReflection('TRexTests\Reflection\resources\Foo', 'getBar');
+        $reflectedProperty = new MethodReflection('TRex\Reflection\resources\Foo', 'getBar');
         $classReflection = $reflectedProperty->getClassReflection();
         $this->assertInstanceOf('TRex\Reflection\ClassReflection', $classReflection);
-        $this->assertSame('TRexTests\Reflection\resources\Foo', $classReflection->getName());
+        $this->assertSame('TRex\Reflection\resources\Foo', $classReflection->getName());
     }
 }
  

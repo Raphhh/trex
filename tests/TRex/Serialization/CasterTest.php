@@ -1,15 +1,14 @@
 <?php
-namespace TRexTests\Serialization;
+namespace TRex\Serialization;
 
 use TRex\Reflection\AttributeReflection;
-use TRex\Serialization\Caster;
-use TRexTests\Serialization\resources\Foo;
-use TRexTests\Serialization\resources\RecursiveArray;
-use TRexTests\Serialization\resources\RecursiveClass;
+use TRex\Serialization\resources\Foo;
+use TRex\Serialization\resources\RecursiveArray;
+use TRex\Serialization\resources\RecursiveClass;
 
 /**
  * Class CasterTest
- * @package TRexTests\Serialization
+ * @package TRex\Serialization
  */
 class CasterTest extends \PHPUnit_Framework_TestCase
 {
@@ -59,9 +58,9 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $caster = new Caster();
         $this->assertSame(
             array(
-                'TRexTests\Serialization\resources\Foo::bar' => 'bar from foo',
-                'TRexTests\Serialization\resources\Bar::foo' => 'foo from bar',
-                'TRexTests\Serialization\resources\Bar::bar' => 'bar from bar',
+                'TRex\Serialization\resources\Foo::bar' => 'bar from foo',
+                'TRex\Serialization\resources\Bar::foo' => 'foo from bar',
+                'TRex\Serialization\resources\Bar::bar' => 'bar from bar',
             ),
             $caster->castToArray(new Foo(), AttributeReflection::NO_FILTER, true)
         );

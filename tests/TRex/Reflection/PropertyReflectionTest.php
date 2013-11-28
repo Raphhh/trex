@@ -1,12 +1,11 @@
 <?php
-namespace TRexTests\Reflection;
+namespace TRex\Reflection;
 
-use TRex\Reflection\PropertyReflection;
-use TRexTests\Reflection\resources\Foo;
+use TRex\Reflection\resources\Foo;
 
 /**
  * Class PropertyReflectionTest
- * @package TRexTests\Reflection
+ * @package TRex\Reflection
  */
 class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +14,7 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testToArray()
     {
-        $reflectedProperty = new PropertyReflection('TRexTests\Reflection\resources\Foo', 'foo');
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'foo');
         $this->assertSame(array(), $reflectedProperty->toArray());
     }
 
@@ -24,7 +23,7 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $reflectedProperty = new PropertyReflection('TRexTests\Reflection\resources\Foo', 'foo');
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'foo');
         $this->assertSame('foo', $reflectedProperty->getName());
     }
 
@@ -33,8 +32,8 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetNameFull()
     {
-        $reflectedProperty = new PropertyReflection('TRexTests\Reflection\resources\Foo', 'foo');
-        $this->assertSame('TRexTests\Reflection\resources\Foo::foo', $reflectedProperty->getName(true));
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'foo');
+        $this->assertSame('TRex\Reflection\resources\Foo::foo', $reflectedProperty->getName(true));
     }
 
     /**
@@ -42,7 +41,7 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsTransientTrue()
     {
-        $reflectedProperty = new PropertyReflection('TRexTests\Reflection\resources\Foo', 'foo');
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'foo');
         $this->assertTrue($reflectedProperty->isTransient());
     }
 
@@ -51,7 +50,7 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsTransientFalse()
     {
-        $reflectedProperty = new PropertyReflection('TRexTests\Reflection\resources\Foo', 'bar');
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'bar');
         $this->assertFalse($reflectedProperty->isTransient());
     }
 
@@ -61,10 +60,10 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
     public function testInstantiate()
     {
         $reflectedProperty = PropertyReflection::instantiate(
-            new \ReflectionProperty('TRexTests\Reflection\resources\Foo', 'foo')
+            new \ReflectionProperty('TRex\Reflection\resources\Foo', 'foo')
         );
         $this->assertInstanceOf('TRex\Reflection\PropertyReflection', $reflectedProperty);
-        $this->assertSame('TRexTests\Reflection\resources\Foo::foo', $reflectedProperty->getName(true));
+        $this->assertSame('TRex\Reflection\resources\Foo::foo', $reflectedProperty->getName(true));
     }
 
     /**
@@ -72,10 +71,10 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClassReflection()
     {
-        $reflectedProperty = new PropertyReflection('TRexTests\Reflection\resources\Foo', 'bar');
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'bar');
         $classReflection = $reflectedProperty->getClassReflection();
         $this->assertInstanceOf('TRex\Reflection\ClassReflection', $classReflection);
-        $this->assertSame('TRexTests\Reflection\resources\Foo', $classReflection->getName());
+        $this->assertSame('TRex\Reflection\resources\Foo', $classReflection->getName());
     }
 
     /**
@@ -83,7 +82,7 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValue()
     {
-        $reflectedProperty = new PropertyReflection('TRexTests\Reflection\resources\Foo', 'bar');
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'bar');
         $this->assertSame('bar', $reflectedProperty->getValue(new Foo()));
     }
 }

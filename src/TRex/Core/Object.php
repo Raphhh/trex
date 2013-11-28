@@ -1,7 +1,6 @@
 <?php
 namespace TRex\Core;
 
-use TRex\Reflection\AttributeReflection;
 use TRex\Serialization\Caster;
 use TRex\Serialization\IArrayCastable;
 
@@ -127,15 +126,11 @@ abstract class Object implements IArrayCastable
     /**
      * Convert object to array.
      *
-     * @param int $filter
-     * @param bool $isFullName
-     * @param bool $isRecursive
      * @return array
      */
-    public function toArray($filter = AttributeReflection::NO_FILTER, $isFullName = false, $isRecursive = true)
+    public function toArray()
     {
-        $caster = new Caster();
-        return $caster->castToArray($this, $filter, $isFullName, $isRecursive);
+        return (new Caster())->castToArray($this);
     }
 
     /**

@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Core;
 
+use TRex\Core\resources\Bar;
+use TRex\Core\resources\Foo;
 use TRex\Iterator\IteratorAdapter;
 
 /**
@@ -62,5 +64,109 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
         $objects = new Objects;
         $objects[] = 'test';
         $this->assertCount(1, $objects);
+    }
+
+    /**
+     * Simple test for each.
+     */
+    public function testEach()
+    {
+        $objects = new Objects();
+        $result = $objects->each(
+            function () {
+            }
+        );
+        $this->assertInstanceOf('TRex\Core\Objects', $result);
+        $this->assertNotSame($objects, $result);
+    }
+
+    /**
+     * Tests the value of $this in the closure in method each.
+     * Case of an object.
+     */
+    public function testEachWithObjectByThis()
+    {
+        $data = array(new Foo(), new Bar());
+        $objects = new Objects($data);
+        $result = $objects->each(
+            function () {
+                return get_class($this);
+            }
+        );
+        $this->assertCount(2, $result);
+        $this->assertSame('TRex\Core\resources\Foo', $result[0]);
+        $this->assertSame('TRex\Core\resources\Bar', $result[1]);
+    }
+
+    /**
+     * Tests the value of the first param in the closure in method each.
+     * Case of an object.
+     */
+    public function testEachWithObjectByValue()
+    {
+        $data = array(new Foo(), new Bar());
+        $objects = new Objects($data);
+        $result = $objects->each(
+            function ($value) {
+                return get_class($value);
+            }
+        );
+        $this->assertCount(2, $result);
+        $this->assertSame('TRex\Core\resources\Foo', $result[0]);
+        $this->assertSame('TRex\Core\resources\Bar', $result[1]);
+    }
+
+    /**
+     * Tests the value of the last params in the closure in method each.
+     * Case of an object.
+     */
+    public function testEachWithObjectByKeyAndObjects()
+    {
+        $data = array(new Foo(), new Bar());
+        $objects = new Objects($data);
+        $result = $objects->each(
+            function ($value, $key, $objects) {
+                return get_class($objects[$key]);
+            }
+        );
+        $this->assertCount(2, $result);
+        $this->assertSame('TRex\Core\resources\Foo', $result[0]);
+        $this->assertSame('TRex\Core\resources\Bar', $result[1]);
+    }
+
+    /**
+     * Tests the value of the first param in the closure in method each.
+     * Case of an object.
+     */
+    public function testEachWithScalarByValue()
+    {
+        $data = array(0, 1);
+        $objects = new Objects($data);
+        $result = $objects->each(
+            function ($value) {
+                return $value + 1;
+            }
+        );
+        $this->assertCount(2, $result);
+        $this->assertSame(1, $result[0]);
+        $this->assertSame(2, $result[1]);
+    }
+
+    /**
+     * Tests the value of the last params in the closure in method each.
+     * Case of an object.
+     */
+    public function testEachWithScalarByKeyAndObjects()
+    {
+        $data = array(0, 1);
+        $objects = new Objects($data);
+        $result = $objects->each(
+            function ($value, $key, $object) {
+                return $object[$key] + 1;
+            }
+        );
+        $this->assertCount(2, $result);
+        $this->assertSame(1, $result[0]);
+        $this->assertSame(2, $result[1]);
     }
 } 

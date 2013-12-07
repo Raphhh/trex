@@ -51,6 +51,14 @@ interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAcce
     public function sort($type = self::ASSOCIATIVE_SORT_TYPE, $option = SORT_NATURAL);
 
     /**
+     * Reverses the order of the values.
+     *
+     * @param bool $areKeysPreserved
+     * @return IObjects
+     */
+    public function reverse($areKeysPreserved = true);
+
+    /**
      * Merges a series of IObjects.
      * Does not preserve keys.
      *

@@ -85,6 +85,17 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param bool $areKeysPreserved
+     * @return Objects
+     */
+    public function reverse($areKeysPreserved = true)
+    {
+        return new $this(array_reverse($this->toArray(), $areKeysPreserved));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param IObjects $objects
      * @return Objects
      */

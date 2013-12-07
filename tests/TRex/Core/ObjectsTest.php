@@ -151,6 +151,37 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests reverse with default params.
+     * keys are preserved.
+     */
+    public function testReverseDefault()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $objects = new Objects($data);
+        $this->assertSame(array_reverse($data, true), $objects->reverse()->toArray());
+    }
+
+    /**
+     * Tests reverse when keys are not preserved.
+     */
+    public function testReverseWithoutPreservedKeys()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $objects = new Objects($data);
+        $this->assertSame(array_reverse($data, false), $objects->reverse(false)->toArray());
+    }
+
+    /**
      * Tests merge.
      */
     public function testMerge()

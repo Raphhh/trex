@@ -52,11 +52,21 @@ interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAcce
 
     /**
      * Merges a series of IObjects.
+     * Does not preserve keys.
      *
      * @param IObjects $objects
      * @return IObjects
      */
     public function merge(IObjects $objects);
+
+    /**
+     * Merges a series of IObjects.
+     * Preserves keys.
+     *
+     * @param IObjects $objects
+     * @return IObjects
+     */
+    public function mergeA(IObjects $objects);
 
     /**
      * Executes the callback for every value.

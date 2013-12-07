@@ -96,6 +96,17 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function mergeA(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_replace', array_reverse($this->unShiftTo(func_get_args(), $this)));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param \Closure $callback
      * @return Objects
      */
@@ -133,7 +144,7 @@ class Objects extends Object implements IObjects
      *
      * @param string $functionName
      * @param array $objectsList
-     * @return mixed
+     * @return Objects
      */
     private function apply($functionName, array $objectsList)
     {

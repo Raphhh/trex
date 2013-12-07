@@ -118,6 +118,39 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function diff(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_diff', $this->unShiftTo(func_get_args(), $this));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function diffA(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_diff_assoc', $this->unShiftTo(func_get_args(), $this));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function diffK(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_diff_key', $this->unShiftTo(func_get_args(), $this));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param int $startIndex
      * @param int $length
      * @param bool $areKeysPreserved

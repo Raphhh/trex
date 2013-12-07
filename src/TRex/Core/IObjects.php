@@ -77,6 +77,33 @@ interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAcce
     public function mergeA(IObjects $objects);
 
     /**
+     * Compares current IObject values with the IObject params.
+     * Returns all the values of current IObject that are not present in the IObject params.
+     *
+     * @param IObjects $objects
+     * @return IObjects
+     */
+    public function diff(IObjects $objects);
+
+    /**
+     * Compares current IObject values and keys with the IObject params.
+     * Returns all the values of current IObject that are not present in the IObject params.
+     *
+     * @param IObjects $objects
+     * @return IObjects
+     */
+    public function diffA(IObjects $objects);
+
+    /**
+     * Compares current IObject keys with the IObject params.
+     * Returns all the values of current IObject that are not present in the IObject params.
+     *
+     * @param IObjects $objects
+     * @return IObjects
+     */
+    public function diffK(IObjects $objects);
+
+    /**
      * Extracts the sequence of elements.
      * Starts at index $startIndex and stop after $length keys.
      *

@@ -337,6 +337,99 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests intersect.
+     */
+    public function testIntersect()
+    {
+        $data1 = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $data2 = array(
+            1 => 'd',
+            2 => 'e',
+            'a' => 2,
+            'f' => 3,
+        );
+        $data3 = array(
+            1 => 'h',
+            3 => '1',
+            'a' => 4,
+            'g' => 5,
+        );
+
+        $objects = new Objects($data1);
+        $this->assertSame(
+            array_intersect($data1, $data2, $data3),
+            $objects->intersect(new Objects($data2), new Objects($data3))->toArray()
+        );
+    }
+
+    /**
+     * Tests intersectA.
+     */
+    public function testIntersectA()
+    {
+        $data1 = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $data2 = array(
+            1 => 'd',
+            2 => 'e',
+            'a' => 2,
+            'f' => 3,
+        );
+        $data3 = array(
+            1 => 'h',
+            3 => '1',
+            'a' => 4,
+            'g' => 5,
+        );
+
+        $objects = new Objects($data1);
+        $this->assertSame(
+            array_intersect_assoc($data1, $data2, $data3),
+            $objects->intersectA(new Objects($data2), new Objects($data3))->toArray()
+        );
+    }
+
+    /**
+     * Tests intersectK.
+     */
+    public function testIntersectK()
+    {
+        $data1 = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $data2 = array(
+            1 => 'd',
+            2 => 'e',
+            'a' => 2,
+            'f' => 3,
+        );
+        $data3 = array(
+            1 => 'h',
+            3 => '1',
+            'a' => 4,
+            'g' => 5,
+        );
+
+        $objects = new Objects($data1);
+        $this->assertSame(
+            array_intersect_key($data1, $data2, $data3),
+            $objects->intersectK(new Objects($data2), new Objects($data3))->toArray()
+        );
+    }
+
+    /**
      * Tests extract.
      */
     public function testExtractDefault()

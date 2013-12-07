@@ -151,6 +151,39 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function intersect(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_intersect', $this->unShiftTo(func_get_args(), $this));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function intersectA(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_intersect_assoc', $this->unShiftTo(func_get_args(), $this));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function intersectK(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_intersect_key', $this->unShiftTo(func_get_args(), $this));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param int $startIndex
      * @param int $length
      * @param bool $areKeysPreserved

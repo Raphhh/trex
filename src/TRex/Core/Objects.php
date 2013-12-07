@@ -58,6 +58,16 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @return Objects
+     */
+    public function reindex()
+    {
+        return new $this(array_values($this->toArray()));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param \Closure $callback
      * @return Objects
      */

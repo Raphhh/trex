@@ -67,6 +67,16 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests reindex.
+     */
+    public function testReindex()
+    {
+        $data = array('a' => 0, 'b' => 1, 'c' => 2);
+        $objects = new Objects($data);
+        $this->assertSame(array(0, 1, 2), $objects->reindex()->toArray());
+    }
+
+    /**
      * Simple test for each.
      */
     public function testEach()

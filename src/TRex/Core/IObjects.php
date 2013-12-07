@@ -10,6 +10,13 @@ use TRex\Iterator\IKeyAccessor;
  */
 interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAccessor, \Countable
 {
+    /**
+     * Reindex the key numerically.
+     * Returns an IObjects with the same values but indexed keys.
+     *
+     * @return IObjects
+     */
+    public function reindex();
 
     /**
      * Executes the callback for every value.

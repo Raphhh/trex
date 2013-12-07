@@ -77,6 +77,37 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests merge.
+     */
+    public function testMerge()
+    {
+        $data1 = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $data2 = array(
+            1 => 'd',
+            2 => 'e',
+            'a' => 2,
+            'f' => 3,
+        );
+        $data3 = array(
+            1 => 'h',
+            3 => '1',
+            'a' => 4,
+            'g' => 5,
+        );
+
+        $objects = new Objects($data1);
+        $this->assertSame(
+            array_merge($data1, $data2, $data3),
+            $objects->merge(new Objects($data2), new Objects($data3))->toArray()
+        );
+    }
+
+    /**
      * Simple test for each.
      */
     public function testEach()

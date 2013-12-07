@@ -19,6 +19,14 @@ interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAcce
     public function reindex();
 
     /**
+     * Merges a series of IObjects.
+     *
+     * @param IObjects $objects
+     * @return IObjects
+     */
+    public function merge(IObjects $objects);
+
+    /**
      * Executes the callback for every value.
      * Returns an IObjects with the result of each callback call.
      *

@@ -68,6 +68,17 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param IObjects $objects
+     * @return Objects
+     */
+    public function merge(IObjects $objects /*, ...*/)
+    {
+        return $this->apply('array_merge', $this->unShiftTo(func_get_args(), $this));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param \Closure $callback
      * @return Objects
      */
@@ -98,13 +109,43 @@ class Objects extends Object implements IObjects
         return $result;
     }
 
+
+    /**
+     * Calls a php native function with $objectsList as args.
+     * Returns a new instance of Object as result.
+     *
+     * @param string $functionName
+     * @param array $objectsList
+     * @return mixed
+     */
+    private function apply($functionName, array $objectsList)
+    {
+        return new $this(call_user_func_array($functionName, $this->parseObjectsListToArray($objectsList)));
+    }
+
+    /**
+     * Transforms a list of IObjects in an simple array.
+     *
+     * @param array $objectsList
+     * @return array
+     */
+    private function parseObjectsListToArray(array $objectsList)
+    {
+        return array_map(
+            function (IObjects $objects) {
+                return $objects->toArray();
+            },
+            $objectsList
+        );
+    }
+
     /**
      * Calls the closure in binding the objects context.
      *
      * @param \Closure $closure
      * @param mixed $value
      * @param mixed $key
-     * @return mixed
+     * @return Objects
      */
     private function invokeClosure(\Closure $closure, $value, $key)
     {
@@ -126,5 +167,31 @@ class Objects extends Object implements IObjects
         return $callback ? : function ($value) {
             return (bool)$value;
         };
+    }
+
+    /**
+     * Unshifts $value to $array.
+     *
+     * @param array $array
+     * @param mixed $value
+     * @return array
+     */
+    private function unShiftTo(array $array, $value)
+    {
+        array_unshift($array, $value);
+        return $array;
+    }
+
+    /**
+     * Pushes $value to $array.
+     *
+     * @param array $array
+     * @param mixed $value
+     * @return array
+     */
+    private function pushTo(array $array, $value)
+    {
+        array_push($array, $value);
+        return $array;
     }
 }

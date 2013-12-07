@@ -54,7 +54,7 @@ abstract class Object implements IArrayCastable
         if (!$this->isDynamical()) {
             throw new \RuntimeException(sprintf('Try to access to an undefined property: %s::%s', get_class($this), $propertyName));
         }
-        return $this->get($propertyName);
+        return $this->getProperty($propertyName);
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class Object implements IArrayCastable
         if (!$this->isDynamical()) {
             throw new \RuntimeException(sprintf('Try to mutate an undefined property: %s::%s', get_class($this), $propertyName));
         }
-        $this->set($propertyName, $value);
+        $this->setProperty($propertyName, $value);
     }
 
     /**
@@ -150,29 +150,29 @@ abstract class Object implements IArrayCastable
     /**
      * Dynamical getter of $propertyName.
      *
-     * @param string $propertyName
+     * @param string $name
      * @return mixed
      */
-    private function get($propertyName)
+    private function getProperty($name)
     {
-        if (method_exists($this, 'get' . $propertyName)) {
-            return $this->{'get' . $propertyName}();
+        if (method_exists($this, 'get' . $name)) {
+            return $this->{'get' . $name}();
         }
-        return $this->$propertyName;
+        return $this->$name;
     }
 
     /**
      * Dynamical setter of $propertyName.
      *
-     * @param string $propertyName
+     * @param string $name
      * @param mixed $value
      */
-    private function set($propertyName, $value)
+    private function setProperty($name, $value)
     {
-        if (method_exists($this, 'set' . $propertyName)) {
-            $this->{'set' . $propertyName}($value);
+        if (method_exists($this, 'set' . $name)) {
+            $this->{'set' . $name}($value);
         } else {
-            $this->$propertyName = $value;
+            $this->$name = $value;
         }
     }
 
@@ -185,7 +185,7 @@ abstract class Object implements IArrayCastable
     private function initProperties(array $data)
     {
         foreach ($data as $propertyName => $value) {
-            $this->set($propertyName, $value);
+            $this->setProperty($propertyName, $value);
         }
     }
 

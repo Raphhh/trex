@@ -77,6 +77,80 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests sort with default params.
+     */
+    public function testSortDefault()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+
+        $objects = new Objects($data);
+        $this->assertTrue(asort($data, SORT_NATURAL));
+        $this->assertSame($data, $objects->sort()->toArray());
+    }
+
+    /**
+     * Tests sort with KEY_SORT_TYPE.
+     */
+    public function testSortKey()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+
+        $objects = new Objects($data);
+        $this->assertTrue(ksort($data, SORT_DESC));
+        $this->assertSame($data, $objects->sort(IObjects::KEY_SORT_TYPE, SORT_DESC)->toArray());
+    }
+
+    /**
+     * Tests sort with VALUE_SORT_TYPE.
+     */
+    public function testSortValue()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+
+        $objects = new Objects($data);
+        $this->assertTrue(sort($data, SORT_STRING));
+        $this->assertSame($data, $objects->sort(IObjects::VALUE_SORT_TYPE, SORT_STRING)->toArray());
+    }
+
+    /**
+     * Tests sort with a callback.
+     */
+    public function testSortCallback()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $callback = function ($firstValue, $followingValue) {
+            if ($firstValue == $followingValue) {
+                return 0;
+            }
+            return ($firstValue < $followingValue) ? -1 : 1;
+        };
+
+        $objects = new Objects($data);
+        $this->assertTrue(uasort($data, $callback));
+        $this->assertSame($data, $objects->sort(IObjects::ASSOCIATIVE_SORT_TYPE, $callback)->toArray());
+    }
+
+    /**
      * Tests merge.
      */
     public function testMerge()

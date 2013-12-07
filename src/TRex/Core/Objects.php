@@ -68,6 +68,23 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param string $type
+     * @param callable|int $option
+     * @return Objects
+     */
+    public function sort($type = self::ASSOCIATIVE_SORT_TYPE, $option = SORT_NATURAL)
+    {
+        if (is_callable($option)) {
+            $type = 'u' . $type;
+        }
+        $values = $this->toArray();
+        $type($values, $option);
+        return new $this($values);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param IObjects $objects
      * @return Objects
      */

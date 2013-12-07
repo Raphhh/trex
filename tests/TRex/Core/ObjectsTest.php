@@ -244,6 +244,45 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests extract.
+     */
+    public function testExtractDefault()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $objects = new Objects($data);
+        $this->assertSame(array_slice($data, 1, 3, true), $objects->extract(1)->toArray());
+    }
+
+    public function testExtractWithLength()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $objects = new Objects($data);
+        $this->assertSame(array_slice($data, 1, 2, true), $objects->extract(1, 2)->toArray());
+    }
+
+    public function testExtractWithoutPreservedKeys()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $objects = new Objects($data);
+        $this->assertSame(array_slice($data, 1, 3, false), $objects->extract(1, 0, false)->toArray());
+    }
+
+    /**
      * Simple test for each.
      */
     public function testEach()

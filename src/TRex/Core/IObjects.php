@@ -77,6 +77,17 @@ interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAcce
     public function mergeA(IObjects $objects);
 
     /**
+     * Extracts the sequence of elements.
+     * Starts at index $startIndex and stop after $length keys.
+     *
+     * @param int $startIndex
+     * @param int $length
+     * @param bool $areKeysPreserved
+     * @return IObjects
+     */
+    public function extract($startIndex, $length = 0, $areKeysPreserved = true);
+
+    /**
      * Executes the callback for every value.
      * Returns an IObjects with the result of each callback call.
      *

@@ -118,6 +118,22 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param int $startIndex
+     * @param int $length
+     * @param bool $areKeysPreserved
+     * @return IObjects
+     */
+    public function extract($startIndex, $length = 0, $areKeysPreserved = true)
+    {
+        if (!$length) {
+            $length = $this->count();
+        }
+        return new $this(array_slice($this->toArray(), $startIndex, $length, $areKeysPreserved));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param \Closure $callback
      * @return Objects
      */
@@ -147,7 +163,6 @@ class Objects extends Object implements IObjects
         }
         return $result;
     }
-
 
     /**
      * Calls a php native function with $objectsList as args.

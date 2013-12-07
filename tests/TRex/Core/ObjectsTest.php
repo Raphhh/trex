@@ -169,4 +169,116 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $result[0]);
         $this->assertSame(2, $result[1]);
     }
+
+    /**
+     * Simple test for filter.
+     */
+    public function testFilter()
+    {
+        $objects = new Objects();
+        $result = $objects->filter();
+        $this->assertInstanceOf('TRex\Core\Objects', $result);
+        $this->assertNotSame($objects, $result);
+    }
+
+    /**
+     * Tests filter with default callback.
+     */
+    public function testFilterWithEmptyFilter()
+    {
+        $objects = new Objects(array('', 0, 1, false, null, '0', array()));
+        $result = $objects->filter();
+        $this->assertCount(1, $result);
+        $this->assertSame(1, $result[2]);
+    }
+
+    /**
+     * Tests the value of $this in the closure in method filter.
+     * Case of an object.
+     */
+    public function testFilterWithObjectByThis()
+    {
+        $data = array(new Bar(), new Foo());
+        $objects = new Objects($data);
+        $result = $objects->filter(
+            function () {
+                return $this instanceof \TRex\Core\resources\Foo;
+            }
+        );
+        $this->assertInstanceOf('TRex\Core\Objects', $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($data[1], $result[1]);
+    }
+
+    /**
+     * Tests the value of the first param in the closure in method filter.
+     * Case of an object.
+     */
+    public function testFilterWithObjectByValue()
+    {
+        $data = array(new Bar(), new Foo());
+        $objects = new Objects($data);
+        $result = $objects->filter(
+            function ($value) {
+                return $value instanceof \TRex\Core\resources\Foo;
+            }
+        );
+        $this->assertInstanceOf('TRex\Core\Objects', $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($data[1], $result[1]);
+    }
+
+    /**
+     * Tests the value of the last params in the closure in method filter.
+     * Case of an object.
+     */
+    public function testFilterWithObjectByKeyAndObjects()
+    {
+        $data = array(new Bar(), new Foo());
+        $objects = new Objects($data);
+        $result = $objects->filter(
+            function ($value, $key, $objects) {
+                return $objects[$key] instanceof \TRex\Core\resources\Foo;
+            }
+        );
+        $this->assertInstanceOf('TRex\Core\Objects', $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($data[1], $result[1]);
+    }
+
+    /**
+     * Tests the value of the first param in the closure in method filter.
+     * Case of a scalar value.
+     */
+    public function testFilterWithScalarByValue()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $result = $objects->filter(
+            function ($value) {
+                return $value === 'b';
+            }
+        );
+        $this->assertInstanceOf('TRex\Core\Objects', $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($data[1], $result[1]);
+    }
+
+    /**
+     * Tests the value of the last params in the closure in method filter.
+     * Case of a scalar value.
+     */
+    public function testFilterWithScalarByKeyAndObjects()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $result = $objects->filter(
+            function ($value, $key, $objects) {
+                return $objects[$key] === 'b';
+            }
+        );
+        $this->assertInstanceOf('TRex\Core\Objects', $result);
+        $this->assertCount(1, $result);
+        $this->assertSame($data[1], $result[1]);
+    }
 } 

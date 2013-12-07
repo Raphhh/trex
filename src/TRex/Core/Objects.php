@@ -58,8 +58,8 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
-     * @param callable $callback
-     * @return IObjects
+     * @param \Closure $callback
+     * @return Objects
      */
     public function each(\Closure $callback)
     {
@@ -71,9 +71,27 @@ class Objects extends Object implements IObjects
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @param \Closure $callback
+     * @return Objects
+     */
+    public function filter(\Closure $callback = null)
+    {
+        $callback = $this->formatFilter($callback);
+        $result = new $this();
+        foreach ($this as $key => $value) {
+            if ($this->invokeClosure($callback, $value, $key)) {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Calls the closure in binding the objects context.
      *
-     * @param callable $closure
+     * @param \Closure $closure
      * @param mixed $value
      * @param mixed $key
      * @return mixed
@@ -84,5 +102,19 @@ class Objects extends Object implements IObjects
             $closure = \Closure::bind($closure, $value, get_class($value));
         }
         return $closure($value, $key, $this);
+    }
+
+    /**
+     * Formats a callback filter.
+     * If the filter is null, gets a default filter.
+     *
+     * @param \Closure $callback
+     * @return \Closure
+     */
+    private function formatFilter(\Closure $callback = null)
+    {
+        return $callback ? : function ($value) {
+            return (bool)$value;
+        };
     }
 }

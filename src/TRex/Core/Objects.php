@@ -5,6 +5,7 @@ use TRex\Iterator\IObjectsIterator;
 use TRex\Iterator\IteratorAdapter;
 use TRex\Iterator\TArrayAccess;
 use TRex\Iterator\TIterator;
+use TRex\Iterator\TIteratorSorter;
 use TRex\Iterator\TKeyAccessor;
 
 /**
@@ -18,6 +19,7 @@ class Objects extends Object implements IObjects
     use TIterator;
     use TArrayAccess;
     use TKeyAccessor;
+    use TIteratorSorter;
 
     /**
      * @var IObjectsIterator
@@ -97,44 +99,6 @@ class Objects extends Object implements IObjects
             return $this->get($key);
         }
         return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return Objects
-     */
-    public function reindex()
-    {
-        return new $this(array_values($this->toArray()));
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param string $type
-     * @param callable|int $option
-     * @return Objects
-     */
-    public function sort($type = self::ASSOCIATIVE_SORT_TYPE, $option = SORT_NATURAL)
-    {
-        if (is_callable($option)) {
-            $type = 'u' . $type;
-        }
-        $values = $this->toArray();
-        $type($values, $option);
-        return new $this($values);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param bool $areKeysPreserved
-     * @return Objects
-     */
-    public function reverse($areKeysPreserved = true)
-    {
-        return new $this(array_reverse($this->toArray(), $areKeysPreserved));
     }
 
     /**

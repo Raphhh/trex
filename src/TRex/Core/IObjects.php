@@ -30,6 +30,31 @@ interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAcce
     const ASSOCIATIVE_SORT_TYPE = 'asort';
 
     /**
+     * Gets the value of the associate index.
+     * $index can be specified even the keys are associative.
+     * If the index is 0, the method will return the first value, ...
+     * If the index is -1, the method will return the last value, ...
+     *
+     * @param int $index
+     * @return mixed|null
+     */
+    public function getByIndex($index);
+
+    /**
+     * Gets the first value.
+     *
+     * @return mixed|null
+     */
+    public function first();
+
+    /**
+     * Gets the last value.
+     *
+     * @return mixed|null
+     */
+    public function last();
+
+    /**
      * Reindex the key numerically.
      * Returns an IObjects with the same values but indexed keys.
      *

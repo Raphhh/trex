@@ -58,6 +58,50 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param int $index
+     * @return mixed|null
+     */
+    public function getByIndex($index)
+    {
+        $key = $this->getKey($index);
+        if (null !== $key) {
+            return $this->get($key);
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param int $index
+     * @return mixed|null
+     */
+    public function first()
+    {
+        $key = $this->getFirstKey();
+        if (null !== $key) {
+            return $this->get($key);
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return mixed|null
+     */
+    public function last()
+    {
+        $key = $this->getLastKey();
+        if (null !== $key) {
+            return $this->get($key);
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @return Objects
      */
     public function reindex()

@@ -67,6 +67,70 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests getByIndex.
+     */
+    public function testGetByIndex()
+    {
+        $data = array(1 => 'b', 0 => 'a', 2 => 'c');
+        $objects = new Objects($data);
+        $this->assertSame('a', $objects->getByIndex(1));
+        $this->assertSame('a', $objects->getByIndex(-2));
+    }
+
+    /**
+     * Tests getByIndex.
+     */
+    public function testGetByIndexNull()
+    {
+        $data = array(1 => 'b', 0 => 'a', 2 => 'c');
+        $objects = new Objects($data);
+        $this->assertNull($objects->getByIndex(10));
+        $this->assertNull($objects->getByIndex(-10));
+    }
+
+    /**
+     * Tests first.
+     */
+    public function testFirst()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $this->assertSame('a', $objects->first());
+    }
+
+    /**
+     * Tests first.
+     */
+    public function testFirstNull()
+    {
+        $objects = new Objects();
+        $this->assertnull($objects->first());
+    }
+
+    /**
+     * Tests last.
+     */
+    public function testLast()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $this->assertSame('b', $objects->last());
+
+        $data = array('a');
+        $objects = new Objects($data);
+        $this->assertSame('a', $objects->last());
+    }
+
+    /**
+     * Tests last.
+     */
+    public function testLastNull()
+    {
+        $objects = new Objects();
+        $this->assertnull($objects->last());
+    }
+
+    /**
      * Tests reindex.
      */
     public function testReindex()

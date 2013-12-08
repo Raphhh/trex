@@ -9,7 +9,14 @@ use TRex\Iterator\IKeyAccessor;
  * Interface IObjects
  * @package TRex\Core
  */
-interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAccessor, \Countable, IIteratorSorter
+interface IObjects extends
+    IIterator,
+    \IteratorAggregate,
+    \ArrayAccess,
+    IKeyAccessor,
+    \Countable,
+    IIteratorSorter,
+    IObjectsComparator
 {
 
 
@@ -38,78 +45,6 @@ interface IObjects extends IIterator, \IteratorAggregate, \ArrayAccess, IKeyAcce
      * @return mixed|null
      */
     public function last();
-
-    /**
-     * Merges a series of IObjects.
-     * Does not preserve keys.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function merge(IObjects $objects);
-
-    /**
-     * Merges a series of IObjects.
-     * Preserves keys.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function mergeA(IObjects $objects);
-
-    /**
-     * Compares current IObject values with the IObject params.
-     * Returns all the values of current IObject that are not present in the IObject params.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function diff(IObjects $objects);
-
-    /**
-     * Compares current IObject values and keys with the IObject params.
-     * Returns all the values of current IObject that are not present in the IObject params.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function diffA(IObjects $objects);
-
-    /**
-     * Compares current IObject keys with the IObject params.
-     * Returns all the values of current IObject that are not present in the IObject params.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function diffK(IObjects $objects);
-
-    /**
-     * Compares current IObject values with the IObject params.
-     * Returns all the values of current IObject that are present in the IObject params.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function intersect(IObjects $objects);
-
-    /**
-     * Compares current IObject values and keys with the IObject params.
-     * Returns all the values of current IObject that are present in the IObject params.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function intersectA(IObjects $objects);
-
-    /**
-     * Compares current IObject keys with the IObject params.
-     * Returns all the values of current IObject that are present in the IObject params.
-     *
-     * @param IObjects $objects
-     * @return IObjects
-     */
-    public function intersectK(IObjects $objects);
 
     /**
      * Extracts the sequence of elements.

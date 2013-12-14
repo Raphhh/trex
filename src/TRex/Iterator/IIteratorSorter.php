@@ -7,25 +7,8 @@ use TRex\Core\IObjects;
  * Interface IIteratorSorter
  * @package TRex\Iterator
  */
-interface IIteratorSorter {
-
-    /**
-     * Sort type by value.
-     * Sort const.
-     */
-    const VALUE_SORT_TYPE = 'sort';
-
-    /**
-     * Sort type by key.
-     * Sort const.
-     */
-    const KEY_SORT_TYPE = 'ksort';
-
-    /**
-     * Sort type in an associative way.
-     * Sort const.
-     */
-    const ASSOCIATIVE_SORT_TYPE = 'asort';
+interface IIteratorSorter
+{
 
     /**
      * Reindex the key numerically.
@@ -42,11 +25,11 @@ interface IIteratorSorter {
      * $type describes the type of sorting. (value/key/associative)
      * $option is a PHP sort option or a callback.
      *
-     * @param string $type
-     * @param int|callable $option
+     * @param \TRex\Iterator\SortType $type
+     * @param callable|int $option
      * @return IObjects
      */
-    public function sort($type = self::ASSOCIATIVE_SORT_TYPE, $option = SORT_NATURAL);
+    public function sort(SortType $type = null, $option = SORT_NATURAL);
 
     /**
      * Reverses the order of the values.

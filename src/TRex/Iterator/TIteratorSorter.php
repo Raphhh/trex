@@ -30,17 +30,19 @@ trait TIteratorSorter {
     /**
      * See IIteratorSorter.
      *
-     * @param string $type
+     * @param \TRex\Iterator\SortType $type
      * @param callable|int $option
      * @return Objects
      */
-    public function sort($type = IIteratorSorter::ASSOCIATIVE_SORT_TYPE, $option = SORT_NATURAL)
+    public function sort(SortType $type = null, $option = SORT_NATURAL)
     {
-        if (is_callable($option)) {
-            $type = 'u' . $type;
+        if (!$type) {
+            $type = new SortType(SortType::ASSOCIATIVE_SORT_TYPE);
         }
+        $sort = $type->getValue(is_callable($option));
+
         $values = $this->getIterator()->toArray();
-        $type($values, $option);
+        $sort($values, $option);
         return new Objects($values);
     }
 

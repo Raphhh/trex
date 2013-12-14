@@ -80,4 +80,20 @@ interface IObjects extends
      * @return mixed|null
      */
     public function last();
+
+    /**
+     * Adds values at the beginning of the list.
+     *
+     * @param mixed $value
+     */
+    public function addFirst($value /*, ...*/);
+
+    /**
+     * Adds values at the end of the list.
+     *
+     * @param mixed $value
+     */
+    public function addLast($value /*, ...*/);
+
+
 }

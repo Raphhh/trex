@@ -132,4 +132,30 @@ class Objects extends Object implements IObjects
         }
         return null;
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param $value
+     */
+    public function addFirst($value /*, ...*/)
+    {
+        $arrayModified = $this->toArray();
+        foreach (func_get_args() as $value) {
+            array_unshift($arrayModified, $value);
+        }
+        $this->initIterator($arrayModified);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param mixed $value
+     */
+    public function addLast($value /*, ...*/)
+    {
+        foreach (func_get_args() as $value) {
+            $this[] = $value;
+        }
+    }
 }

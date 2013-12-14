@@ -199,4 +199,52 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
         $objects = new Objects();
         $this->assertnull($objects->last());
     }
-} 
+
+    /**
+     * Tests addFirst with index keys
+     */
+    public function testAddFirst()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $objects->addFirst('c');
+        array_unshift($data, 'c');
+        $this->assertSame($data, $objects->toArray());
+    }
+
+    /**
+     * Tests addLast with index keys
+     */
+    public function testAddLast()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $objects->addLast('c');
+        array_push($data, 'c');
+        $this->assertSame($data, $objects->toArray());
+    }
+
+    /**
+     * Tests addFirst with assoc keys
+     */
+    public function testAddFirstWithAssociativeKey()
+    {
+        $data = array('a' => 'b', 'd' => 'e');
+        $objects = new Objects($data);
+        $objects->addFirst('c');
+        array_unshift($data, 'c');
+        $this->assertSame($data, $objects->toArray());
+    }
+
+    /**
+     * Tests addLast with assoc keys
+     */
+    public function testAddLastWithAssociativeKey()
+    {
+        $data = array('a' => 'b', 'd' => 'e');
+        $objects = new Objects($data);
+        $objects->addLast('c');
+        array_push($data, 'c');
+        $this->assertSame($data, $objects->toArray());
+    }
+}

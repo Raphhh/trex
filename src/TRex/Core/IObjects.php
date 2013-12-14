@@ -95,5 +95,13 @@ interface IObjects extends
      */
     public function addLast($value /*, ...*/);
 
+    /**
+     * Removes first value of the list.
+     */
+    public function removeFirst();
 
+    /**
+     * Removes last value of the list.
+     */
+    public function removeLast();
 }

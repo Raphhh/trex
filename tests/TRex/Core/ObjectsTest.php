@@ -247,4 +247,52 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
         array_push($data, 'c');
         $this->assertSame($data, $objects->toArray());
     }
+
+    /**
+     * Tests removeFirst with index keys.
+     */
+    public function testRemoveFirst()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $objects->removeFirst();
+        array_shift($data);
+        $this->assertSame($data, $objects->toArray());
+    }
+
+    /**
+     * Tests removeFirst with assoc keys.
+     */
+    public function testRemoveLast()
+    {
+        $data = array('a', 'b');
+        $objects = new Objects($data);
+        $objects->removeLast();
+        array_pop($data);
+        $this->assertSame($data, $objects->toArray());
+    }
+
+    /**
+     * Tests removeLast with index keys.
+     */
+    public function testRemoveFirstWithAssociativeKey()
+    {
+        $data = array('a' => 'b', 'd' => 'e');
+        $objects = new Objects($data);
+        $objects->removeFirst();
+        array_shift($data);
+        $this->assertSame($data, $objects->toArray());
+    }
+
+    /**
+     * Tests removeLast with assoc keys.
+     */
+    public function testRemoveLastWithAssociativeKey()
+    {
+        $data = array('a' => 'b', 'd' => 'e');
+        $objects = new Objects($data);
+        $objects->removeLast();
+        array_pop($data);
+        $this->assertSame($data, $objects->toArray());
+    }
 }

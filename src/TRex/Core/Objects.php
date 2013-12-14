@@ -158,4 +158,25 @@ class Objects extends Object implements IObjects
             $this[] = $value;
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeFirst()
+    {
+        $arrayModified = $this->toArray();
+        array_shift($arrayModified);
+        $this->initIterator($arrayModified);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeLast()
+    {
+        $key = $this->getLastKey();
+        if (null !== $key) {
+            $this->removeAt($key);
+        }
+    }
 }

@@ -220,5 +220,81 @@ class CasterTest extends \PHPUnit_Framework_TestCase
             $caster->castToArray($recursiveObject, AttributeReflection::NO_FILTER, false, false)
         );
     }
+
+    /**
+     * Tests format with null param.
+     */
+    public function testFormatNull()
+    {
+        $caster = new Caster();
+        $this->assertSame(array(), $caster->format(null));
+    }
+
+    /**
+     * Tests format with array param.
+     */
+    public function testFormatArray()
+    {
+        $caster = new Caster();
+        $this->assertSame(array(1), $caster->format(array(1)));
+    }
+
+    /**
+     * Tests format with json param.
+     */
+    public function testFormatJson()
+    {
+        $caster = new Caster();
+        $this->assertSame(array(1), $caster->format('[1]'));
+    }
+
+    /**
+     * Tests format with std object param.
+     */
+    public function testFormatStdObject()
+    {
+        $object = new \stdClass();
+        $object->a = 'test';
+
+        $caster = new Caster();
+        $this->assertSame(array('a' => 'test'), $caster->format($object));
+    }
+
+    /**
+     * Tests format with string param.
+     * json_decode for '1' return value 1. so we have to test if an exception is thrown.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $data must be a JSON, an array or an array castable object: string given.
+     */
+    public function testFormatString()
+    {
+        $caster = new Caster();
+        $caster->format('1');
+    }
+
+    /**
+     * Tests format with bool param.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $data must be a JSON, an array or an array castable object: boolean given.
+     */
+    public function testFormatBool()
+    {
+        $caster = new Caster();
+        $caster->format(true);
+    }
+
+    /**
+     * Tests format with integer param.
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage $data must be a JSON, an array or an array castable object: integer given.
+     */
+    public function testFormatInt()
+    {
+        $caster = new Caster();
+        $caster->format(1);
+    }
 }
  

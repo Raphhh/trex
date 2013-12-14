@@ -107,7 +107,7 @@ trait TObjectsComparator
      */
     private function apply($functionName, array $objectsList)
     {
-        return new $this(call_user_func_array($functionName, $this->parseObjectsListToArray($objectsList)));
+        return new Objects(call_user_func_array($functionName, $this->parseObjectsListToArray($objectsList)));
     }
 
     /**

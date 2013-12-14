@@ -62,6 +62,36 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
+     * @param string $value
+     * @param string $searchMode
+     * @return bool
+     */
+    public function has($value, $searchMode = self::STRICT_SEARCH_MODE)
+    {
+        if ($searchMode === self::REGEX_SEARCH_MODE) {
+            return (bool)$this->search($value, $searchMode);
+        }
+        return in_array($value, $this->toArray(), $searchMode === self::STRICT_SEARCH_MODE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $value
+     * @param string $searchMode
+     * @return array
+     */
+    public function search($value, $searchMode = self::STRICT_SEARCH_MODE)
+    {
+        if ($searchMode === self::REGEX_SEARCH_MODE) {
+            return array_keys(preg_grep($value, $this->toArray()));
+        }
+        return array_keys($this->toArray(), $value, $searchMode === self::STRICT_SEARCH_MODE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @param int $index
      * @return mixed|null
      */

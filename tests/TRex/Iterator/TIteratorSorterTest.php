@@ -53,7 +53,7 @@ class TIteratorSorterTest extends \PHPUnit_Framework_TestCase
 
         $objects = new Objects($data);
         $this->assertTrue(ksort($data, SORT_DESC));
-        $this->assertSame($data, $objects->sort(IIteratorSorter::KEY_SORT_TYPE, SORT_DESC)->toArray());
+        $this->assertSame($data, $objects->sort(new SortType(SortType::KEY_SORT_TYPE), SORT_DESC)->toArray());
     }
 
     /**
@@ -70,7 +70,7 @@ class TIteratorSorterTest extends \PHPUnit_Framework_TestCase
 
         $objects = new Objects($data);
         $this->assertTrue(sort($data, SORT_STRING));
-        $this->assertSame($data, $objects->sort(IIteratorSorter::VALUE_SORT_TYPE, SORT_STRING)->toArray());
+        $this->assertSame($data, $objects->sort(new SortType(SortType::VALUE_SORT_TYPE), SORT_STRING)->toArray());
     }
 
     /**
@@ -93,7 +93,7 @@ class TIteratorSorterTest extends \PHPUnit_Framework_TestCase
 
         $objects = new Objects($data);
         $this->assertTrue(uasort($data, $callback));
-        $this->assertSame($data, $objects->sort(IIteratorSorter::ASSOCIATIVE_SORT_TYPE, $callback)->toArray());
+        $this->assertSame($data, $objects->sort(new SortType(SortType::ASSOCIATIVE_SORT_TYPE), $callback)->toArray());
     }
 
     /**

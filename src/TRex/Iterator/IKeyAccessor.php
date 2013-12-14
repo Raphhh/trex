@@ -13,7 +13,7 @@ interface IKeyAccessor
      *
      * @return array
      */
-	public function getKeys();
+    public function getKeys();
 
     /**
      * Returns the key associated to the specified offset.
@@ -31,13 +31,13 @@ interface IKeyAccessor
      *
      * @return mixed|null
      */
-	public function getFirstKey();
+    public function getFirstKey();
 
     /**
      * Get the last key.
      *
      * @return mixed|null
      */
-	public function getLastKey();
+    public function getLastKey();
 
 } 

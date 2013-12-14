@@ -74,6 +74,9 @@ class Caster extends Object
      */
     public function format($data)
     {
+        if (!$data) {
+            return array();
+        }
         if (is_string($data)) {
             return json_decode($data, true);
         }

@@ -65,6 +65,27 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test constructor argument with a JSON.
+     */
+    public function testJsonHydration()
+    {
+        $objects = new Objects('{"a": "test"}');
+        $this->assertSame('test', $objects['a']);
+    }
+
+    /**
+     * Test constructor argument with a stdClass object.
+     */
+    public function testStdObjectHydration()
+    {
+        $object = new \stdClass();
+        $object->a = 'test';
+
+        $objects = new Objects($object);
+        $this->assertSame('test', $objects['a']);
+    }
+
+    /**
      * Tests has in strict mode with value.
      */
     public function testHasSimpleOk()

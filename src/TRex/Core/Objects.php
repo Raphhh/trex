@@ -7,6 +7,7 @@ use TRex\Iterator\TArrayAccess;
 use TRex\Iterator\TIterator;
 use TRex\Iterator\TIteratorSorter;
 use TRex\Iterator\TKeyAccessor;
+use TRex\Serialization\Caster;
 
 /**
  * Class Objects
@@ -31,12 +32,11 @@ class Objects extends Object implements IObjects
     /**
      * Constructor.
      *
-     * @param array $data
-     * @todo can accept a json!
+     * @param mixed $data
      */
-    public function __construct(array $data = array())
+    public function __construct($data = null)
     {
-        $this->setIterator(new IteratorAdapter(new \ArrayIterator($data)));
+        $this->initIterator($data);
     }
 
     /**
@@ -178,5 +178,15 @@ class Objects extends Object implements IObjects
         if (null !== $key) {
             $this->removeAt($key);
         }
+    }
+
+    /**
+     * Init $iterator.
+     *
+     * @param null $data
+     */
+    private function initIterator($data = null)
+    {
+        $this->setIterator(new IteratorAdapter(new \ArrayIterator((new Caster())->format($data))));
     }
 }

@@ -38,7 +38,7 @@ abstract class Object implements IArrayCastable
     public function __construct($data = null)
     {
         if ($data) {
-            $this->initProperties($this->formatData($data));
+            $this->initProperties((new Caster())->format($data));
         }
     }
 
@@ -187,27 +187,5 @@ abstract class Object implements IArrayCastable
         foreach ($data as $propertyName => $value) {
             $this->setProperty($propertyName, $value);
         }
-    }
-
-    /**
-     * Format $data to an array.
-     * $data could be a JSON string or an object.
-     *
-     * @param mixed $data
-     * @return array
-     * @throws \InvalidArgumentException
-     */
-    private function formatData($data)
-    {
-        if (is_string($data)) {
-            return json_decode($data, true);
-        }
-        if (is_array($data)) {
-            return $data;
-        }
-        if (is_object($data)) {
-            return (array)$data;
-        }
-        throw new \InvalidArgumentException(sprintf('$data must be a JSON, an array or an array castable object: %s given.', gettype($data)));
     }
 }

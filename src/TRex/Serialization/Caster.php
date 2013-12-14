@@ -65,6 +65,31 @@ class Caster extends Object
     }
 
     /**
+     * Format $data to an array.
+     * $data could be a JSON string or an object.
+     *
+     * @param mixed $data
+     * @return array
+     * @throws \InvalidArgumentException
+     */
+    public function format($data)
+    {
+        if (is_string($data)) {
+            return json_decode($data, true);
+        }
+        if (is_array($data)) {
+            return $data;
+        }
+        if (is_object($data)) {
+            return (array)$data;
+        }
+        throw new \InvalidArgumentException(sprintf(
+            '$data must be a JSON, an array or an array castable object: %s given.',
+            gettype($data)
+        ));
+    }
+
+    /**
      * Convert an object to an array.
      * The exported array contains all property values of the class and its parents, which are not transient.
      *

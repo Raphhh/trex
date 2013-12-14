@@ -38,7 +38,7 @@ abstract class Object implements IArrayCastable
     public function __construct($data = null)
     {
         if ($data) {
-            $this->initProperties($this->formatData($data));
+            $this->initProperties((new Caster())->format($data));
         }
     }
 
@@ -54,7 +54,7 @@ abstract class Object implements IArrayCastable
         if (!$this->isDynamical()) {
             throw new \RuntimeException(sprintf('Try to access to an undefined property: %s::%s', get_class($this), $propertyName));
         }
-        return $this->get($propertyName);
+        return $this->getProperty($propertyName);
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class Object implements IArrayCastable
         if (!$this->isDynamical()) {
             throw new \RuntimeException(sprintf('Try to mutate an undefined property: %s::%s', get_class($this), $propertyName));
         }
-        $this->set($propertyName, $value);
+        $this->setProperty($propertyName, $value);
     }
 
     /**
@@ -150,29 +150,29 @@ abstract class Object implements IArrayCastable
     /**
      * Dynamical getter of $propertyName.
      *
-     * @param string $propertyName
+     * @param string $name
      * @return mixed
      */
-    private function get($propertyName)
+    private function getProperty($name)
     {
-        if (method_exists($this, 'get' . $propertyName)) {
-            return $this->{'get' . $propertyName}();
+        if (method_exists($this, 'get' . $name)) {
+            return $this->{'get' . $name}();
         }
-        return $this->$propertyName;
+        return $this->$name;
     }
 
     /**
      * Dynamical setter of $propertyName.
      *
-     * @param string $propertyName
+     * @param string $name
      * @param mixed $value
      */
-    private function set($propertyName, $value)
+    private function setProperty($name, $value)
     {
-        if (method_exists($this, 'set' . $propertyName)) {
-            $this->{'set' . $propertyName}($value);
+        if (method_exists($this, 'set' . $name)) {
+            $this->{'set' . $name}($value);
         } else {
-            $this->$propertyName = $value;
+            $this->$name = $value;
         }
     }
 
@@ -185,29 +185,7 @@ abstract class Object implements IArrayCastable
     private function initProperties(array $data)
     {
         foreach ($data as $propertyName => $value) {
-            $this->set($propertyName, $value);
+            $this->setProperty($propertyName, $value);
         }
-    }
-
-    /**
-     * Format $data to an array.
-     * $data could be a JSON string or an object.
-     *
-     * @param mixed $data
-     * @return array
-     * @throws \InvalidArgumentException
-     */
-    private function formatData($data)
-    {
-        if (is_string($data)) {
-            return json_decode($data, true);
-        }
-        if (is_array($data)) {
-            return $data;
-        }
-        if (is_object($data)) {
-            return (array)$data;
-        }
-        throw new \InvalidArgumentException(sprintf('$data must be a JSON, an array or an array castable object: %s given.', gettype($data)));
     }
 }

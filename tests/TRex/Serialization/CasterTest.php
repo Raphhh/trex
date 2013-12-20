@@ -13,6 +13,14 @@ use TRex\Serialization\resources\RecursiveClass;
 class CasterTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Extends Object
+     */
+    public function testInheritance()
+    {
+        $this->assertInstanceOf('TRex\Core\Object', new Caster());
+    }
+
+    /**
      * Test array conversion.
      */
     public function testToArray()

@@ -9,6 +9,14 @@ class IteratorAdapterTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * Extends Object
+     */
+    public function testInheritance()
+    {
+        $this->assertInstanceOf('TRex\Core\Object', new IteratorAdapter(new \ArrayIterator()));
+    }
+
+    /**
      * Tests exist.
      */
     public function testExist()

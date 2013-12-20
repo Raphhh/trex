@@ -12,6 +12,14 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * Extends Object
+     */
+    public function testInheritance()
+    {
+        $this->assertInstanceOf('TRex\Core\Object', new Objects());
+    }
+
+    /**
      * Tests getIterator.
      */
     public function testGetIterator()

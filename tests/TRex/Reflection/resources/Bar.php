@@ -13,5 +13,13 @@ class Bar
     private $foo;
 
     private $bar;
+
+    private function getFoo()
+    {
+    }
+
+    private function getBar()
+    {
+    }
 }
  

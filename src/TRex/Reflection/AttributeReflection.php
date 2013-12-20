@@ -84,6 +84,18 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * An attribute is also transient if its class is.
+     *
+     * @return bool
+     */
+    public function isTransient()
+    {
+        return parent::isTransient() || $this->getClassReflection()->isTransient();
+    }
+
+    /**
      * Return the reflector of the class where the attribute is declaring.
      *
      * @warning

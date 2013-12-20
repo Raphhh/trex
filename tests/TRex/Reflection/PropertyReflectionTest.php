@@ -54,11 +54,20 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test if a property is transient by its class.
+     */
+    public function testIsTransientTrueByClass()
+    {
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'bar');
+        $this->assertTrue($reflectedProperty->isTransient());
+    }
+
+    /**
      * Test if a property is not transient.
      */
     public function testIsTransientFalse()
     {
-        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'bar');
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Bar', 'bar');
         $this->assertFalse($reflectedProperty->isTransient());
     }
 

@@ -9,13 +9,6 @@ class ObjectToArrayCasterParam
 {
 
     /**
-     * Filter of visibility
-     *
-     * @var int
-     */
-    private $filter;
-
-    /**
      * Indicate the kind of keys.
      * If is true, keys will be composed by full name of property (class name + property name)
      *
@@ -31,35 +24,13 @@ class ObjectToArrayCasterParam
     private $isRecursive;
 
     /**
-     * @param int $filter
      * @param bool $isFullName
      * @param bool $isRecursive
      */
-    public function __construct($filter, $isFullName, $isRecursive)
+    public function __construct($isFullName, $isRecursive)
     {
-        $this->setFilter($filter);
         $this->setIsFullName($isFullName);
         $this->setIsRecursive($isRecursive);
-    }
-
-    /**
-     * Setter of $filter.
-     *
-     * @param int $filter
-     */
-    public function setFilter($filter)
-    {
-        $this->filter = $filter;
-    }
-
-    /**
-     * Getter of $filter.
-     *
-     * @return int
-     */
-    public function getFilter()
-    {
-        return $this->filter;
     }
 
     /**

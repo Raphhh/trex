@@ -30,6 +30,13 @@ class ObjectToArrayCaster extends Object
     private $isExplicitRecursion = false;
 
     /**
+     * Filter of visibility
+     *
+     * @var int
+     */
+    private $filter = AttributeReflection::NO_FILTER;
+
+    /**
      * List of object already casted.
      *
      * @var array
@@ -57,6 +64,26 @@ class ObjectToArrayCaster extends Object
     }
 
     /**
+     * Setter of $filter.
+     *
+     * @param int $filter
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+    }
+
+    /**
+     * Getter of $filter.
+     *
+     * @return int
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
      * Convert an object to an array.
      * The exported array contains all property values of the class and its parents, which are not transient.
      *
@@ -67,20 +94,18 @@ class ObjectToArrayCaster extends Object
      * If $isRecursive, the conversion also applies to objects in the properties and to values of arrays.
      *
      * @param object $object
-     * @param int $filter
      * @param bool $isFullName
      * @param bool $isRecursive
      * @return array
      */
     public function castToArray(
         $object,
-        $filter = AttributeReflection::NO_FILTER,
         $isFullName = false,
         $isRecursive = true
     ) {
         return $this->extractValues(
             new ObjectReflection($object),
-            new ObjectToArrayCasterParam($filter, $isFullName, $isRecursive)
+            new ObjectToArrayCasterParam($isFullName, $isRecursive)
         );
     }
 
@@ -96,7 +121,7 @@ class ObjectToArrayCaster extends Object
         $result = array();
         $this->addCastedObject($reflectedObject->getObject());
 
-        foreach ($reflectedObject->getReflectionProperties($param->getFilter()) as $reflectedProperty) {
+        foreach ($reflectedObject->getReflectionProperties($this->getFilter()) as $reflectedProperty) {
             if (
                 !isset($result[$reflectedProperty->getName($param->isFullName())])
                 && !$reflectedProperty->isTransient()

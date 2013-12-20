@@ -50,11 +50,12 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
     public function testCastToArrayWithFilter()
     {
         $caster = new ObjectToArrayCaster();
+        $caster->setFilter(AttributeReflection::PROTECTED_FILTER | AttributeReflection::PUBLIC_FILTER);
         $this->assertSame(
             array(
                 'bar' => 'bar from foo',
             ),
-            $caster->castToArray(new Foo(), AttributeReflection::PROTECTED_FILTER | AttributeReflection::PUBLIC_FILTER)
+            $caster->castToArray(new Foo())
         );
     }
 
@@ -70,7 +71,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 'TRex\Serialization\resources\Bar::foo' => 'foo from bar',
                 'TRex\Serialization\resources\Bar::bar' => 'bar from bar',
             ),
-            $caster->castToArray(new Foo(), AttributeReflection::NO_FILTER, true)
+            $caster->castToArray(new Foo(), true)
         );
     }
 
@@ -147,7 +148,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 'recursiveObject1' => $recursiveObject->recursiveObject1,
                 'recursiveObject2' => $recursiveObject->recursiveObject1,
             ),
-            $caster->castToArray($recursiveObject, AttributeReflection::NO_FILTER, false, false)
+            $caster->castToArray($recursiveObject, false, false)
         );
     }
 
@@ -225,7 +226,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
             array(
                 'recursiveObjects' => $recursiveObject->recursiveObjects,
             ),
-            $caster->castToArray($recursiveObject, AttributeReflection::NO_FILTER, false, false)
+            $caster->castToArray($recursiveObject, false, false)
         );
     }
 }

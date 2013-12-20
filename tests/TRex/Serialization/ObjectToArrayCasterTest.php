@@ -32,7 +32,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
     /**
      * Simple test of array conversion.
      */
-    public function testCastToArray()
+    public function testCast()
     {
         $caster = new ObjectToArrayCaster();
         $this->assertSame(
@@ -40,14 +40,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 'bar' => 'bar from foo',
                 'foo' => 'foo from bar',
             ),
-            $caster->castToArray(new Foo())
+            $caster->cast(new Foo())
         );
     }
 
     /**
      * Test array conversion with some filters.
      */
-    public function testCastToArrayWithFilter()
+    public function testCastWithFilter()
     {
         $caster = new ObjectToArrayCaster();
         $caster->setFilter(AttributeReflection::PROTECTED_FILTER | AttributeReflection::PUBLIC_FILTER);
@@ -55,14 +55,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
             array(
                 'bar' => 'bar from foo',
             ),
-            $caster->castToArray(new Foo())
+            $caster->cast(new Foo())
         );
     }
 
     /**
      * Test array conversion with full name keys.
      */
-    public function testCastToArrayWithFullName()
+    public function testCastWithFullName()
     {
         $caster = new ObjectToArrayCaster();
         $caster->setIsFullName(true);
@@ -72,14 +72,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 'TRex\Serialization\resources\Bar::foo' => 'foo from bar',
                 'TRex\Serialization\resources\Bar::bar' => 'bar from bar',
             ),
-            $caster->castToArray(new Foo())
+            $caster->cast(new Foo())
         );
     }
 
     /**
      * Test array conversion with explicit recursion of objects.
      */
-    public function testCastToArrayWithObjectExplicitRecursion()
+    public function testCastWithObjectExplicitRecursion()
     {
         $recursiveObject = new RecursiveClass();
         $recursiveObject->initRecursion();
@@ -100,14 +100,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 ),
                 'recursiveObject2' => ObjectToArrayCaster::RECURSION_VALUE,
             ),
-            $caster->castToArray($recursiveObject)
+            $caster->cast($recursiveObject)
         );
     }
 
     /**
      * Test array conversion with non explicit recursion of objects.
      */
-    public function testCastToArrayWithObjectRecursion()
+    public function testCastWithObjectRecursion()
     {
         $recursiveObject = new RecursiveClass();
         $recursiveObject->initRecursion();
@@ -124,14 +124,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                     'recursiveObject2' => null,
                 ),
             ),
-            $caster->castToArray($recursiveObject)
+            $caster->cast($recursiveObject)
         );
     }
 
     /**
      * Test array conversion without recursion of objects.
      */
-    public function testCastToArrayWithoutObjectRecursion()
+    public function testCastWithoutObjectRecursion()
     {
         $recursiveObject = new RecursiveClass();
         $recursiveObject->initRecursion();
@@ -150,14 +150,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 'recursiveObject1' => $recursiveObject->recursiveObject1,
                 'recursiveObject2' => $recursiveObject->recursiveObject1,
             ),
-            $caster->castToArray($recursiveObject)
+            $caster->cast($recursiveObject)
         );
     }
 
     /**
      * Test array conversion with explicit recursion of arrays.
      */
-    public function testCastToArrayWithArrayExplicitRecursion()
+    public function testCastWithArrayExplicitRecursion()
     {
         $recursiveObject = new RecursiveArray();
         $recursiveObject->initRecursion();
@@ -180,14 +180,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                     2 => ObjectToArrayCaster::RECURSION_VALUE,
                 ),
             ),
-            $caster->castToArray($recursiveObject)
+            $caster->cast($recursiveObject)
         );
     }
 
     /**
      * Test array conversion with no explicit recursion of arrays.
      */
-    public function testCastToArrayWithArrayRecursion()
+    public function testCastWithArrayRecursion()
     {
         $recursiveObject = new RecursiveArray();
         $recursiveObject->initRecursion();
@@ -205,14 +205,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                     ),
                 ),
             ),
-            $caster->castToArray($recursiveObject)
+            $caster->cast($recursiveObject)
         );
     }
 
     /**
      * Test array conversion without recursion of arrays.
      */
-    public function testCastToArrayWithoutArrayRecursion()
+    public function testCastWithoutArrayRecursion()
     {
         $recursiveObject = new RecursiveArray();
         $recursiveObject->initRecursion();
@@ -229,7 +229,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
             array(
                 'recursiveObjects' => $recursiveObject->recursiveObjects,
             ),
-            $caster->castToArray($recursiveObject)
+            $caster->cast($recursiveObject)
         );
     }
 }

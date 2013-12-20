@@ -131,7 +131,7 @@ abstract class Object implements IArrayCastable
      */
     public function toArray()
     {
-        return (new ObjectToArrayCaster())->castToArray($this);
+        return (new ObjectToArrayCaster())->cast($this);
     }
 
     /**

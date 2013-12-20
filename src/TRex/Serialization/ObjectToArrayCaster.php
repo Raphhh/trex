@@ -71,7 +71,7 @@ class ObjectToArrayCaster extends Object
      * @param object $object
      * @return array
      */
-    public function castToArray($object)
+    public function cast($object)
     {
         $result = array();
         $this->addCastedObject($object);
@@ -218,7 +218,7 @@ class ObjectToArrayCaster extends Object
         if ($this->isAlreadyCasted($object)) {
             return self::RECURSION_VALUE;
         }
-        return $this->castToArray($object);
+        return $this->cast($object);
     }
 
     /**

@@ -65,38 +65,6 @@ class ObjectToArrayCaster extends Object
     }
 
     /**
-     * Format $data to an array.
-     * $data could be a JSON string or an object.
-     *
-     * @param mixed $data
-     * @return array
-     * @throws \InvalidArgumentException
-     */
-    public function format($data)
-    {
-        switch (true) {
-            case is_null($data):
-                return array();
-
-            case is_array($data):
-                return $data;
-
-            case is_object($data):
-                return (array)$data;
-
-            case is_string($data):
-                $result = json_decode($data, true);
-                if (is_array($result)) { //only if the conversion succeeded.
-                    return $result;
-                }
-        }
-        throw new \InvalidArgumentException(sprintf(
-            '$data must be a JSON, an array or an array castable object: %s given.',
-            gettype($data)
-        ));
-    }
-
-    /**
      * Convert an object to an array.
      * The exported array contains all property values of the class and its parents, which are not transient.
      *

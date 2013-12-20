@@ -1,6 +1,7 @@
 <?php
 namespace TRex\Core;
 
+use TRex\Serialization\DataToArrayCaster;
 use TRex\Serialization\IArrayCastable;
 use TRex\Serialization\ObjectToArrayCaster;
 
@@ -38,7 +39,7 @@ abstract class Object implements IArrayCastable
     public function __construct($data = null)
     {
         if ($data) {
-            $this->initProperties((new ObjectToArrayCaster())->format($data));
+            $this->initProperties((new DataToArrayCaster())->format($data));
         }
     }
 

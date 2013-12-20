@@ -2,7 +2,6 @@
 namespace TRex\Core;
 
 use TRex\Serialization\DataToArrayCaster;
-use TRex\Serialization\IArrayCastable;
 use TRex\Serialization\ObjectToArrayCaster;
 
 /**
@@ -10,7 +9,7 @@ use TRex\Serialization\ObjectToArrayCaster;
  * @package TRex\Core
  * @transient
  */
-abstract class Object implements IArrayCastable
+abstract class Object implements IObject
 {
 
     /**

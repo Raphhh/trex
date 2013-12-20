@@ -44,6 +44,32 @@ class ObjectToArrayCaster extends Object
     private $castedObjects = array();
 
     /**
+     * Convert an object to an array.
+     * The exported array contains all property values of the class and its parents, which are not transient.
+     *
+     * $filter allows you to filter by visibility properties.
+     *
+     * If $isFullName is true, array keys are composed by the class name dans the property name. If is false, only property name.
+     *
+     * If $isRecursive, the conversion also applies to objects in the properties and to values of arrays.
+     *
+     * @param object $object
+     * @param bool $isFullName
+     * @param bool $isRecursive
+     * @return array
+     */
+    public function castToArray(
+        $object,
+        $isFullName = false,
+        $isRecursive = true
+    ) {
+        return $this->extractValues(
+            new ObjectReflection($object),
+            new ObjectToArrayCasterParam($isFullName, $isRecursive)
+        );
+    }
+
+    /**
      * Setter of $isExplicitRecursion.
      *
      * @param boolean $isExplicitRecursion
@@ -81,32 +107,6 @@ class ObjectToArrayCaster extends Object
     public function getFilter()
     {
         return $this->filter;
-    }
-
-    /**
-     * Convert an object to an array.
-     * The exported array contains all property values of the class and its parents, which are not transient.
-     *
-     * $filter allows you to filter by visibility properties.
-     *
-     * If $isFullName is true, array keys are composed by the class name dans the property name. If is false, only property name.
-     *
-     * If $isRecursive, the conversion also applies to objects in the properties and to values of arrays.
-     *
-     * @param object $object
-     * @param bool $isFullName
-     * @param bool $isRecursive
-     * @return array
-     */
-    public function castToArray(
-        $object,
-        $isFullName = false,
-        $isRecursive = true
-    ) {
-        return $this->extractValues(
-            new ObjectReflection($object),
-            new ObjectToArrayCasterParam($isFullName, $isRecursive)
-        );
     }
 
     /**

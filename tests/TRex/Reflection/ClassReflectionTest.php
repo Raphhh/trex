@@ -8,6 +8,14 @@ namespace TRex\Reflection;
 class ClassReflectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Extends Object
+     */
+    public function testInheritance()
+    {
+        $this->assertInstanceOf('TRex\Core\Object', new ClassReflection('TRex\Reflection\resources\Foo'));
+    }
+
+    /**
      * Test array conversion.
      */
     public function testToArray()

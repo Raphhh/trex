@@ -10,6 +10,14 @@ use TRex\Reflection\resources\Foo;
 class ObjectReflectionTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Extends Object
+     */
+    public function testInheritance()
+    {
+        $this->assertInstanceOf('TRex\Core\Object', new ObjectReflection(new Foo()));
+    }
+
+    /**
      * Test array conversion.
      */
     public function testToArray()

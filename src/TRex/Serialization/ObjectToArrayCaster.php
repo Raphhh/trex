@@ -71,12 +71,25 @@ class ObjectToArrayCaster extends Object
      * @param object $object
      * @return array
      */
-    public function castToArray(
-        $object
-    ) {
-        return $this->extractValues(
-            new ObjectReflection($object)
-        );
+    public function castToArray($object)
+    {
+        $result = array();
+        $this->addCastedObject($object);
+
+        foreach ((new ObjectReflection($object))->getReflectionProperties($this->getFilter()) as $reflectedProperty) {
+            if (
+                !isset($result[$reflectedProperty->getName($this->isFullName())])
+                && !$reflectedProperty->isTransient()
+                && !$reflectedProperty->getClassReflection()->isTransient()
+            ) {
+                $result = $this->addValue(
+                    $result,
+                    $reflectedProperty->getName($this->isFullName()),
+                    $reflectedProperty->getValue($object)
+                );
+            }
+        }
+        return $result;
     }
 
     /**
@@ -160,33 +173,6 @@ class ObjectToArrayCaster extends Object
     }
 
     /**
-     * Extract properties from a reflector.
-     *
-     * @param ObjectReflection $reflectedObject
-     * @return array
-     */
-    private function extractValues(ObjectReflection $reflectedObject)
-    {
-        $result = array();
-        $this->addCastedObject($reflectedObject->getObject());
-
-        foreach ($reflectedObject->getReflectionProperties($this->getFilter()) as $reflectedProperty) {
-            if (
-                !isset($result[$reflectedProperty->getName($this->isFullName())])
-                && !$reflectedProperty->isTransient()
-                && !$reflectedProperty->getClassReflection()->isTransient()
-            ) {
-                $result = $this->addValue(
-                    $result,
-                    $reflectedProperty->getName($this->isFullName()),
-                    $reflectedProperty->getValue($reflectedObject->getObject())
-                );
-            }
-        }
-        return $result;
-    }
-
-    /**
      * Filter value to added to $values according to the recursion.
      *
      * @param array $values
@@ -232,7 +218,7 @@ class ObjectToArrayCaster extends Object
         if ($this->isAlreadyCasted($object)) {
             return self::RECURSION_VALUE;
         }
-        return $this->extractValues(new ObjectReflection($object));
+        return $this->castToArray($object);
     }
 
     /**

@@ -228,16 +228,6 @@ class ObjectToArrayCaster extends Object
     }
 
     /**
-     * Setter of $castedObjects.
-     *
-     * @param array $castedObjects
-     */
-    private function setCastedObjects($castedObjects)
-    {
-        $this->castedObjects = $castedObjects;
-    }
-
-    /**
      * Adder of $castedObjects.
      *
      * @param $object

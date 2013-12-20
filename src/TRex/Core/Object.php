@@ -93,7 +93,7 @@ abstract class Object implements IObject
     }
 
     /**
-     * Getter of $isDynamical.
+     * {@inheritDoc}
      *
      * @return boolean
      */
@@ -103,7 +103,7 @@ abstract class Object implements IObject
     }
 
     /**
-     * Setter of $isDynamical.
+     * {@inheritDoc}
      *
      * @param boolean $isDynamical
      */
@@ -113,7 +113,7 @@ abstract class Object implements IObject
     }
 
     /**
-     * Adder of $methods.
+     * {@inheritDoc}
      *
      * @param string $name
      * @param \Closure $method

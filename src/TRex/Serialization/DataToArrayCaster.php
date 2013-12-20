@@ -1,7 +1,7 @@
 <?php
 namespace TRex\Serialization;
 
-class DataToArrayCaster
+class DataToArrayCaster implements ICaster
 {
     /**
      * Format $data to an array.
@@ -11,7 +11,7 @@ class DataToArrayCaster
      * @return array
      * @throws \InvalidArgumentException
      */
-    public function format($data)
+    public function cast($data)
     {
         switch (true) {
             case is_null($data):

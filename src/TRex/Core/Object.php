@@ -39,7 +39,7 @@ abstract class Object implements IArrayCastable
     public function __construct($data = null)
     {
         if ($data) {
-            $this->initProperties((new DataToArrayCaster())->format($data));
+            $this->initProperties((new DataToArrayCaster())->cast($data));
         }
     }
 

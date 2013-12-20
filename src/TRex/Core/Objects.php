@@ -158,6 +158,6 @@ class Objects extends Object implements IObjects
      */
     private function initIterator($data = null)
     {
-        $this->setIterator(new IteratorAdapter(new \ArrayIterator((new DataToArrayCaster())->format($data))));
+        $this->setIterator(new IteratorAdapter(new \ArrayIterator((new DataToArrayCaster())->cast($data))));
     }
 }

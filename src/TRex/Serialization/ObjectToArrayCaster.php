@@ -12,7 +12,7 @@ use TRex\Reflection\ObjectReflection;
  * @package TRex\Serialization
  * @transient
  */
-class ObjectToArrayCaster extends Object
+class ObjectToArrayCaster extends Object implements ICaster
 {
 
     /**

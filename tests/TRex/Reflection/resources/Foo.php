@@ -9,16 +9,10 @@ namespace TRex\Reflection\resources;
 class Foo extends Bar
 {
 
-    /**
-     * @transient
-     */
     public $foo;
 
     protected $bar = 'bar';
 
-    /**
-     * @transient
-     */
     private function getFoo()
     {
     }

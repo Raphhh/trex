@@ -52,11 +52,20 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test if a method is transient by its class.
+     */
+    public function testIsTransientTrueByClass()
+    {
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getBar');
+        $this->assertTrue($reflectedMethod->isTransient());
+    }
+
+    /**
      * Test if a method is not transient.
      */
     public function testIsTransientFalse()
     {
-        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getBar');
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Bar', 'getBar');
         $this->assertFalse($reflectedMethod->isTransient());
     }
 

@@ -80,7 +80,6 @@ class ObjectToArrayCaster extends Object implements ICaster
             if (
                 !isset($result[$reflectedProperty->getName($this->isFullName())])
                 && !$reflectedProperty->isTransient()
-                && !$reflectedProperty->getClassReflection()->isTransient()
             ) {
                 $result = $this->addValue(
                     $result,

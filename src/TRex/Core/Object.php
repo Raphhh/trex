@@ -134,6 +134,16 @@ abstract class Object implements IObject
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @return string
+     */
+    public function toJson($options = JSON_PRETTY_PRINT)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    /**
      *  Getter of $methods.
      *
      * @param string $name

@@ -177,4 +177,22 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
             $foo->toArray()
         );
     }
+
+    /**
+     * Test simple JSON conversion.
+     */
+    public function testToJson()
+    {
+        $foo = new Foo();
+        $this->assertSame(
+            json_encode(
+                array(
+                    'foo' => 'foo from foo',
+                    'bar' => 'bar from bar'
+                ),
+                JSON_PRETTY_PRINT
+            ),
+            $foo->toJson()
+        );
+    }
 }

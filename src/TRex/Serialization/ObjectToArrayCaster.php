@@ -6,13 +6,13 @@ use TRex\Reflection\AttributeReflection;
 use TRex\Reflection\ObjectReflection;
 
 /**
- * Class Caster.
+ * Class ObjectToArrayCaster.
  * Object conversion handler.
  *
  * @package TRex\Serialization
  * @transient
  */
-class Caster extends Object
+class ObjectToArrayCaster extends Object
 {
 
     /**
@@ -118,17 +118,20 @@ class Caster extends Object
         $isFullName = false,
         $isRecursive = true
     ) {
-        return $this->extractValues(new ObjectReflection($object), new CasterParam($filter, $isFullName, $isRecursive));
+        return $this->extractValues(
+            new ObjectReflection($object),
+            new ObjectToArrayCasterParam($filter, $isFullName, $isRecursive)
+        );
     }
 
     /**
      * Extract properties from a reflector.
      *
      * @param ObjectReflection $reflectedObject
-     * @param CasterParam $param
+     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function extractValues(ObjectReflection $reflectedObject, CasterParam $param)
+    private function extractValues(ObjectReflection $reflectedObject, ObjectToArrayCasterParam $param)
     {
         $result = array();
         $this->addCastedObject($reflectedObject->getObject());
@@ -156,10 +159,10 @@ class Caster extends Object
      * @param array $values
      * @param mixed $key
      * @param mixed $value
-     * @param CasterParam $param
+     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function addValue(array $values, $key, $value, CasterParam $param)
+    private function addValue(array $values, $key, $value, ObjectToArrayCasterParam $param)
     {
         $value = $this->handleValue($value, $param);
         if ($this->isExplicitRecursion() || $value !== self::RECURSION_VALUE) {
@@ -172,10 +175,10 @@ class Caster extends Object
      * Apply recursion of the conversion.
      *
      * @param mixed $value
-     * @param CasterParam $param
+     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function handleValue($value, CasterParam $param)
+    private function handleValue($value, ObjectToArrayCasterParam $param)
     {
         if ($param->isRecursive()) {
             if (is_object($value)) {
@@ -191,10 +194,10 @@ class Caster extends Object
      * Convert recursively an object.
      *
      * @param $object
-     * @param CasterParam $param
+     * @param ObjectToArrayCasterParam $param
      * @return array|string
      */
-    private function handleObjectValue($object, CasterParam $param)
+    private function handleObjectValue($object, ObjectToArrayCasterParam $param)
     {
         if ($this->isAlreadyCasted($object)) {
             return self::RECURSION_VALUE;
@@ -206,10 +209,10 @@ class Caster extends Object
      * Convert recursively an array.
      *
      * @param array $data
-     * @param CasterParam $param
+     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function handleArrayValue(array $data, CasterParam $param)
+    private function handleArrayValue(array $data, ObjectToArrayCasterParam $param)
     {
         $result = array();
         foreach ($data as $key => $value) {

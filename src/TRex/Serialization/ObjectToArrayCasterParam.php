@@ -2,10 +2,10 @@
 namespace TRex\Serialization;
 
 /**
- * Class CasterParam
+ * Class ObjectToArrayCasterParam
  * @package TRex\Serialization
  */
-class CasterParam 
+class ObjectToArrayCasterParam
 {
 
     /**

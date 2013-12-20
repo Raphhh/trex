@@ -7,17 +7,17 @@ use TRex\Serialization\resources\RecursiveArray;
 use TRex\Serialization\resources\RecursiveClass;
 
 /**
- * Class CasterTest
+ * Class ObjectToArrayCasterTest
  * @package TRex\Serialization
  */
-class CasterTest extends \PHPUnit_Framework_TestCase
+class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Extends Object
      */
     public function testInheritance()
     {
-        $this->assertInstanceOf('TRex\Core\Object', new Caster());
+        $this->assertInstanceOf('TRex\Core\Object', new ObjectToArrayCaster());
     }
 
     /**
@@ -25,7 +25,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testToArray()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(array(), $caster->toArray());
     }
 
@@ -34,7 +34,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testCastToArray()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(
             array(
                 'bar' => 'bar from foo',
@@ -49,7 +49,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testCastToArrayWithFilter()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(
             array(
                 'bar' => 'bar from foo',
@@ -63,7 +63,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testCastToArrayWithFullName()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(
             array(
                 'TRex\Serialization\resources\Foo::bar' => 'bar from foo',
@@ -86,17 +86,17 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObject1->recursiveObject0, $recursiveObject);
         $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
 
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $caster->setIsExplicitRecursion(true);
         $this->assertSame(
             array(
-                'recursiveObject0' => Caster::RECURSION_VALUE,
+                'recursiveObject0' => ObjectToArrayCaster::RECURSION_VALUE,
                 'recursiveObject1' => array(
-                    'recursiveObject0' => Caster::RECURSION_VALUE,
+                    'recursiveObject0' => ObjectToArrayCaster::RECURSION_VALUE,
                     'recursiveObject1' => null,
                     'recursiveObject2' => null,
                 ),
-                'recursiveObject2' => Caster::RECURSION_VALUE,
+                'recursiveObject2' => ObjectToArrayCaster::RECURSION_VALUE,
             ),
             $caster->castToArray($recursiveObject)
         );
@@ -114,7 +114,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObject1->recursiveObject0, $recursiveObject);
         $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
 
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(
             array(
                 'recursiveObject1' => array(
@@ -138,7 +138,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObject1->recursiveObject0, $recursiveObject);
         $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
 
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $caster->setIsExplicitRecursion(true);
 
         $this->assertSame(
@@ -163,18 +163,18 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObjects[1]->recursiveObjects[0], $recursiveObject);
         $this->assertSame($recursiveObject->recursiveObjects[2], $recursiveObject->recursiveObjects[1]);
 
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $caster->setIsExplicitRecursion(true);
         $this->assertSame(
             array(
                 'recursiveObjects' => array(
-                    0 => Caster::RECURSION_VALUE,
+                    0 => ObjectToArrayCaster::RECURSION_VALUE,
                     1 => array(
                         'recursiveObjects' => array(
-                            0 => Caster::RECURSION_VALUE
+                            0 => ObjectToArrayCaster::RECURSION_VALUE
                         ),
                     ),
-                    2 => Caster::RECURSION_VALUE,
+                    2 => ObjectToArrayCaster::RECURSION_VALUE,
                 ),
             ),
             $caster->castToArray($recursiveObject)
@@ -193,7 +193,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObjects[1]->recursiveObjects[0], $recursiveObject);
         $this->assertSame($recursiveObject->recursiveObjects[2], $recursiveObject->recursiveObjects[1]);
 
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(
             array(
                 'recursiveObjects' => array(
@@ -218,7 +218,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObjects[1]->recursiveObjects[0], $recursiveObject);
         $this->assertSame($recursiveObject->recursiveObjects[2], $recursiveObject->recursiveObjects[1]);
 
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $caster->setIsExplicitRecursion(true);
 
         $this->assertSame(
@@ -234,7 +234,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatNull()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(array(), $caster->format(null));
     }
 
@@ -243,7 +243,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatArray()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(array(1), $caster->format(array(1)));
     }
 
@@ -252,7 +252,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatJson()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(array(1), $caster->format('[1]'));
     }
 
@@ -264,7 +264,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
         $object = new \stdClass();
         $object->a = 'test';
 
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $this->assertSame(array('a' => 'test'), $caster->format($object));
     }
 
@@ -277,7 +277,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatString()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $caster->format('1');
     }
 
@@ -289,7 +289,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatBool()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $caster->format(true);
     }
 
@@ -301,7 +301,7 @@ class CasterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFormatInt()
     {
-        $caster = new Caster();
+        $caster = new ObjectToArrayCaster();
         $caster->format(1);
     }
 }

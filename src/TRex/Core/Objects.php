@@ -7,7 +7,7 @@ use TRex\Iterator\TArrayAccess;
 use TRex\Iterator\TIterator;
 use TRex\Iterator\TIteratorSorter;
 use TRex\Iterator\TKeyAccessor;
-use TRex\Serialization\Caster;
+use TRex\Serialization\ObjectToArrayCaster;
 
 /**
  * Class Objects
@@ -158,6 +158,6 @@ class Objects extends Object implements IObjects
      */
     private function initIterator($data = null)
     {
-        $this->setIterator(new IteratorAdapter(new \ArrayIterator((new Caster())->format($data))));
+        $this->setIterator(new IteratorAdapter(new \ArrayIterator((new ObjectToArrayCaster())->format($data))));
     }
 }

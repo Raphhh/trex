@@ -3,17 +3,17 @@
 TRex\Core\Object is a powerful array object. He handles a list like an object.
 
 
-## TRex\Core\Object behavior
+## Inherited behavior
 
 Objects extends TRex\Core\Object and inherits of all its behavior.
 
-## Hydration
+### Hydration
 
 For example, like for Object, you can hydrate Objects from an array or a JSON:
 
     new Objects(array('dino' => 't-rex'));
 
-## Export
+### Export
 
 Other example, you can export Objects into an array.
 
@@ -357,7 +357,7 @@ Find intersection between any Objects:
     $newObjects->toArray(); //array('t-rex')
 
 
-#### Composite behavior
+## Composite behavior
 
 You can list objects and call a same method on all of them:
 

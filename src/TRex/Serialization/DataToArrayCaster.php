@@ -1,7 +1,9 @@
 <?php
 namespace TRex\Serialization;
 
-class DataToArrayCaster implements ICaster
+use TRex\Core\Object;
+
+class DataToArrayCaster extends Object implements ICaster
 {
     /**
      * Format $data to an array.

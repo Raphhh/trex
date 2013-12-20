@@ -4,6 +4,14 @@ namespace TRex\Serialization;
 class DataToArrayCasterTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Extends Object
+     */
+    public function testInheritance()
+    {
+        $this->assertInstanceOf('TRex\Core\Object', new ObjectToArrayCaster());
+    }
+
+    /**
      * Tests cast with array param.
      */
     public function testFormatArray()

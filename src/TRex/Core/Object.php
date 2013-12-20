@@ -2,7 +2,6 @@
 namespace TRex\Core;
 
 use TRex\Serialization\DataToArrayCaster;
-use TRex\Serialization\IArrayCastable;
 use TRex\Serialization\ObjectToArrayCaster;
 
 /**
@@ -10,7 +9,7 @@ use TRex\Serialization\ObjectToArrayCaster;
  * @package TRex\Core
  * @transient
  */
-abstract class Object implements IArrayCastable
+abstract class Object implements IObject
 {
 
     /**
@@ -94,7 +93,7 @@ abstract class Object implements IArrayCastable
     }
 
     /**
-     * Getter of $isDynamical.
+     * {@inheritDoc}
      *
      * @return boolean
      */
@@ -104,7 +103,7 @@ abstract class Object implements IArrayCastable
     }
 
     /**
-     * Setter of $isDynamical.
+     * {@inheritDoc}
      *
      * @param boolean $isDynamical
      */
@@ -114,7 +113,7 @@ abstract class Object implements IArrayCastable
     }
 
     /**
-     * Adder of $methods.
+     * {@inheritDoc}
      *
      * @param string $name
      * @param \Closure $method
@@ -125,13 +124,23 @@ abstract class Object implements IArrayCastable
     }
 
     /**
-     * Convert object to array.
+     * {@inheritDoc}
      *
      * @return array
      */
     public function toArray()
     {
         return (new ObjectToArrayCaster())->cast($this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return string
+     */
+    public function toJson($options = JSON_PRETTY_PRINT)
+    {
+        return json_encode($this->toArray(), $options);
     }
 
     /**

@@ -9,7 +9,7 @@ namespace TRex\Core;
  * @package TRex\Core
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-abstract class Enum implements IEnum
+abstract class Enum extends Object implements IEnum
 {
     /**
      * Current value.

@@ -14,6 +14,14 @@ class EnumTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     * Extends Object
+     */
+    public function testInheritance()
+    {
+        $this->assertInstanceOf('TRex\Core\Object', new FooEnum('a'));
+    }
+
+    /**
      * Instantiation with a valid value.
      */
     public function testValidValue()

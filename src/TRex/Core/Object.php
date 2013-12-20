@@ -124,7 +124,7 @@ abstract class Object implements IObject
     }
 
     /**
-     * Convert object to array.
+     * {@inheritDoc}
      *
      * @return array
      */

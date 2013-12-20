@@ -45,6 +45,13 @@ class ObjectToArrayCaster extends Object
     private $isFullName = false;
 
     /**
+     * Indicate if conversion also applies to objects in the properties and to values of arrays.
+     *
+     * @var bool
+     */
+    private $isRecursive = true;
+
+    /**
      * List of object already casted.
      *
      * @var array
@@ -62,16 +69,13 @@ class ObjectToArrayCaster extends Object
      * If $isRecursive, the conversion also applies to objects in the properties and to values of arrays.
      *
      * @param object $object
-     * @param bool $isRecursive
      * @return array
      */
     public function castToArray(
-        $object,
-        $isRecursive = true
+        $object
     ) {
         return $this->extractValues(
-            new ObjectReflection($object),
-            new ObjectToArrayCasterParam($isRecursive)
+            new ObjectReflection($object)
         );
     }
 
@@ -136,13 +140,32 @@ class ObjectToArrayCaster extends Object
     }
 
     /**
+     * Setter of $isRecursive.
+     *
+     * @param boolean $isRecursive
+     */
+    public function setIsRecursive($isRecursive)
+    {
+        $this->isRecursive = $isRecursive;
+    }
+
+    /**
+     * Getter of $isRecursive.
+     *
+     * @return boolean
+     */
+    public function isRecursive()
+    {
+        return $this->isRecursive;
+    }
+
+    /**
      * Extract properties from a reflector.
      *
      * @param ObjectReflection $reflectedObject
-     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function extractValues(ObjectReflection $reflectedObject, ObjectToArrayCasterParam $param)
+    private function extractValues(ObjectReflection $reflectedObject)
     {
         $result = array();
         $this->addCastedObject($reflectedObject->getObject());
@@ -156,8 +179,7 @@ class ObjectToArrayCaster extends Object
                 $result = $this->addValue(
                     $result,
                     $reflectedProperty->getName($this->isFullName()),
-                    $reflectedProperty->getValue($reflectedObject->getObject()),
-                    $param
+                    $reflectedProperty->getValue($reflectedObject->getObject())
                 );
             }
         }
@@ -170,12 +192,11 @@ class ObjectToArrayCaster extends Object
      * @param array $values
      * @param mixed $key
      * @param mixed $value
-     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function addValue(array $values, $key, $value, ObjectToArrayCasterParam $param)
+    private function addValue(array $values, $key, $value)
     {
-        $value = $this->handleValue($value, $param);
+        $value = $this->handleValue($value);
         if ($this->isExplicitRecursion() || $value !== self::RECURSION_VALUE) {
             $values[$key] = $value;
         }
@@ -186,16 +207,15 @@ class ObjectToArrayCaster extends Object
      * Apply recursion of the conversion.
      *
      * @param mixed $value
-     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function handleValue($value, ObjectToArrayCasterParam $param)
+    private function handleValue($value)
     {
-        if ($param->isRecursive()) {
+        if ($this->isRecursive()) {
             if (is_object($value)) {
-                return $this->handleObjectValue($value, $param);
+                return $this->handleObjectValue($value);
             } elseif (is_array($value)) {
-                return $this->handleArrayValue($value, $param);
+                return $this->handleArrayValue($value);
             }
         }
         return $value;
@@ -205,29 +225,27 @@ class ObjectToArrayCaster extends Object
      * Convert recursively an object.
      *
      * @param $object
-     * @param ObjectToArrayCasterParam $param
      * @return array|string
      */
-    private function handleObjectValue($object, ObjectToArrayCasterParam $param)
+    private function handleObjectValue($object)
     {
         if ($this->isAlreadyCasted($object)) {
             return self::RECURSION_VALUE;
         }
-        return $this->extractValues(new ObjectReflection($object), $param);
+        return $this->extractValues(new ObjectReflection($object));
     }
 
     /**
      * Convert recursively an array.
      *
      * @param array $data
-     * @param ObjectToArrayCasterParam $param
      * @return array
      */
-    private function handleArrayValue(array $data, ObjectToArrayCasterParam $param)
+    private function handleArrayValue(array $data)
     {
         $result = array();
         foreach ($data as $key => $value) {
-            $result = $this->addValue($result, $key, $value, $param);
+            $result = $this->addValue($result, $key, $value);
         }
         return $result;
     }

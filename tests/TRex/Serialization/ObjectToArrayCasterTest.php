@@ -142,6 +142,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
 
         $caster = new ObjectToArrayCaster();
         $caster->setIsExplicitRecursion(true);
+        $caster->setIsRecursive(false);
 
         $this->assertSame(
             array(
@@ -149,7 +150,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 'recursiveObject1' => $recursiveObject->recursiveObject1,
                 'recursiveObject2' => $recursiveObject->recursiveObject1,
             ),
-            $caster->castToArray($recursiveObject, false)
+            $caster->castToArray($recursiveObject)
         );
     }
 
@@ -222,12 +223,13 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
 
         $caster = new ObjectToArrayCaster();
         $caster->setIsExplicitRecursion(true);
+        $caster->setIsRecursive(false);
 
         $this->assertSame(
             array(
                 'recursiveObjects' => $recursiveObject->recursiveObjects,
             ),
-            $caster->castToArray($recursiveObject, false)
+            $caster->castToArray($recursiveObject)
         );
     }
 }

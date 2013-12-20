@@ -37,6 +37,14 @@ class ObjectToArrayCaster extends Object
     private $filter = AttributeReflection::NO_FILTER;
 
     /**
+     * Indicate the kind of keys.
+     * If is true, keys will be composed by full name of property (class name + property name)
+     *
+     * @var bool
+     */
+    private $isFullName = false;
+
+    /**
      * List of object already casted.
      *
      * @var array
@@ -54,18 +62,16 @@ class ObjectToArrayCaster extends Object
      * If $isRecursive, the conversion also applies to objects in the properties and to values of arrays.
      *
      * @param object $object
-     * @param bool $isFullName
      * @param bool $isRecursive
      * @return array
      */
     public function castToArray(
         $object,
-        $isFullName = false,
         $isRecursive = true
     ) {
         return $this->extractValues(
             new ObjectReflection($object),
-            new ObjectToArrayCasterParam($isFullName, $isRecursive)
+            new ObjectToArrayCasterParam($isRecursive)
         );
     }
 
@@ -110,6 +116,26 @@ class ObjectToArrayCaster extends Object
     }
 
     /**
+     * Setter of $isFullName.
+     *
+     * @param boolean $isFullName
+     */
+    public function setIsFullName($isFullName)
+    {
+        $this->isFullName = $isFullName;
+    }
+
+    /**
+     * Getter of $isFullName.
+     *
+     * @return boolean
+     */
+    public function isFullName()
+    {
+        return $this->isFullName;
+    }
+
+    /**
      * Extract properties from a reflector.
      *
      * @param ObjectReflection $reflectedObject
@@ -123,13 +149,13 @@ class ObjectToArrayCaster extends Object
 
         foreach ($reflectedObject->getReflectionProperties($this->getFilter()) as $reflectedProperty) {
             if (
-                !isset($result[$reflectedProperty->getName($param->isFullName())])
+                !isset($result[$reflectedProperty->getName($this->isFullName())])
                 && !$reflectedProperty->isTransient()
                 && !$reflectedProperty->getClassReflection()->isTransient()
             ) {
                 $result = $this->addValue(
                     $result,
-                    $reflectedProperty->getName($param->isFullName()),
+                    $reflectedProperty->getName($this->isFullName()),
                     $reflectedProperty->getValue($reflectedObject->getObject()),
                     $param
                 );

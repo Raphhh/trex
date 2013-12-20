@@ -65,13 +65,14 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
     public function testCastToArrayWithFullName()
     {
         $caster = new ObjectToArrayCaster();
+        $caster->setIsFullName(true);
         $this->assertSame(
             array(
                 'TRex\Serialization\resources\Foo::bar' => 'bar from foo',
                 'TRex\Serialization\resources\Bar::foo' => 'foo from bar',
                 'TRex\Serialization\resources\Bar::bar' => 'bar from bar',
             ),
-            $caster->castToArray(new Foo(), true)
+            $caster->castToArray(new Foo())
         );
     }
 
@@ -148,7 +149,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
                 'recursiveObject1' => $recursiveObject->recursiveObject1,
                 'recursiveObject2' => $recursiveObject->recursiveObject1,
             ),
-            $caster->castToArray($recursiveObject, false, false)
+            $caster->castToArray($recursiveObject, false)
         );
     }
 
@@ -226,7 +227,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
             array(
                 'recursiveObjects' => $recursiveObject->recursiveObjects,
             ),
-            $caster->castToArray($recursiveObject, false, false)
+            $caster->castToArray($recursiveObject, false)
         );
     }
 }

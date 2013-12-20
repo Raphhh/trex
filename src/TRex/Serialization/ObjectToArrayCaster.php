@@ -27,7 +27,7 @@ class ObjectToArrayCaster extends Object
      *
      * @var bool
      */
-    private $isExplicitRecursion;
+    private $isExplicitRecursion = false;
 
     /**
      * List of object already casted.
@@ -35,14 +35,6 @@ class ObjectToArrayCaster extends Object
      * @var array
      */
     private $castedObjects = array();
-
-    /**
-     * @param bool $isExplicitRecursion
-     */
-    public function __construct($isExplicitRecursion = false)
-    {
-        $this->setIsExplicitRecursion($isExplicitRecursion);
-    }
 
     /**
      * Setter of $isExplicitRecursion.

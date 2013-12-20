@@ -169,11 +169,11 @@ class ObjectToArrayCaster extends Object implements ICaster
         $this->addCastedObject($object);
 
         foreach ((new ObjectReflection($object))->getReflectionProperties($this->getFilter()) as $reflectedProperty) {
-            $key = $reflectedProperty->getName($this->isFullName());
-            if (!isset($result[$key]) && !$reflectedProperty->isTransient()) {
+            $propertyName = $reflectedProperty->getName($this->isFullName());
+            if (!isset($result[$propertyName]) && !$reflectedProperty->isTransient()) {
                 $result = $this->addValue(
                     $result,
-                    $key,
+                    $propertyName,
                     $reflectedProperty->getValue($object)
                 );
             }
@@ -186,15 +186,15 @@ class ObjectToArrayCaster extends Object implements ICaster
      * Filter value to added to $values according to the recursion.
      *
      * @param array $values
-     * @param mixed $key
+     * @param string $propertyName
      * @param mixed $value
      * @return array
      */
-    private function addValue(array $values, $key, $value)
+    private function addValue(array $values, $propertyName, $value)
     {
         $value = $this->handleValue($value);
         if ($this->isExplicitRecursion() || $value !== self::RECURSION_VALUE) {
-            $values[$key] = $value;
+            $values[$propertyName] = $value;
         }
         return $values;
     }

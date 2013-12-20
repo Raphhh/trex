@@ -232,5 +232,30 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
             $caster->cast($recursiveObject)
         );
     }
+
+    /**
+     * Tests the reset of the cache of array conversion with recursion.
+     */
+    public function testCastDouble()
+    {
+        $recursiveObject = new RecursiveClass();
+        $recursiveObject->initRecursion();
+
+        $this->assertSame($recursiveObject->recursiveObject0, $recursiveObject);
+        $this->assertSame($recursiveObject->recursiveObject1->recursiveObject0, $recursiveObject);
+        $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
+
+        $caster = new ObjectToArrayCaster();
+        $caster->cast($recursiveObject);
+        $this->assertSame(
+            array(
+                'recursiveObject1' => array(
+                    'recursiveObject1' => null,
+                    'recursiveObject2' => null,
+                ),
+            ),
+            $caster->cast($recursiveObject)
+        );
+    }
 }
  

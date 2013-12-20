@@ -73,22 +73,8 @@ class ObjectToArrayCaster extends Object implements ICaster
      */
     public function cast($object)
     {
-        $result = array();
-        $this->addCastedObject($object);
-
-        foreach ((new ObjectReflection($object))->getReflectionProperties($this->getFilter()) as $reflectedProperty) {
-            if (
-                !isset($result[$reflectedProperty->getName($this->isFullName())])
-                && !$reflectedProperty->isTransient()
-            ) {
-                $result = $this->addValue(
-                    $result,
-                    $reflectedProperty->getName($this->isFullName()),
-                    $reflectedProperty->getValue($object)
-                );
-            }
-        }
-        return $result;
+        $this->resetCastedObjects(); //reset the cache.
+        return $this->extractValues($object);
     }
 
     /**
@@ -172,6 +158,31 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
+     * Extracts properties from an object.
+     *
+     * @param object $object
+     * @return array
+     */
+    private function extractValues($object)
+    {
+        $result = array();
+        $this->addCastedObject($object);
+
+        foreach ((new ObjectReflection($object))->getReflectionProperties($this->getFilter()) as $reflectedProperty) {
+            $key = $reflectedProperty->getName($this->isFullName());
+            if (!isset($result[$key]) && !$reflectedProperty->isTransient()) {
+                $result = $this->addValue(
+                    $result,
+                    $key,
+                    $reflectedProperty->getValue($object)
+                );
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * Filter value to added to $values according to the recursion.
      *
      * @param array $values
@@ -217,7 +228,7 @@ class ObjectToArrayCaster extends Object implements ICaster
         if ($this->isAlreadyCasted($object)) {
             return self::RECURSION_VALUE;
         }
-        return $this->cast($object);
+        return $this->extractValues($object);
     }
 
     /**
@@ -243,6 +254,16 @@ class ObjectToArrayCaster extends Object implements ICaster
     private function getCastedObjects()
     {
         return $this->castedObjects;
+    }
+
+    /**
+     * reset of $castedObjects.
+     *
+     * @return array
+     */
+    private function resetCastedObjects()
+    {
+        return $this->castedObjects = array();
     }
 
     /**

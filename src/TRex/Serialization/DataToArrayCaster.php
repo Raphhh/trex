@@ -37,9 +37,8 @@ class DataToArrayCaster extends Object implements ICaster
                     return $result;
                 }
         }
-        throw new \InvalidArgumentException(sprintf(
-            '$data must be a JSON, an array or an array castable object: %s given.',
-            gettype($data)
-        ));
+        throw new \InvalidArgumentException(
+            sprintf('$data must be a JSON, an array or an array castable object: %s given.', gettype($data))
+        );
     }
 }

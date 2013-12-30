@@ -54,7 +54,8 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
-     * Details of the name of the reflected attribute and the name of the class from which we can access to the attribute declaration.
+     * Details of the name of the reflected attribute
+     * and the name of the class from which we can access to the attribute declaration.
      * You can recover the class reflector with self::getClassReflection().
      *
      * @param string $className
@@ -100,7 +101,8 @@ abstract class AttributeReflection extends Reflection
      *
      * @warning
      * The classReflection is not necessarily the reflector of a class from which current attribute has been extracted.
-     * For example, if you get this class form an object and if this class reflect an attribute declared in the parent, self::getClassReflection() will return the reflector for the parent.
+     * For example, if you get this class form an object and if this class reflect an attribute declared in the parent,
+     * self::getClassReflection() will return the reflector for the parent.
      *
      * @return ClassReflection
      */

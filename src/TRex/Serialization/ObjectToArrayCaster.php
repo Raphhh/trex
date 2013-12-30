@@ -64,7 +64,8 @@ class ObjectToArrayCaster extends Object implements ICaster
      *
      * $filter allows you to filter by visibility properties.
      *
-     * If $isFullName is true, array keys are composed by the class name dans the property name. If is false, only property name.
+     * If $isFullName is true, array keys are composed by the class name dans the property name.
+     * If is false, only property name.
      *
      * If $isRecursive, the conversion also applies to objects in the properties and to values of arrays.
      *

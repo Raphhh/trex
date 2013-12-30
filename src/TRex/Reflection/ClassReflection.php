@@ -22,8 +22,10 @@ class ClassReflection extends Reflection
     }
 
     /**
-     * Return the property of the reflected class and all of its parents (This last point is the main difference with the PHP reflection).
-     * Filter is the same as \ReflectionProperty of PHP reflection: You can use these constants or use AttributeReflection constants.
+     * Return the property of the reflected class and all of its parents
+     * (This last point is the main difference with the PHP reflection).
+     * Filter is the same as \ReflectionProperty of PHP reflection:
+     * You can use these constants or use AttributeReflection constants.
      *
      * @param int $filter
      * @return PropertyReflection[]

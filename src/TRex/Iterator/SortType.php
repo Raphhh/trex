@@ -3,6 +3,12 @@ namespace TRex\Iterator;
 
 use TRex\Core\Enum;
 
+/**
+ * Class SortType
+ * @package TRex\Iterator
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ * @transient
+ */
 class SortType extends Enum
 {
     /**

@@ -3,6 +3,12 @@ namespace TRex\Serialization;
 
 use TRex\Core\Object;
 
+/**
+ * Class DataToArrayCaster
+ * @package TRex\Serialization
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ * @transient
+ */
 class DataToArrayCaster extends Object implements ICaster
 {
     /**

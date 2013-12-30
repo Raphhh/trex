@@ -22,6 +22,15 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test array conversion.
+     */
+    public function testToArray()
+    {
+        $a = new FooEnum('a');
+        $this->assertSame(array('value' => 'a'), $a->toArray());
+    }
+
+    /**
      * Instantiation with a valid value.
      */
     public function testValidValue()

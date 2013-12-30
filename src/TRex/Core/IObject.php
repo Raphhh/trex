@@ -11,7 +11,7 @@ use TRex\Serialization\IJsonCastable;
 interface IObject extends IArrayCastable, IJsonCastable
 {
     /**
-     * Indicates if the object has dynamic properties access.
+     * Indicates whether the current object has dynamic properties access.
      *
      * @return bool
      */

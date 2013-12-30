@@ -52,7 +52,9 @@ abstract class Object implements IObject
     public function __get($propertyName)
     {
         if (!$this->isDynamic()) {
-            throw new \RuntimeException(sprintf('Try to access to an undefined property: %s::%s', get_class($this), $propertyName));
+            throw new \RuntimeException(
+                sprintf('Try to access to an undefined property: %s::%s', get_class($this), $propertyName)
+            );
         }
         return $this->getProperty($propertyName);
     }
@@ -68,7 +70,9 @@ abstract class Object implements IObject
     public function __set($propertyName, $value)
     {
         if (!$this->isDynamic()) {
-            throw new \RuntimeException(sprintf('Try to mutate an undefined property: %s::%s', get_class($this), $propertyName));
+            throw new \RuntimeException(
+                sprintf('Try to mutate an undefined property: %s::%s', get_class($this), $propertyName)
+            );
         }
         $this->setProperty($propertyName, $value);
     }
@@ -89,7 +93,9 @@ abstract class Object implements IObject
         if ($this->getMethod($methodName)) {
             return call_user_func_array($this->getMethod($methodName), $args);
         }
-        throw new \RuntimeException(sprintf('Try to call an undefined method: %s::%s()', get_class($this), $methodName));
+        throw new \RuntimeException(
+            sprintf('Try to call an undefined method: %s::%s()', get_class($this), $methodName)
+        );
     }
 
     /**

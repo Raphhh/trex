@@ -100,14 +100,7 @@ class ClassLoader
             return include_once $classPath;
 
         } elseif ($this->isErrorDisplayed() && $this->hasToDisplayError()) {
-            throw new \Exception(
-                sprintf(
-                    'No file found for class %s with the path %s',
-                    $className,
-                    $classPath
-                ),
-                E_USER_ERROR
-            );
+            throw new \Exception(sprintf('No file found for class %s with the path %s', $className, $classPath));
         }
         return null;
     }

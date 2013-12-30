@@ -7,6 +7,7 @@ use TRex\Core\Object;
  * Adapts \ArrayIterator to TRex\Iterator IObjectsIterator.
  *
  * @package TRex\Iterator
+ * @transient
  * @internal
  */
 class IteratorAdapter extends Object implements IObjectsIterator

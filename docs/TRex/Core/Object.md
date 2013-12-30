@@ -2,11 +2,11 @@
 
 TRex\Core\Object is low level class which have to be extended.
 
-## Dynamical object
+## Dynamic object
 
-### Prevent dynamical property
+### Prevent dynamic property
 
-By default, PHP classes are dynamical with properties. You can add a property to an object, event if that property was not declared in the class. This causes a lot of confusion and is a source of bugs.
+By default, PHP classes are dynamic with properties. You can add a property to an object, event if that property was not declared in the class. This causes a lot of confusion and is a source of bugs.
 
 In using TRex\Core\Object, this behavior is canceled.
 
@@ -15,17 +15,17 @@ In using TRex\Core\Object, this behavior is canceled.
     $foo = new Foo();
     $foo->none = 'none'; // exception is thrown
 
-You can return to the initial behavior with Object::setIsDynamical()
+You can return to the initial behavior with Object::setIsDynamic()
 
     class Foo extends TRex/Core/Object{}
 
     $foo = new Foo();
-    $foo->setIsDynamical(true);
+    $foo->setIsDynamic(true);
     $foo->none = 'none';
 
-### Allow dynamical method
+### Allow dynamic method
 
-By default, PHP classes are not dynamical with methods. you can not add a method to an object.
+By default, PHP classes are not dynamic with methods. you can not add a method to an object.
 
 In using TRex\Core\Object, this behavior is allowed.
 

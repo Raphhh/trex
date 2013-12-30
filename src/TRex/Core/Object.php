@@ -17,7 +17,7 @@ abstract class Object implements IObject
      *
      * @var bool
      */
-    private $isDynamical = false;
+    private $isDynamic = false;
 
     /**
      * List of dynamically added methods.
@@ -51,7 +51,7 @@ abstract class Object implements IObject
      */
     public function __get($propertyName)
     {
-        if (!$this->isDynamical()) {
+        if (!$this->isDynamic()) {
             throw new \RuntimeException(sprintf('Try to access to an undefined property: %s::%s', get_class($this), $propertyName));
         }
         return $this->getProperty($propertyName);
@@ -67,7 +67,7 @@ abstract class Object implements IObject
      */
     public function __set($propertyName, $value)
     {
-        if (!$this->isDynamical()) {
+        if (!$this->isDynamic()) {
             throw new \RuntimeException(sprintf('Try to mutate an undefined property: %s::%s', get_class($this), $propertyName));
         }
         $this->setProperty($propertyName, $value);
@@ -97,19 +97,19 @@ abstract class Object implements IObject
      *
      * @return boolean
      */
-    public function isDynamical()
+    public function isDynamic()
     {
-        return $this->isDynamical;
+        return $this->isDynamic;
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param boolean $isDynamical
+     * @param boolean $isDynamic
      */
-    public function setIsDynamical($isDynamical)
+    public function setIsDynamic($isDynamic)
     {
-        $this->isDynamical = $isDynamical;
+        $this->isDynamic = $isDynamic;
     }
 
     /**
@@ -158,7 +158,7 @@ abstract class Object implements IObject
     }
 
     /**
-     * Dynamical getter of $propertyName.
+     * Dynamic getter of $propertyName.
      *
      * @param string $name
      * @return mixed
@@ -172,7 +172,7 @@ abstract class Object implements IObject
     }
 
     /**
-     * Dynamical setter of $propertyName.
+     * Dynamic setter of $propertyName.
      *
      * @param string $name
      * @param mixed $value

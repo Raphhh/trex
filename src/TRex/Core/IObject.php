@@ -11,21 +11,21 @@ use TRex\Serialization\IJsonCastable;
 interface IObject extends IArrayCastable, IJsonCastable
 {
     /**
-     * Indicates if the object has dynamical properties access.
+     * Indicates if the object has dynamic properties access.
      *
      * @return bool
      */
-    public function isDynamical();
+    public function isDynamic();
 
     /**
-     * Sets dynamical properties access.
+     * Sets dynamic properties access.
      *
-     * @param bool $isDynamical
+     * @param bool $isDynamic
      */
-    public function setIsDynamical($isDynamical);
+    public function setIsDynamic($isDynamic);
 
     /**
-     * Adds a dynamical method to the object.
+     * Adds a dynamic method to the object.
      *
      * @param string $name
      * @param \Closure $method

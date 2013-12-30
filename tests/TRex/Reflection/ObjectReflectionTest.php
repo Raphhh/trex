@@ -36,4 +36,3 @@ class ObjectReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($object, $reflectedClass->getObject());
     }
 }
- 

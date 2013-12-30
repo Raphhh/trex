@@ -96,4 +96,3 @@ abstract class Enum extends Object implements IEnum
         return in_array($value, $this->getConstList(), true);
     }
 }
- 

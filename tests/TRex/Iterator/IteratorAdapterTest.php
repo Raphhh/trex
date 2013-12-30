@@ -183,4 +183,3 @@ class IteratorAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(1, 2, 3), $iteratorAdapter->toArray());
     }
 }
- 

@@ -21,4 +21,3 @@ class MethodReflection extends AttributeReflection
         return '\ReflectionMethod';
     }
 }
- 

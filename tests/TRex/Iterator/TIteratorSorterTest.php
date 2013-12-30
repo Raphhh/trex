@@ -127,4 +127,3 @@ class TIteratorSorterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array_reverse($data, false), $objects->reverse(false)->toArray());
     }
 }
- 

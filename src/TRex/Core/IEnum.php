@@ -44,4 +44,3 @@ interface IEnum
      */
     public function is($expectedValue);
 }
- 

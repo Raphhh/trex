@@ -116,4 +116,3 @@ abstract class AttributeReflection extends Reflection
      */
     abstract protected function getReflectorClassName();
 }
- 

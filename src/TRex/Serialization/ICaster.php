@@ -9,4 +9,3 @@ interface ICaster
 {
     public function cast($data);
 }
- 

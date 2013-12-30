@@ -26,4 +26,3 @@ class SortTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('usort', $sortType->getValue(true));
     }
 }
- 

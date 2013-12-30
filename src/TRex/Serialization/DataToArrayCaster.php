@@ -43,4 +43,3 @@ class DataToArrayCaster extends Object implements ICaster
         ));
     }
 }
- 

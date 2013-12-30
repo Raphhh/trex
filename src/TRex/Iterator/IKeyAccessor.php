@@ -40,4 +40,4 @@ interface IKeyAccessor
      */
     public function getLastKey();
 
-} 
+}

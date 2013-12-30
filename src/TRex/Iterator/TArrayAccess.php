@@ -55,4 +55,4 @@ trait TArrayAccess
     {
         $this->getIterator()->removeAt($offset);
     }
-} 
+}

@@ -93,4 +93,3 @@ class ClassReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('TRex\Reflection\resources\Foo::bar', $reflectedProperties[1]->getName(true));
     }
 }
- 

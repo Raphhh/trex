@@ -33,4 +33,3 @@ interface IObjectsModifier
      */
     public function filter(\Closure $callback = null);
 }
- 

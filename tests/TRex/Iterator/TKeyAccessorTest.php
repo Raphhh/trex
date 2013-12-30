@@ -75,4 +75,3 @@ class TKeyAccessorTest extends \PHPUnit_Framework_TestCase
         return new IteratorAdapter(new \ArrayIterator($data));
     }
 }
- 

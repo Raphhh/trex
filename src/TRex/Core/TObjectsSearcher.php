@@ -47,4 +47,3 @@ trait TObjectsSearcher
         return array_keys($this->toArray(), $value, $searchMode === IObjectsSearcher::STRICT_SEARCH_MODE);
     }
 }
- 

@@ -92,4 +92,3 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('TRex\Reflection\resources\Foo', $classReflection->getName());
     }
 }
- 

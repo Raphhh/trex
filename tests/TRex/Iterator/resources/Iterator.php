@@ -10,11 +10,9 @@ use TRex\Iterator\TIterator;
  */
 class Iterator
 {
-
     use TIterator;
 
     function getIterator()
     {
     }
 }
- 

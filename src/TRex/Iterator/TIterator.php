@@ -138,4 +138,4 @@ trait TIterator
     {
         return $this->getIterator()->toArray();
     }
-} 
+}

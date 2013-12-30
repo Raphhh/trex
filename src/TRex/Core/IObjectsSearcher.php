@@ -39,4 +39,3 @@ interface IObjectsSearcher
      */
     public function search($value, $searchMode = self::STRICT_SEARCH_MODE);
 }
- 

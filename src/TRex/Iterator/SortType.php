@@ -43,4 +43,3 @@ class SortType extends Enum
         return parent::getValue();
     }
 }
- 

@@ -8,4 +8,3 @@ class FooEnum extends Enum
     const A = 'a';
     const B = 'b';
 }
- 

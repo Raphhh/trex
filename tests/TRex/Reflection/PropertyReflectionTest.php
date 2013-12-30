@@ -103,4 +103,3 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('bar', $reflectedProperty->getValue(new Foo()));
     }
 }
- 

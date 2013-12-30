@@ -10,4 +10,3 @@ class Foo extends Bar
     public $foo = 'foo from foo';
     public $bar = 'bar from foo';
 }
- 

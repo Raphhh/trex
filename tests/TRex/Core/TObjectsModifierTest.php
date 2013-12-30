@@ -269,4 +269,3 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($data[1], $result[1]);
     }
 }
- 

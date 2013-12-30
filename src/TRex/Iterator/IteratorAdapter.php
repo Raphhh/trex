@@ -168,4 +168,4 @@ class IteratorAdapter extends Object implements IObjectsIterator
     {
         return $this->arrayIterator;
     }
-} 
+}

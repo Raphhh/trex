@@ -87,4 +87,3 @@ class DataToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(), $caster->cast(null));
     }
 }
- 

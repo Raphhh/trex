@@ -32,4 +32,3 @@ interface IObject extends IArrayCastable, IJsonCastable
      */
     public function addMethod($name, \Closure $method);
 }
- 

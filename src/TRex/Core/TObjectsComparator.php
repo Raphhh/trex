@@ -151,4 +151,4 @@ trait TObjectsComparator
         array_push($array, $value);
         return $array;
     }
-} 
+}

@@ -12,4 +12,3 @@ interface IJsonCastable
      */
     public function toJson($options = JSON_PRETTY_PRINT);
 }
- 

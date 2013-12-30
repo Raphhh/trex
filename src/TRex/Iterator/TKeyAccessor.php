@@ -77,4 +77,4 @@ trait TKeyAccessor
         }
         return $index;
     }
-} 
+}

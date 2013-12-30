@@ -80,6 +80,4 @@ class TObjectsSearcherTest extends \PHPUnit_Framework_TestCase
         $objects = new Objects(array(1, '1'));
         $this->assertSame(array(0, 1), $objects->search('/[0-9]/', IObjects::REGEX_SEARCH_MODE));
     }
-
 }
- 

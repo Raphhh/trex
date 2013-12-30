@@ -44,4 +44,3 @@ class RecursiveClass
         $this->recursiveObject2 = $this->recursiveObject1;
     }
 }
- 

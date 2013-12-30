@@ -29,4 +29,3 @@ class RecursiveArray
         $this->recursiveObjects[2] = $this->recursiveObjects[1];
     }
 }
- 

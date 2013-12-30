@@ -90,4 +90,4 @@ interface IIterator
      * @return array
      */
     public function toArray();
-} 
+}

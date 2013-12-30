@@ -48,4 +48,3 @@ class ObjectReflection extends ClassReflection
         $this->object = $object;
     }
 }
- 

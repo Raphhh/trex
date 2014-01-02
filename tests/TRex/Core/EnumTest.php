@@ -51,15 +51,6 @@ class EnumTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests == comparison.
-     */
-    public function testComparison()
-    {
-        $a = new FooEnum('a');
-        $this->assertTrue($a == FooEnum::A);
-    }
-
-    /**
      * test geValue.
      */
     public function testGetValue()

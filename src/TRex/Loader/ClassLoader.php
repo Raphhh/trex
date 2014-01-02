@@ -272,7 +272,7 @@ class ClassLoader
     private function getPaths($vendorName, $key, callable $callback)
     {
         if ($this->hasVendor($vendorName)) {
-            if (!isset($this->vendors[$vendorName][$key])) { //todo: cache not unit tested
+            if (!isset($this->vendors[$vendorName][$key])) {
                 $this->vendors[$vendorName][$key] = call_user_func($callback, $this->getSourcePath($vendorName));
             }
             return $this->vendors[$vendorName][$key];
@@ -332,7 +332,7 @@ class ClassLoader
     private function extractBaseDir($path)
     {
         $matches = array();
-        if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) { //TODO: or simply strpos($path, DIRECTORY_SEPARATOR)?
+        if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) {
             return $matches[1] . DIRECTORY_SEPARATOR;
         }
         return ''; //this case does not normally happen, because self::normalizePath add to $path a dir separator.

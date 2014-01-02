@@ -13,7 +13,7 @@ abstract class Object implements IObject
 {
 
     /**
-     * Indicate if properties can be create dynamically.
+     * Indicates whether the properties of the current object can be created dynamically.
      *
      * @var bool
      */

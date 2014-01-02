@@ -53,7 +53,7 @@ class ClassLoader
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param bool $isErrorDisplayed
 	 */
 	public function __construct($isErrorDisplayed = false)
@@ -100,7 +100,10 @@ class ClassLoader
             return include_once $classPath;
 
         } elseif ($this->isErrorDisplayed() && $this->hasToDisplayError()) {
-            throw new \Exception(sprintf('No file found for class %s with the path %s', $className, $classPath));
+            throw new \Exception(
+                sprintf('No file found for class %s with the path %s', $className, $classPath),
+                E_USER_ERROR
+            );
         }
         return null;
     }
@@ -114,7 +117,7 @@ class ClassLoader
      */
     public function getClassPath($className)
     {
-        $className = ltrim($className, '\\');
+        $className = $this->normalizeClassName($className);
         $vendorName = $this->extractVendorName($className);
         if ($this->hasVendor($vendorName)) {
             return $this->getRealPath($vendorName) . $this->parseClassPath($className);
@@ -281,7 +284,8 @@ class ClassLoader
     }
 
     /**
-     * Test if a path is well formatted and normalize it.
+     * Formats a path.
+     * The path will ends with a directory separator.
      *
      * @param string $path
      * @return string
@@ -289,6 +293,18 @@ class ClassLoader
     private function normalizePath($path)
     {
         return rtrim($path, '/\\') . DIRECTORY_SEPARATOR;
+    }
+
+    /**
+     * Formats a class name.
+     * All classes will be resolved from the root namespace separator.
+     *
+     * @param $className
+     * @return string
+     */
+    private function normalizeClassName($className)
+    {
+        return ltrim($className, '\\');
     }
 
     /**
@@ -332,7 +348,7 @@ class ClassLoader
     private function extractBaseDir($path)
     {
         $matches = array();
-        if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) {
+        if (preg_match('#(.*?)(/|\\\)#', $path, $matches)) { //extracts first word before "\" or "/".
             return $matches[1] . DIRECTORY_SEPARATOR;
         }
         return ''; //this case does not normally happen, because self::normalizePath add to $path a dir separator.
@@ -347,7 +363,7 @@ class ClassLoader
     private function extractVendorName($className)
     {
         $matches = array();
-        if (preg_match('#(.*?)(/|\\\|_)#', $className, $matches)) {
+        if (preg_match('#(.*?)(/|\\\|_)#', $className, $matches)) { //extracts first word before "\" or "_".
             return $matches[1];
         }
         return '';
@@ -355,15 +371,19 @@ class ClassLoader
 
     /**
      * Convert a class name in a file path.
+     * Handle two format:
+     *     - format with underscore as separator: Vendor_Package_Class.
+     *     - format with namespace separator: Vendor\Package\Class.
+     * Class name must not start with namespace separator, or the path will start with a directory separator.
      *
      * @param $className
      * @return string
      */
     private function parseClassPath($className)
     {
-        if (strpos($className, '_') !== false) {
+        if (strpos($className, '_') !== false) { //Vendor_Package_Class
             return strtr($className, '_', DIRECTORY_SEPARATOR) . self::FILE_EXTENSION;
-        } else {
+        } else {//Vendor\Package\Class
             return strtr($className, '\\', DIRECTORY_SEPARATOR) . self::FILE_EXTENSION;
         }
     }

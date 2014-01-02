@@ -6,17 +6,17 @@ TRex\Loader\ClassLoader, as its name suggests, is a PSR-0 class (auto-)loader.
 
 By activating auto-loader, TRex\Loader\ClassLoader will include the file containing your class.
 
-    TRex\Loader\ClassLoader::getInstance()->register();
+    $classLoader->register();
 
 You can stop auto-loading when you want.
 
-    TRex\Loader\ClassLoader::getInstance()->unRegister();
+    $classLoader->unRegister();
 
 ## Load class
 
 You can ask to TRex\Loader\ClassLoader to load a specific class.
 
-    TRex\Loader\ClassLoader::getInstance()->load('Vendor\Package\Class');
+    $classLoader->load('Vendor\Package\Class');
 
 See how to add a vendor if you want to use it for a specific vendor class.
 
@@ -24,12 +24,12 @@ See how to add a vendor if you want to use it for a specific vendor class.
 
 TRex\Loader\ClassLoader can resolve the root directory and real source path of a vendor. The root directory is the path to the directory containing a vendor package. The real path is the absolute path to the source.
 
-    TRex\Loader\ClassLoader::getInstance()->getRootDir('Vendor'); //$ROOT_DIR
-    TRex\Loader\ClassLoader::getInstance()->getRealPath('Vendor'); //$ROOT_DIR/src/
+    $classLoader->getRootDir('Vendor'); //$ROOT_DIR
+    $classLoader->getRealPath('Vendor'); //$ROOT_DIR/src/
 
 This class can also resolve the path of a class file.
 
-    TRex\Loader\ClassLoader::getInstance()->getClassPath('Vendor\Package\Class'); //$ROOT_DIR/src/Vendor/Package/Class
+    $classLoader->getClassPath('Vendor\Package\Class'); //$ROOT_DIR/src/Vendor/Package/Class
 
 See how to add a vendor if you want to use it for a specific vendor class.
 
@@ -42,7 +42,7 @@ By adding a vendor, you can use these features for other PHP library.
 There is three ways to add your personal vendors.
 
 	//1. add vendors when your register auto-loading
-    TRex\Loader\ClassLoader::getInstance()->register(
+    $classLoader->register(
 		array(
 			'VendorName1' => 'path/to/src1/',
 			'VendorName2' => 'path/to/src2/',
@@ -51,12 +51,12 @@ There is three ways to add your personal vendors.
 	);
 
 	//2. add vendors one by one for all the features
-    TRex\Loader\ClassLoader::getInstance()->addVendor('VendorName1', 'path/to/src1/');
-	TRex\Loader\ClassLoader::getInstance()->addVendor('VendorName2', 'path/to/src2/');
+    $classLoader->addVendor('VendorName1', 'path/to/src1/');
+	$classLoader->addVendor('VendorName2', 'path/to/src2/');
 	...
 
 	//3. add a list of vendors for all the features
-	TRex\Loader\ClassLoader::getInstance()->addVendors(
+	$classLoader->addVendors(
 	    array(
 	        'VendorName1' => 'path/to/src1',
 	        'VendorName2' => 'path/to/src2'
@@ -65,17 +65,17 @@ There is three ways to add your personal vendors.
 
 You can ask if a vendor is already added.
 
-	TRex\Loader\ClassLoader::getInstance()->hasVendor('Vendor'); //bool true if already added
+	$classLoader->hasVendor('Vendor'); //bool true if already added
 
 You can get a vendor source path and root dir.
 
-    TRex\Loader\ClassLoader::getInstance()->getSourcePath('Vendor'); // "library/path/to/src/"
-    TRex\Loader\ClassLoader::getInstance()->getRootDir('Vendor'); // "$ROOT_DIR/library/"
-    TRex\Loader\ClassLoader::getInstance()->getRealPath('Vendor'); // "$ROOT_DIR/library/path/to/src/"
+    $classLoader->getSourcePath('Vendor'); // "library/path/to/src/"
+    $classLoader->getRootDir('Vendor'); // "$ROOT_DIR/library/"
+    $classLoader->getRealPath('Vendor'); // "$ROOT_DIR/library/path/to/src/"
 
 You can remove a vendor.
 
-	TRex\Loader\ClassLoader::getInstance()->removeVendor('Vendor');
+	$classLoader->removeVendor('Vendor');
 
 ### How to compose vendor data?
 

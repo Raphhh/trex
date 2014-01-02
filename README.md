@@ -5,6 +5,10 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/Raphhh/trex/badges/coverage.png?s=ea0eee6ed113b03abd872b715217f554db09b647)](https://scrutinizer-ci.com/g/Raphhh/trex/)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d52b1df3-646c-4d91-818c-8590d7a02150/mini.png)](https://insight.sensiolabs.com/projects/d52b1df3-646c-4d91-818c-8590d7a02150)
 
+* [Website](http://labs.raphaellefebvre.be/trex/ "website")
+* [User guide](http://labs.raphaellefebvre.be/trex/docs/master/ "doc")
+* [API](http://labs.raphaellefebvre.be/trex/api/master/ "API")
+
 ## What is TRex?
 
 TRex is a light toolbox with low level classes implemented with standard missing features.
@@ -135,7 +139,3 @@ You can cache your method result without using a local property.
     $result = $foo->concat('b');
     echo $result; //ab
 
-
-## Resources
-
-For documentation, see TRex/docs/

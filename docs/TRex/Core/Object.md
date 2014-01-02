@@ -15,12 +15,12 @@ In using TRex\Core\Object, this behavior is canceled.
     $foo = new Foo();
     $foo->none = 'none'; // exception is thrown
 
-You can return to the initial behavior with Object::setIsDynamic()
+You can return to the initial behavior with Object::setDynamic()
 
     class Foo extends TRex/Core/Object{}
 
     $foo = new Foo();
-    $foo->setIsDynamic(true);
+    $foo->setDynamic(true);
     $foo->none = 'none';
 
 ### Allow dynamic method

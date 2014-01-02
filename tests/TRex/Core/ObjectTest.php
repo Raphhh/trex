@@ -37,7 +37,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     public function test__getByGetter()
     {
         $foo = new Foo();
-        $foo->setIsDynamic(true);
+        $foo->setDynamic(true);
         $this->assertSame('BAR', $foo->bar);
     }
 
@@ -49,7 +49,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     public function test__getAllowed()
     {
         $foo = new Foo();
-        $foo->setIsDynamic(true);
+        $foo->setDynamic(true);
         $this->assertNull($foo->none);
     }
 
@@ -72,7 +72,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     public function test__setByGetter()
     {
         $foo = new Foo();
-        $foo->setIsDynamic(true);
+        $foo->setDynamic(true);
         $foo->bar = 'test';
         $this->assertAttributeSame('TEST', 'bar', $foo);
     }
@@ -83,7 +83,7 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     public function test__setAllowed()
     {
         $foo = new Foo();
-        $foo->setIsDynamic(true);
+        $foo->setDynamic(true);
         $foo->none = 'none';
         $this->assertTrue(property_exists($foo, 'none'));
     }

@@ -35,16 +35,6 @@ abstract class Enum extends Object implements IEnum
     /**
      * {@inheritDoc}
      *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string)$this->getValue();
-    }
-
-    /**
-     * {@inheritDoc}
-     *
      * @return array
      */
     public function getConstList()

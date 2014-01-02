@@ -82,4 +82,3 @@ class JsonTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(json_encode($data, JSON_PRETTY_PRINT), (string)$json);
     }
 }
- 

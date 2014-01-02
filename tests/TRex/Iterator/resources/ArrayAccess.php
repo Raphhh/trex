@@ -12,7 +12,7 @@ class ArrayAccess
 {
     use TArrayAccess;
 
-    function getIterator()
+    public function getIterator()
     {
     }
 }

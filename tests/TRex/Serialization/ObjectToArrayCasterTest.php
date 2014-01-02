@@ -89,7 +89,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
+        $caster->setExplicitRecursion(true);
         $this->assertSame(
             array(
                 'recursiveObject0' => ObjectToArrayCaster::RECURSION_VALUE,
@@ -141,7 +141,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
+        $caster->setExplicitRecursion(true);
         $caster->setIsRecursive(false);
 
         $this->assertSame(
@@ -167,7 +167,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObjects[2], $recursiveObject->recursiveObjects[1]);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
+        $caster->setExplicitRecursion(true);
         $this->assertSame(
             array(
                 'recursiveObjects' => array(
@@ -222,7 +222,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObjects[2], $recursiveObject->recursiveObjects[1]);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
+        $caster->setExplicitRecursion(true);
         $caster->setIsRecursive(false);
 
         $this->assertSame(

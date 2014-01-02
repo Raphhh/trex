@@ -83,7 +83,7 @@ class ObjectToArrayCaster extends Object implements ICaster
      *
      * @param boolean $isExplicitRecursion
      */
-    public function setIsExplicitRecursion($isExplicitRecursion)
+    public function setExplicitRecursion($isExplicitRecursion)
     {
         $this->isExplicitRecursion = $isExplicitRecursion;
     }

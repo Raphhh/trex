@@ -16,9 +16,11 @@ class Bar
 
     private function getFoo()
     {
+        return $this->foo;
     }
 
     private function getBar()
     {
+        return $this->bar;
     }
 }

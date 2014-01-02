@@ -142,7 +142,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
 
         $caster = new ObjectToArrayCaster();
         $caster->setExplicitRecursion(true);
-        $caster->setIsRecursive(false);
+        $caster->setRecursive(false);
 
         $this->assertSame(
             array(
@@ -223,7 +223,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
 
         $caster = new ObjectToArrayCaster();
         $caster->setExplicitRecursion(true);
-        $caster->setIsRecursive(false);
+        $caster->setRecursive(false);
 
         $this->assertSame(
             array(

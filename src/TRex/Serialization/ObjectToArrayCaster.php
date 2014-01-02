@@ -143,7 +143,7 @@ class ObjectToArrayCaster extends Object implements ICaster
      *
      * @param boolean $isRecursive
      */
-    public function setIsRecursive($isRecursive)
+    public function setRecursive($isRecursive)
     {
         $this->isRecursive = $isRecursive;
     }

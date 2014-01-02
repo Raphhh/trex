@@ -39,5 +39,4 @@ interface IKeyAccessor
      * @return mixed|null
      */
     public function getLastKey();
-
 }

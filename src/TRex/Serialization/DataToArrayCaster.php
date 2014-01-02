@@ -1,6 +1,7 @@
 <?php
 namespace TRex\Serialization;
 
+use TRex\Core\Json;
 use TRex\Core\Object;
 
 /**
@@ -28,14 +29,14 @@ class DataToArrayCaster extends Object implements ICaster
             case is_array($data):
                 return $data;
 
+            case $data instanceof IArrayCastable:
+                return $data->toArray();
+
             case is_object($data):
                 return (array)$data;
 
             case is_string($data):
-                $result = json_decode($data, true);
-                if (is_array($result)) { //only if the conversion succeeded.
-                    return $result;
-                }
+                return Json::createFromString($data)->toArray();
         }
         throw new \InvalidArgumentException(
             sprintf('$data must be a JSON, an array or an array castable object: %s given.', gettype($data))

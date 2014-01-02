@@ -184,15 +184,14 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
     public function testToJson()
     {
         $foo = new Foo();
+        $result = $foo->toJson();
+        $this->assertInstanceOf('TRex\Core\Json', $result);
         $this->assertSame(
-            json_encode(
-                array(
-                    'foo' => 'foo from foo',
-                    'bar' => 'bar from bar'
-                ),
-                JSON_PRETTY_PRINT
+            array(
+                'foo' => 'foo from foo',
+                'bar' => 'bar from bar'
             ),
-            $foo->toJson()
+            $result->toArray()
         );
     }
 }

@@ -58,7 +58,7 @@ class ClassLoader
 	 */
 	public function __construct($isErrorDisplayed = false)
     {
-        $this->setIsErrorDisplayed($isErrorDisplayed);
+        $this->setErrorDisplayed($isErrorDisplayed);
     }
 
     /**
@@ -256,7 +256,7 @@ class ClassLoader
      *
      * @param boolean $isErrorDisplayed
      */
-    public function setIsErrorDisplayed($isErrorDisplayed)
+    public function setErrorDisplayed($isErrorDisplayed)
     {
         $this->isErrorDisplayed = (boolean)$isErrorDisplayed;
     }

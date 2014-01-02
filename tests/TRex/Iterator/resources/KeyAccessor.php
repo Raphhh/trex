@@ -12,7 +12,7 @@ class KeyAccessor
 {
     use TKeyAccessor;
 
-    function getIterator()
+    public function getIterator()
     {
     }
 }

@@ -12,7 +12,7 @@ class Iterator
 {
     use TIterator;
 
-    function getIterator()
+    public function getIterator()
     {
     }
 }

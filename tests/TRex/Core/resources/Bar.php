@@ -20,4 +20,23 @@ class Bar extends Object
      */
     private $bar = 'bar from bar';
 
+    /**
+     * Getter of $bar
+     *
+     * @return string
+     */
+    public function getBar()
+    {
+        return $this->bar;
+    }
+
+    /**
+     * Getter of $foo
+     *
+     * @return string
+     */
+    public function getFoo()
+    {
+        return $this->foo;
+    }
 }

@@ -43,6 +43,36 @@ class Json extends Object
     }
 
     /**
+     * @param $errorNo
+     * @return string
+     */
+    public static function getErrorMessage($errorNo)
+    {
+        switch ($errorNo) {
+            case JSON_ERROR_NONE:
+                return 'No errors';
+
+            case JSON_ERROR_DEPTH:
+                return 'Maximum stack depth exceeded';
+
+            case JSON_ERROR_STATE_MISMATCH:
+                return 'Underflow or the modes mismatch';
+
+            case JSON_ERROR_CTRL_CHAR:
+                return 'Unexpected control character found';
+
+            case JSON_ERROR_SYNTAX:
+                return 'Syntax error, malformed JSON';
+
+            case JSON_ERROR_UTF8:
+                return 'Malformed UTF-8 characters, possibly incorrectly encoded';
+
+            default:
+                return 'Unknown error';
+        }
+    }
+
+    /**
      * @param mixed $data
      */
     public function __construct($data)
@@ -100,35 +130,5 @@ class Json extends Object
     private function setData(array $data)
     {
         $this->data = $data;
-    }
-
-    /**
-     * @param $errorNo
-     * @return string
-     */
-    private static function getErrorMessage($errorNo)
-    {
-        switch ($errorNo) {
-            case JSON_ERROR_NONE:
-                return 'No errors';
-
-            case JSON_ERROR_DEPTH:
-                return 'Maximum stack depth exceeded';
-
-            case JSON_ERROR_STATE_MISMATCH:
-                return 'Underflow or the modes mismatch';
-
-            case JSON_ERROR_CTRL_CHAR:
-                return 'Unexpected control character found';
-
-            case JSON_ERROR_SYNTAX:
-                return 'Syntax error, malformed JSON';
-
-            case JSON_ERROR_UTF8:
-                return 'Malformed UTF-8 characters, possibly incorrectly encoded';
-
-            default:
-                return 'Unknown error';
-        }
     }
 }

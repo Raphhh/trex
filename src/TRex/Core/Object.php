@@ -113,7 +113,7 @@ abstract class Object implements IObject
      *
      * @param boolean $isDynamic
      */
-    public function setIsDynamic($isDynamic)
+    public function setDynamic($isDynamic)
     {
         $this->isDynamic = $isDynamic;
     }

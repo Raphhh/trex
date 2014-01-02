@@ -83,7 +83,7 @@ class ObjectToArrayCaster extends Object implements ICaster
      *
      * @param boolean $isExplicitRecursion
      */
-    public function setIsExplicitRecursion($isExplicitRecursion)
+    public function setExplicitRecursion($isExplicitRecursion)
     {
         $this->isExplicitRecursion = $isExplicitRecursion;
     }
@@ -123,7 +123,7 @@ class ObjectToArrayCaster extends Object implements ICaster
      *
      * @param boolean $isFullName
      */
-    public function setIsFullName($isFullName)
+    public function setFullName($isFullName)
     {
         $this->isFullName = $isFullName;
     }
@@ -143,7 +143,7 @@ class ObjectToArrayCaster extends Object implements ICaster
      *
      * @param boolean $isRecursive
      */
-    public function setIsRecursive($isRecursive)
+    public function setRecursive($isRecursive)
     {
         $this->isRecursive = $isRecursive;
     }

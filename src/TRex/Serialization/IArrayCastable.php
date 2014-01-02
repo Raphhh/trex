@@ -15,5 +15,4 @@ interface IArrayCastable
      * @return array
      */
     public function toArray();
-
 }

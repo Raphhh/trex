@@ -304,7 +304,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadKoWithError(ClassLoader $classLoader)
     {
-		$classLoader->setIsErrorDisplayed(true);
+        $classLoader->setErrorDisplayed(true);
         $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
 		return $classLoader;
     }

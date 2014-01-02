@@ -22,7 +22,7 @@ interface IObject extends IArrayCastable, IJsonCastable
      *
      * @param bool $isDynamic
      */
-    public function setIsDynamic($isDynamic);
+    public function setDynamic($isDynamic);
 
     /**
      * Adds a dynamic method to the object.

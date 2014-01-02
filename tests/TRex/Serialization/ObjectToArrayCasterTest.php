@@ -65,7 +65,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
     public function testCastWithFullName()
     {
         $caster = new ObjectToArrayCaster();
-        $caster->setIsFullName(true);
+        $caster->setFullName(true);
         $this->assertSame(
             array(
                 'TRex\Serialization\resources\Foo::bar' => 'bar from foo',
@@ -89,7 +89,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
+        $caster->setExplicitRecursion(true);
         $this->assertSame(
             array(
                 'recursiveObject0' => ObjectToArrayCaster::RECURSION_VALUE,
@@ -141,8 +141,8 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObject2, $recursiveObject->recursiveObject1);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
-        $caster->setIsRecursive(false);
+        $caster->setExplicitRecursion(true);
+        $caster->setRecursive(false);
 
         $this->assertSame(
             array(
@@ -167,7 +167,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObjects[2], $recursiveObject->recursiveObjects[1]);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
+        $caster->setExplicitRecursion(true);
         $this->assertSame(
             array(
                 'recursiveObjects' => array(
@@ -222,8 +222,8 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($recursiveObject->recursiveObjects[2], $recursiveObject->recursiveObjects[1]);
 
         $caster = new ObjectToArrayCaster();
-        $caster->setIsExplicitRecursion(true);
-        $caster->setIsRecursive(false);
+        $caster->setExplicitRecursion(true);
+        $caster->setRecursive(false);
 
         $this->assertSame(
             array(

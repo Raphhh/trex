@@ -42,18 +42,6 @@ abstract class AttributeReflection extends Reflection
     const STATIC_FILTER = \ReflectionProperty::IS_STATIC;
 
     /**
-     * Instantiate a new AttributeReflection from a PHP reflector.
-     *
-     * @param \ReflectionProperty|\ReflectionMethod $reflectedAttribute //TODO no possibility of typing
-     * @return mixed
-     */
-    public static function instantiate($reflectedAttribute)
-    {
-        $className = get_called_class();
-        return new $className($reflectedAttribute->getDeclaringClass()->getName(), $reflectedAttribute->getName());
-    }
-
-    /**
      * Details of the name of the reflected attribute
      * and the name of the class from which we can access to the attribute declaration.
      * You can recover the class reflector with self::getClassReflection().

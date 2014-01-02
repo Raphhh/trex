@@ -65,7 +65,7 @@ class ObjectToArrayCasterTest extends \PHPUnit_Framework_TestCase
     public function testCastWithFullName()
     {
         $caster = new ObjectToArrayCaster();
-        $caster->setIsFullName(true);
+        $caster->setFullName(true);
         $this->assertSame(
             array(
                 'TRex\Serialization\resources\Foo::bar' => 'bar from foo',

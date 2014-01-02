@@ -123,7 +123,7 @@ class ObjectToArrayCaster extends Object implements ICaster
      *
      * @param boolean $isFullName
      */
-    public function setIsFullName($isFullName)
+    public function setFullName($isFullName)
     {
         $this->isFullName = $isFullName;
     }

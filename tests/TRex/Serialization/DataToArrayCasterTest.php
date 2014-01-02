@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Serialization;
 
+use TRex\Serialization\resources\Bar;
+
 class DataToArrayCasterTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -30,6 +32,21 @@ class DataToArrayCasterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests cast with IArrayCastable param.
+     */
+    public function testFormatIArrayCastable()
+    {
+        $caster = new DataToArrayCaster();
+        $this->assertSame(
+            array(
+                'foo' => 'foo from bar',
+                'bar' => 'bar from bar',
+            ),
+            $caster->cast(new Bar())
+        );
+    }
+
+    /**
      * Tests cast with std object param.
      */
     public function testFormatStdObject()
@@ -45,8 +62,8 @@ class DataToArrayCasterTest extends \PHPUnit_Framework_TestCase
      * Tests cast with string param.
      * json_decode for '1' return value 1. so we have to test if an exception is thrown.
      *
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $data must be a JSON, an array or an array castable object: string given.
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage JSON string can not be decoded: "1" (Error: #0 - No errors)
      */
     public function testFormatString()
     {

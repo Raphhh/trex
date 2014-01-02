@@ -1,8 +1,8 @@
 {
-    "name": "Raphhh/TRex",
+    "name": "raphhh/trex",
     "description": "A light PHP toolbox with low level classes",
     "type": "library",
-    "keywords": ["TRex"],
+    "keywords": ["TRex", "T-Rex"],
     "homepage": "http://labs.raphaellefebvre.be/TRex",
     "license": "MIT",
     "authors": [

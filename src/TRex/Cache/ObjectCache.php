@@ -33,7 +33,7 @@ class ObjectCache extends Object
      * @param $cachedObject
      * @return ObjectCache
      */
-    static public function call($cachedObject)
+    public static function call($cachedObject)
     {
         self::getInstance()->setCachedObject($cachedObject);
         return self::getInstance();

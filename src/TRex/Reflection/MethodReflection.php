@@ -32,4 +32,14 @@ class MethodReflection extends AttributeReflection
     {
         return '\ReflectionMethod';
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return string
+     */
+    protected function getTypeDocTag()
+    {
+        return 'return';
+    }
 }

@@ -50,11 +50,21 @@ abstract class AttributeReflection extends Reflection
     private $annotations;
 
     /**
+     * @var TypeReflection[]
+     */
+    private $typeReflections;
+
+    /**
      * Returns the name of the PHP reflector to associate with this class.
      *
      * @return string
      */
     abstract protected function getReflectorClassName();
+
+    /**
+     * @return string
+     */
+    abstract protected function getTypeDocTag();
 
     /**
      * Details of the name of the reflected attribute
@@ -126,6 +136,17 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
+     * @return TypeReflection[]
+     */
+    public function getTypeReflections()
+    {
+        if (null == $this->typeReflections) {
+            $this->setTypeReflections($this->buildTypeReflections());
+        }
+        return $this->typeReflections;
+    }
+
+    /**
      * @return Annotations
      */
     private function buildAnnotations()
@@ -142,5 +163,36 @@ abstract class AttributeReflection extends Reflection
     private function setAnnotations(Annotations $annotations)
     {
         $this->annotations = $annotations;
+    }
+
+    /**
+     * @return array
+     */
+    private function buildTypeReflections()
+    {
+        $result = array();
+        foreach ($this->getTypes() as $type) {
+            $result[] = new TypeReflection($type);
+        }
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    private function getTypes()
+    {
+        $annotationParser = new AnnotationParser();
+        return $annotationParser->parseTypeComment($this->getAnnotations()->get($this->getTypeDocTag())->first());
+    }
+
+    /**
+     * Setter of $typeReflections
+     *
+     * @param \TRex\Reflection\TypeReflection[] $typeReflections
+     */
+    private function setTypeReflections(array $typeReflections)
+    {
+        $this->typeReflections = $typeReflections;
     }
 }

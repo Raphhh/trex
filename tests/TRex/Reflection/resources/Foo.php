@@ -14,6 +14,8 @@ class Foo extends Bar
     /**
      * @tag test
      * @var string|null comment with no sens
+     * @var mixed
+     * @return int
      */
     protected $bar = 'bar';
 
@@ -24,7 +26,9 @@ class Foo extends Bar
 
     /**
      * @tag test
-     * @return null|string
+     * @return string|null  comment with no sens
+     * @return mixed
+     * @var int
      */
     private function getBar()
     {

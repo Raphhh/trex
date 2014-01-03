@@ -45,4 +45,14 @@ class PropertyReflection extends AttributeReflection
     {
         return '\ReflectionProperty';
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return string
+     */
+    protected function getTypeDocTag()
+    {
+        return 'var';
+    }
 }

@@ -17,7 +17,14 @@ class AnnotationParser extends Object
      */
     public function getAnnotations($docComment)
     {
-        return new Annotations($this->parse($docComment));
+        $result = new Annotations();
+        foreach ($this->explode($docComment) as $values) {
+            if (!isset($result[$values[1]])) {
+                $result[$values[1]] = new Annotation();
+            }
+            $result[$values[1]][] = trim($values[2]);
+        }
+        return $result;
     }
 
     /**
@@ -31,22 +38,6 @@ class AnnotationParser extends Object
             return explode('|', $words[0]);
         }
         return array();
-    }
-
-    /**
-     * @param string $docComment
-     * @return array
-     */
-    private function parse($docComment)
-    {
-        $result = array();
-        foreach ($this->explode($docComment) as $values) {
-            if (!isset($result[$values[1]])) {
-                $result[$values[1]] = new Annotation();
-            }
-            $result[$values[1]][] = trim($values[2]);
-        }
-        return $result;
     }
 
     /**

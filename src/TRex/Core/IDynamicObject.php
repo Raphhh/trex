@@ -29,4 +29,3 @@ interface IDynamicObject
      */
     public function addMethod($name, \Closure $method);
 }
- 

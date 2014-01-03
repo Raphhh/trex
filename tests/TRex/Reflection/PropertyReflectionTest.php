@@ -102,4 +102,11 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
         $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'bar');
         $this->assertSame('bar', $reflectedProperty->getValue(new Foo()));
     }
+
+    public function testGetAnnotations()
+    {
+        $reflectedProperty = new PropertyReflection('TRex\Reflection\resources\Foo', 'bar');
+        $this->assertInstanceOf('TRex\Annotation\Annotations', $reflectedProperty->getAnnotations());
+        $this->assertSame('test', $reflectedProperty->getAnnotations()->get('tag')->first());
+    }
 }

@@ -1,6 +1,9 @@
 <?php
 namespace TRex\Reflection;
 
+use TRex\Annotation\AnnotationParser;
+use TRex\Annotation\Annotations;
+
 /**
  * Class AttributeReflection
  * Main class for reflection of the different parts of a class.
@@ -40,6 +43,18 @@ abstract class AttributeReflection extends Reflection
      * Filter constant.
      */
     const STATIC_FILTER = \ReflectionProperty::IS_STATIC;
+
+    /**
+     * @var Annotations
+     */
+    private $annotations;
+
+    /**
+     * Returns the name of the PHP reflector to associate with this class.
+     *
+     * @return string
+     */
+    abstract protected function getReflectorClassName();
 
     /**
      * Details of the name of the reflected attribute
@@ -100,9 +115,32 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
-     * Return the name of the PHP reflector to associate with this class.
-     *
-     * @return string
+     * @return Annotations
      */
-    abstract protected function getReflectorClassName();
+    public function getAnnotations()
+    {
+        if (null == $this->annotations) {
+            $this->setAnnotations($this->buildAnnotations());
+        }
+        return $this->annotations;
+    }
+
+    /**
+     * @return Annotations
+     */
+    private function buildAnnotations()
+    {
+        $annotationParser = new AnnotationParser();
+        return $annotationParser->getAnnotations($this->getReflector()->getDocComment());
+    }
+
+    /**
+     * Setter of $annotations
+     *
+     * @param Annotations $annotations
+     */
+    private function setAnnotations(Annotations $annotations)
+    {
+        $this->annotations = $annotations;
+    }
 }

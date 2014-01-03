@@ -8,4 +8,3 @@ class HashMethod extends Enum
     const SHA1 = 'sha1';
     const MD5 = 'md5';
 }
- 

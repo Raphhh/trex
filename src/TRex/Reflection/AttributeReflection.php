@@ -1,6 +1,9 @@
 <?php
 namespace TRex\Reflection;
 
+use TRex\Annotation\AnnotationParser;
+use TRex\Annotation\Annotations;
+
 /**
  * Class AttributeReflection
  * Main class for reflection of the different parts of a class.
@@ -40,6 +43,28 @@ abstract class AttributeReflection extends Reflection
      * Filter constant.
      */
     const STATIC_FILTER = \ReflectionProperty::IS_STATIC;
+
+    /**
+     * @var Annotations
+     */
+    private $annotations;
+
+    /**
+     * @var TypeReflection[]
+     */
+    private $typeReflections;
+
+    /**
+     * Returns the name of the PHP reflector to associate with this class.
+     *
+     * @return string
+     */
+    abstract protected function getReflectorClassName();
+
+    /**
+     * @return string
+     */
+    abstract protected function getTypeDocTag();
 
     /**
      * Details of the name of the reflected attribute
@@ -100,9 +125,74 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
-     * Return the name of the PHP reflector to associate with this class.
-     *
-     * @return string
+     * @return Annotations
      */
-    abstract protected function getReflectorClassName();
+    public function getAnnotations()
+    {
+        if (null == $this->annotations) {
+            $this->setAnnotations($this->buildAnnotations());
+        }
+        return $this->annotations;
+    }
+
+    /**
+     * @return TypeReflection[]
+     */
+    public function getTypeReflections()
+    {
+        if (null == $this->typeReflections) {
+            $this->setTypeReflections($this->buildTypeReflections());
+        }
+        return $this->typeReflections;
+    }
+
+    /**
+     * @return Annotations
+     */
+    private function buildAnnotations()
+    {
+        $annotationParser = new AnnotationParser();
+        return $annotationParser->getAnnotations($this->getReflector()->getDocComment());
+    }
+
+    /**
+     * Setter of $annotations
+     *
+     * @param Annotations $annotations
+     */
+    private function setAnnotations(Annotations $annotations)
+    {
+        $this->annotations = $annotations;
+    }
+
+    /**
+     * @return array
+     */
+    private function buildTypeReflections()
+    {
+        $result = array();
+        foreach ($this->getTypes() as $type) {
+            $result[] = new TypeReflection($type);
+        }
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
+    private function getTypes()
+    {
+        $annotationParser = new AnnotationParser();
+        return $annotationParser->parseTypeComment($this->getAnnotations()->get($this->getTypeDocTag())->first());
+    }
+
+    /**
+     * Setter of $typeReflections
+     *
+     * @param \TRex\Reflection\TypeReflection[] $typeReflections
+     */
+    private function setTypeReflections(array $typeReflections)
+    {
+        $this->typeReflections = $typeReflections;
+    }
 }

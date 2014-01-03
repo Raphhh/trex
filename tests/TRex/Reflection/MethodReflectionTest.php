@@ -91,4 +91,26 @@ class MethodReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('TRex\Reflection\ClassReflection', $classReflection);
         $this->assertSame('TRex\Reflection\resources\Foo', $classReflection->getName());
     }
+
+    public function testGetAnnotations()
+    {
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getBar');
+        $this->assertInstanceOf('TRex\Annotation\Annotations', $reflectedMethod->getAnnotations());
+        $this->assertSame('test', $reflectedMethod->getAnnotations()->get('tag')->first());
+    }
+
+    public function testGetTypeReflections()
+    {
+        $reflectedMethod = new MethodReflection('TRex\Reflection\resources\Foo', 'getBar');
+        $this->assertCount(2, $reflectedMethod->getTypeReflections());
+
+        $this->assertInstanceOf('TRex\Reflection\TypeReflection', $reflectedMethod->getTypeReflections()[0]);
+        $this->assertSame(
+            TypeReflection::STRING_TYPE,
+            $reflectedMethod->getTypeReflections()[0]->getStandardizedType()
+        );
+
+        $this->assertInstanceOf('TRex\Reflection\TypeReflection', $reflectedMethod->getTypeReflections()[1]);
+        $this->assertSame(TypeReflection::NULL_TYPE, $reflectedMethod->getTypeReflections()[1]->getStandardizedType());
+    }
 }

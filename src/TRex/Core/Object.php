@@ -1,6 +1,7 @@
 <?php
 namespace TRex\Core;
 
+use TRex\Cache\ObjectCache;
 use TRex\Serialization\DataToArrayCaster;
 use TRex\Serialization\ObjectToArrayCaster;
 
@@ -159,6 +160,29 @@ abstract class Object implements IObject
     public function __toString()
     {
         return (string)$this->toJson();
+    }
+
+    /**
+     * function foo($arg){
+     *                 return $this->cache(function($arg){ $this->prop + $arg; });
+     * }
+     * @param \Closure $closure
+     * @param bool $mustBeRefreshed
+     * @return mixed
+     * @todo has to be tested
+     */
+    protected function cache(\Closure $closure, $mustBeRefreshed = true)
+    {
+        $backTraces = debug_backtrace(!DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
+        if ($mustBeRefreshed) {
+            ObjectCache::getInstance()->clean($this, $backTraces[1]['function'], $backTraces[1]['args']);
+        }
+        return ObjectCache::getInstance()->get(
+            $this,
+            $backTraces[1]['function'],
+            $backTraces[1]['args'],
+            \Closure::bind($closure, $this, get_class($this))
+        );
     }
 
     /**

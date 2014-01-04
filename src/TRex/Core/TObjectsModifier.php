@@ -3,6 +3,13 @@ namespace TRex\Core;
 
 use TRex\Iterator\IIterator;
 
+/**
+ * Class TObjectsModifier.
+ * Implements IObjectsModifier.
+ *
+ * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ */
 trait TObjectsModifier
 {
     /**
@@ -13,7 +20,7 @@ trait TObjectsModifier
     abstract public function getIterator();
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param int $startIndex
      * @param int $length
@@ -29,7 +36,7 @@ trait TObjectsModifier
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param \Closure $callback
      * @return Objects
@@ -44,7 +51,7 @@ trait TObjectsModifier
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param \Closure $callback
      * @return Objects

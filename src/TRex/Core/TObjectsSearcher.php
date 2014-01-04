@@ -2,7 +2,7 @@
 namespace TRex\Core;
 
 /**
- * Class TObjectsSearcher
+ * Class TObjectsSearcher.
  * Implements IObjectsSearcher.
  *
  * @package TRex\Core
@@ -18,7 +18,7 @@ trait TObjectsSearcher
     abstract public function toArray();
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param string $value
      * @param string $searchMode
@@ -33,7 +33,7 @@ trait TObjectsSearcher
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param string $value
      * @param string $searchMode

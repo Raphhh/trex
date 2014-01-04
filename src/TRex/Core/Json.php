@@ -4,23 +4,31 @@ namespace TRex\Core;
 use TRex\Serialization\DataToArrayCaster;
 
 /**
- * Class Json
+ * Json is a JSON abstraction.
+ * Json can be converted to a JSON string or an array.
+ *
  * @package TRex\Core
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class Json extends Object
 {
     /**
+     * Data.
+     *
      * @var array
      */
     private $data;
 
     /**
+     * String conversion options.
+     *
      * @var int
      */
     private $options = 0;
 
     /**
+     * Instantiates a Json from a string.
+     *
      * @param string $json
      * @return Json
      * @throws \UnexpectedValueException
@@ -43,7 +51,9 @@ class Json extends Object
     }
 
     /**
-     * @param $errorNo
+     * Returns a message for a json conversion error.
+     *
+     * @param int $errorNo
      * @return string
      */
     public static function getErrorMessage($errorNo)
@@ -73,6 +83,8 @@ class Json extends Object
     }
 
     /**
+     * Constructor.
+     *
      * @param mixed $data
      */
     public function __construct($data)
@@ -101,6 +113,8 @@ class Json extends Object
     }
 
     /**
+     * Returns the current options for the string conversion.
+     *
      * @return int
      */
     public function getOptions()
@@ -109,6 +123,8 @@ class Json extends Object
     }
 
     /**
+     * Sets the current options for the string conversion.
+     *
      * @param int $options
      */
     public function setOptions($options)
@@ -117,6 +133,8 @@ class Json extends Object
     }
 
     /**
+     * Getter of $data.
+     *
      * @return array
      */
     private function getData()
@@ -125,6 +143,8 @@ class Json extends Object
     }
 
     /**
+     * Setter of $data.
+     *
      * @param array $data
      */
     private function setData(array $data)

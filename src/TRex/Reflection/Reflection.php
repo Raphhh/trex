@@ -4,15 +4,17 @@ namespace TRex\Reflection;
 use TRex\Core\Object;
 
 /**
- * Class Reflection
- * Abstract main parent class of reflection
+ * Class Reflection.
+ * Abstract main parent class of reflection.
+ *
  * @package TRex\Reflection
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  */
 abstract class Reflection extends Object
 {
     /**
-     * Contain the reflection class of PHP use for the different kind of reflection.
+     * Contains the reflection class of PHP use for the different kind of reflection.
      *
      * @var \Reflector //typing imprecise, due to the architecture of PHP
      */
@@ -30,7 +32,7 @@ abstract class Reflection extends Object
     }
 
     /**
-     * Return the name of the reflected object, class, property or method.
+     * Returns the name of the reflected object, class, property or method.
      *
      * @return string
      */

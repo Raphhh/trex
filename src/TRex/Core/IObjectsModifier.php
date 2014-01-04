@@ -1,6 +1,12 @@
 <?php
 namespace TRex\Core;
 
+/**
+ * Interface IObjectsModifier
+ *
+ * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ */
 interface IObjectsModifier
 {
     /**
@@ -25,7 +31,7 @@ interface IObjectsModifier
 
     /**
      * Executes the callback for every value.
-     * Returns an IObjects with the value of witch callback has return true.
+     * Returns an IObjects with the value of which callback has return true.
      * If no callback is passed, filters on the value itself.
      *
      * @param \Closure $callback

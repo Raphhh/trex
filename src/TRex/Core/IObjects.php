@@ -6,8 +6,11 @@ use TRex\Iterator\IIteratorSorter;
 use TRex\Iterator\IKeyAccessor;
 
 /**
- * Interface IObjects
+ * IObjects is a oriented object array.
+ * This handles a list like an object.
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IObjects extends
     IIterator,
@@ -20,7 +23,6 @@ interface IObjects extends
     IObjectsModifier,
     IObjectsSearcher
 {
-
 
 
     /**

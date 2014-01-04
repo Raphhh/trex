@@ -5,7 +5,8 @@ use TRex\Core\Json;
 use TRex\Core\Object;
 
 /**
- * Class DataToArrayCaster
+ * DataToArrayCaster converts any data to array.
+ *
  * @package TRex\Serialization
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
@@ -13,8 +14,13 @@ use TRex\Core\Object;
 class DataToArrayCaster extends Object implements ICaster
 {
     /**
-     * Format $data to an array.
-     * $data could be a JSON string or an object.
+     * Formats $data to an array.
+     * $data could be:
+     *  - JSON string
+     *  - object
+     *  - array
+     *  - null
+     *  - IArrayCastable
      *
      * @param mixed $data
      * @return array

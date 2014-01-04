@@ -6,13 +6,14 @@ namespace TRex\Reflection;
  * Reflected a class (but not an object)
  *
  * @package TRex\Reflection
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  * @method \ReflectionClass getReflector()
  */
 class ClassReflection extends Reflection
 {
     /*
-     * Accept only the name of the reflected class.
+     * Accepts only the name of the reflected class.
      *
      * var string $className
      */
@@ -22,7 +23,7 @@ class ClassReflection extends Reflection
     }
 
     /**
-     * Return the property of the reflected class and all of its parents
+     * Returns the property of the reflected class and all of its parents
      * (This last point is the main difference with the PHP reflection).
      * Filter is the same as \ReflectionProperty of PHP reflection:
      * You can use these constants or use AttributeReflection constants.

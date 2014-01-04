@@ -2,8 +2,10 @@
 namespace TRex\Iterator;
 
 /**
- * Interface IIterator
+ * Interface IIterator.
+ *
  * @package TRex\Iterator
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IIterator
 {
@@ -51,7 +53,7 @@ interface IIterator
     /**
      * Sets the iterator to a specified offset.
      *
-     * @param $index
+     * @param int $index
      */
     public function seek($index);
 
@@ -65,15 +67,15 @@ interface IIterator
     /**
      * Sets a value for a specified offset.
      *
-     * @param $key
-     * @param $value
+     * @param mixed $key
+     * @param mixed $value
      */
     public function addAt($key, $value);
 
     /**
      * Unsets a value for an offset.
      *
-     * @param $key
+     * @param mixed $key
      */
     public function removeAt($key);
 

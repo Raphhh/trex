@@ -1,6 +1,6 @@
 # TRex\Core\Objects
 
-TRex\Core\Object is a powerful array object. He handles a list like an object.
+TRex\Core\Object is a powerful array object. This handles a list like an object.
 
 
 ## Inherited behavior

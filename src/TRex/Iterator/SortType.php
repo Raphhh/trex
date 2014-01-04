@@ -4,7 +4,9 @@ namespace TRex\Iterator;
 use TRex\Core\Enum;
 
 /**
- * Class SortType
+ * Class SortType.
+ * Contains the different types of IIteratorSorter.
+ *
  * @package TRex\Iterator
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient

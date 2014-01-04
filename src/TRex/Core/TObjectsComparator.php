@@ -2,15 +2,17 @@
 namespace TRex\Core;
 
 /**
- * Class TObjectsComparator
+ * Class TObjectsComparator.
  * Implements IObjectsComparator.
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 trait TObjectsComparator
 {
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects
@@ -21,7 +23,7 @@ trait TObjectsComparator
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects
@@ -32,7 +34,7 @@ trait TObjectsComparator
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects
@@ -43,7 +45,7 @@ trait TObjectsComparator
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects
@@ -54,7 +56,7 @@ trait TObjectsComparator
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects
@@ -65,7 +67,7 @@ trait TObjectsComparator
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects
@@ -76,7 +78,7 @@ trait TObjectsComparator
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects
@@ -87,7 +89,7 @@ trait TObjectsComparator
     }
 
     /**
-     * {@inheritDoc}
+     * See IObjectsComparator.
      *
      * @param IObjects $objects
      * @return Objects

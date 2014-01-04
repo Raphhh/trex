@@ -1,6 +1,12 @@
 <?php
 namespace TRex\Core;
 
+/**
+ * Interface IObjectsSearcher
+ *
+ * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ */
 interface IObjectsSearcher
 {
     /**
@@ -22,7 +28,7 @@ interface IObjectsSearcher
     const REGEX_SEARCH_MODE = 'regex';
 
     /**
-     * Indicates if the value is present.
+     * Indicates whether the value is present.
      *
      * @param string $value
      * @param string $searchMode

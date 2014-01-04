@@ -6,10 +6,10 @@ use TRex\Reflection\AttributeReflection;
 use TRex\Reflection\ObjectReflection;
 
 /**
- * Class ObjectToArrayCaster.
- * Object conversion handler.
+ * ObjectToArrayCaster converts object to array.
  *
  * @package TRex\Serialization
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  */
 class ObjectToArrayCaster extends Object implements ICaster
@@ -21,7 +21,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     const RECURSION_VALUE = '*_recursion_*';
 
     /**
-     * Indicate the type of value for casted recursion.
+     * Indicates the type of value for casted recursion.
      * If is true, casted recursion will be self::RECURSION_VALUE.
      * If is false, casted recursion will not appears.
      *
@@ -37,7 +37,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     private $filter = AttributeReflection::NO_FILTER;
 
     /**
-     * Indicate the kind of keys.
+     * Indicates the kind of keys.
      * If is true, keys will be composed by full name of property (class name + property name)
      *
      * @var bool
@@ -45,7 +45,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     private $isFullName = false;
 
     /**
-     * Indicate if conversion also applies to objects in the properties and to values of arrays.
+     * Indicates whether conversion also applies to objects in the properties and to values of arrays.
      *
      * @var bool
      */
@@ -59,7 +59,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     private $castedObjects = array();
 
     /**
-     * Convert an object to an array.
+     * Converts an object to an array.
      * The exported array contains all property values of the class and its parents, which are not transient.
      *
      * $filter allows you to filter by visibility properties.
@@ -79,7 +79,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Setter of $isExplicitRecursion.
+     * Sets the visibility of recursive value.
      *
      * @param boolean $isExplicitRecursion
      */
@@ -89,7 +89,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Getter of $isExplicitRecursion.
+     * Indicates whether recursive value are visible.
      *
      * @return boolean
      */
@@ -99,7 +99,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Setter of $filter.
+     * Sets the filter.
      *
      * @param int $filter
      */
@@ -109,7 +109,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Getter of $filter.
+     * Gets the filter.
      *
      * @return int
      */
@@ -119,7 +119,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Setter of $isFullName.
+     * Sets the returned keys type.
      *
      * @param boolean $isFullName
      */
@@ -129,7 +129,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Getter of $isFullName.
+     * Indicates whether the returned keys will contain the class name before the property name.
      *
      * @return boolean
      */
@@ -139,7 +139,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Setter of $isRecursive.
+     * Sets whether the recursion is active.
      *
      * @param boolean $isRecursive
      */
@@ -149,7 +149,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Getter of $isRecursive.
+     * Indicates whether the recursion is active.
      *
      * @return boolean
      */
@@ -184,7 +184,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Filter value to added to $values according to the recursion.
+     * Filters value to added to $values according to the recursion.
      *
      * @param array $values
      * @param string $propertyName
@@ -201,7 +201,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Apply recursion of the conversion.
+     * Applies recursion of the conversion.
      *
      * @param mixed $value
      * @return array
@@ -219,7 +219,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Convert recursively an object.
+     * Converts recursively an object.
      *
      * @param $object
      * @return array|string
@@ -233,7 +233,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Convert recursively an array.
+     * Converts recursively an array.
      *
      * @param array $data
      * @return array
@@ -258,7 +258,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * reset of $castedObjects.
+     * Reset of $castedObjects.
      *
      * @return array
      */
@@ -268,7 +268,7 @@ class ObjectToArrayCaster extends Object implements ICaster
     }
 
     /**
-     * Indicate if a object has been already casted.
+     * Indicates whether a object has been already casted.
      *
      * @param $object
      * @return bool

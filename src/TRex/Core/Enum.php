@@ -2,9 +2,8 @@
 namespace TRex\Core;
 
 /**
- * Class Enum
- * Enum respresent a value in a possible list.
- * It prevents any other value.
+ * Enum represents a value in a possible list.
+ * This ensures having a value among the constants of your class and prevents any other value.
  *
  * @package TRex\Core
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
@@ -19,7 +18,7 @@ abstract class Enum extends Object implements IEnum
     private $value;
 
     /**
-     * {@inheritDoc}
+     * Constructor.
      *
      * @param mixed $value
      * @throws \UnexpectedValueException
@@ -56,7 +55,7 @@ abstract class Enum extends Object implements IEnum
     /**
      * {@inheritDoc}
      *
-     * @param $expectedValue
+     * @param mixed $expectedValue
      * @return bool
      */
     public function is($expectedValue)
@@ -65,7 +64,7 @@ abstract class Enum extends Object implements IEnum
     }
 
     /**
-     * Setter og $value.
+     * Setter of $value.
      *
      * @param mixed $value
      */
@@ -75,10 +74,10 @@ abstract class Enum extends Object implements IEnum
     }
 
     /**
-     * Indicates if the value is valid.
-     * Tests if the value is in the possible values list.
+     * Indicates whether the value is valid.
+     * Tests whether the value is in the possible values list.
      *
-     * @param $value
+     * @param mixed $value
      * @return bool
      */
     private function isValidValue($value)

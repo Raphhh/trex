@@ -9,6 +9,7 @@ use TRex\Annotation\Annotations;
  * Main class for reflection of the different parts of a class.
  *
  * @package TRex\Reflection
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  */
 abstract class AttributeReflection extends Reflection
@@ -62,6 +63,8 @@ abstract class AttributeReflection extends Reflection
     abstract protected function getReflectorClassName();
 
     /**
+     * Returns the comment tag containing the type of the attribute.
+     *
      * @return string
      */
     abstract protected function getTypeDocTag();
@@ -110,7 +113,7 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
-     * Return the reflector of the class where the attribute is declaring.
+     * Returns the reflector of the class where the attribute is declaring.
      *
      * @warning
      * The classReflection is not necessarily the reflector of a class from which current attribute has been extracted.
@@ -125,6 +128,8 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
+     * Returns the comment annotations of the attributes.
+     *
      * @return Annotations
      */
     public function getAnnotations()
@@ -136,6 +141,8 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
+     * Returns a list of all types of the attributes.
+     *
      * @return TypeReflection[]
      */
     public function getTypeReflections()

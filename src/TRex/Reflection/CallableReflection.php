@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Reflection;
 
+use TRex\Core\Object;
+
 /**
  * Class CallableReflection
  * Callable Reflection: You can reflect a callback and know its type.
@@ -8,7 +10,7 @@ namespace TRex\Reflection;
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @todo has to be unit tested
  */
-class CallableReflection
+class CallableReflection extends Object
 {
     /**
      * type const

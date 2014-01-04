@@ -2,8 +2,10 @@
 namespace TRex\Iterator;
 
 /**
- * Interface IKeyAccessor
+ * Interface IKeyAccessor.
+ *
  * @package TRex\Iterator
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IKeyAccessor
 {

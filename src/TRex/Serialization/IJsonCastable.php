@@ -3,11 +3,17 @@ namespace TRex\Serialization;
 
 use TRex\Core\Json;
 
+/**
+ * Describes an object which can be converted to a Json.
+ *
+ * @package TRex\Serialization
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ */
 interface IJsonCastable
 {
     /**
-     * Convert an object to an JSON string.
-     * The exported array contains all property values ofn the class and its parents, who are not transient.
+     * Converts an object to a Json object.
+     * The exported data contains all property values ofn the class and its parents, who are not transient.
      *
      * @param int $options
      * @return Json

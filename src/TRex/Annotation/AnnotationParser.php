@@ -4,7 +4,8 @@ namespace TRex\Annotation;
 use TRex\Core\Object;
 
 /**
- * Class AnnotationParser
+ * AnnotationParser parse doc comment to Annotation.
+ *
  * @package TRex\Annotation
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
@@ -12,6 +13,8 @@ use TRex\Core\Object;
 class AnnotationParser extends Object
 {
     /**
+     * Parse doc comment to Annotations.
+     *
      * @param string $docComment
      * @return Annotations
      */
@@ -28,6 +31,8 @@ class AnnotationParser extends Object
     }
 
     /**
+     * Parse a type doc comment.
+     *
      * @param string $typeComment
      * @return array
      */
@@ -41,6 +46,8 @@ class AnnotationParser extends Object
     }
 
     /**
+     * Explodes a string by tag.
+     *
      * @param string $docComment
      * @return array
      */

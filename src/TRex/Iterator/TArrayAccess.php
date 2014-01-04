@@ -5,6 +5,7 @@ namespace TRex\Iterator;
  * Implements \ArrayAccess.
  *
  * @package TRex\Iterator
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 trait TArrayAccess
 {

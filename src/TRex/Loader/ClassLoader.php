@@ -2,12 +2,11 @@
 namespace TRex\Loader;
 
 /**
- * Class ClassLoader
- *
- * load the file of a php class
- * PSR-0 autoloader
+ * ClassLoader loads the file of a php class.
+ * PSR-0 autoloader.
  *
  * @package TRex\Loader
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class ClassLoader
 {
@@ -25,7 +24,7 @@ class ClassLoader
     private $basePath = '';
 
     /**
-     * Indiquates if self::load displays an exception.
+     * Indicates whether self::load displays an exception.
      *
      * @var bool
      */
@@ -51,18 +50,18 @@ class ClassLoader
         'is_a',
     );
 
-	/**
-	 * Constructor
-	 *
-	 * @param bool $isErrorDisplayed
-	 */
-	public function __construct($isErrorDisplayed = false)
+    /**
+     * Constructor.
+     *
+     * @param bool $isErrorDisplayed
+     */
+    public function __construct($isErrorDisplayed = false)
     {
         $this->setErrorDisplayed($isErrorDisplayed);
     }
 
     /**
-     * Start auto-loading of php classes.
+     * Starts auto-loading of php classes.
      * Call automatically self::load when a new class is used.
      *
      * @param array $vendors
@@ -75,7 +74,7 @@ class ClassLoader
     }
 
     /**
-     * Stop auto-loading of php classes.
+     * Stops auto-loading of php classes.
      *
      * @return bool
      */
@@ -85,7 +84,7 @@ class ClassLoader
     }
 
     /**
-     * Load a php class.
+     * Loads a php class.
      * If no class is founded, a exception is thrown.
      * Return the result of the included file of null if no file included.
      *
@@ -109,7 +108,7 @@ class ClassLoader
     }
 
     /**
-     * Get the path of the file containing the class $className.
+     * Gets the path of the file containing the class $className.
      * If the class has a no vendor or a vendor not recoded, a empty string will be returned.
      *
      * @param string $className
@@ -126,7 +125,7 @@ class ClassLoader
     }
 
     /**
-     * Indicate if a vendor has been already added.
+     * Indicates whether a vendor has been already added.
      *
      * @param string $vendorName
      * @return bool
@@ -137,7 +136,7 @@ class ClassLoader
     }
 
     /**
-     * Add vendor data.
+     * Adds vendor data.
      *
      * @param string $name
      * @param string $sourcePath
@@ -155,7 +154,7 @@ class ClassLoader
     }
 
     /**
-     * Add a list of vendor data.
+     * Add sa list of vendor data.
      * Keys are names and values are source path;
      * See self::addVendor().
      *
@@ -172,7 +171,7 @@ class ClassLoader
     }
 
     /**
-     * Remove a vendor.
+     * Removes a vendor.
      *
      * @param string $vendorName
      * @return bool
@@ -187,7 +186,7 @@ class ClassLoader
     }
 
     /**
-     * Get a vendor source path.
+     * Gets a vendor source path.
      *
      * @param string $vendorName
      * @return string
@@ -201,7 +200,7 @@ class ClassLoader
     }
 
     /**
-     * Get a vendor root dir.
+     * Gets a vendor root dir.
      * The root dir is the absolute path to the first directory of the source path.
      *
      * @param string $vendorName
@@ -213,7 +212,7 @@ class ClassLoader
     }
 
     /**
-     * Get a vendor real path.
+     * Gets a vendor real path.
      * The real path is the absolute path to the source.
      *
      * @param string $vendorName
@@ -225,7 +224,7 @@ class ClassLoader
     }
 
     /**
-     * Getter of $basePath.
+     * Getter of the common root of all paths.
      *
      * @return string
      */
@@ -235,7 +234,7 @@ class ClassLoader
     }
 
     /**
-     * Setter of $basePath.
+     * Setter of the common root of all paths.
      *
      * @param string $basePath
      */
@@ -245,7 +244,7 @@ class ClassLoader
     }
 
     /**
-     * Getter of $isErrorDisplayed
+     * Indicates whether self::load displays an exception.
      *
      * @return boolean
      */
@@ -255,7 +254,7 @@ class ClassLoader
     }
 
     /**
-     * Setter of $isErrorDisplayed
+     * Sets the display of exception for self::load.
      *
      * @param boolean $isErrorDisplayed
      */
@@ -265,7 +264,7 @@ class ClassLoader
     }
 
     /**
-     * Extract vendor paths dynamically.
+     * Extracts vendor paths dynamically.
      *
      * @param string $vendorName
      * @param string $key
@@ -308,7 +307,7 @@ class ClassLoader
     }
 
     /**
-     * Resolve an absolute root dir to the first directory of $basePath and $sourcePath.
+     * Resolves an absolute root dir to the first directory of $basePath and $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/
@@ -322,7 +321,7 @@ class ClassLoader
     }
 
     /**
-     * Resolve an absolute path including $basePath and $sourcePath.
+     * Resolves an absolute path including $basePath and $sourcePath.
      *
      * ex:
      * trex/src => /absolute/path/to/trex/src/
@@ -337,7 +336,7 @@ class ClassLoader
     }
 
     /**
-     * Extract the first directory of $path.
+     * Extracts the first directory of $path.
      *
      * ex:
      * trex/src => trex/
@@ -355,7 +354,7 @@ class ClassLoader
     }
 
     /**
-     * Extract the vendor name of a class name.
+     * Extracts the vendor name of a class name.
      *
      * @param string $className
      * @return string
@@ -370,7 +369,7 @@ class ClassLoader
     }
 
     /**
-     * Convert a class name in a file path.
+     * Converts a class name in a file path.
      * Handle two format:
      *     - format with underscore as separator: Vendor_Package_Class.
      *     - format with namespace separator: Vendor\Package\Class.
@@ -383,13 +382,13 @@ class ClassLoader
     {
         if (strpos($className, '_') !== false) { //Vendor_Package_Class
             return strtr($className, '_', DIRECTORY_SEPARATOR) . self::FILE_EXTENSION;
-        } else {//Vendor\Package\Class
+        } else { //Vendor\Package\Class
             return strtr($className, '\\', DIRECTORY_SEPARATOR) . self::FILE_EXTENSION;
         }
     }
 
     /**
-     * Indicate if the calling context requires to display error.
+     * Indicates whether the calling context requires to display error.
      *
      * @return bool
      */
@@ -403,7 +402,7 @@ class ClassLoader
     }
 
     /**
-     * Return the calling context.
+     * Returns the calling context.
      *
      * @return array
      */

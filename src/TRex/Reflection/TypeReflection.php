@@ -4,8 +4,10 @@ namespace TRex\Reflection;
 use TRex\Core\Object;
 
 /**
- * Class TypeReflection
+ * TypeReflection reflect the types.
+ *
  * @package TRex\Reflection
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  */
 class TypeReflection extends Object
@@ -82,14 +84,16 @@ class TypeReflection extends Object
     );
 
     /**
-     * Type or class name
+     * Reflected type or class name
      *
      * @var string
      */
     private $type;
 
     /**
-     * @param string $type
+     * Constructor.
+     *
+     * @param string $type Reflected type or class name
      */
     public function __construct($type)
     {
@@ -97,6 +101,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Gets the reflected type.
+     *
      * @return string
      */
     public function getType()
@@ -105,6 +111,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Depending on the type, returns a standardized type, a constant value of XXX_TYPE.
+     *
      * @return string
      */
     public function getStandardizedType()
@@ -118,6 +126,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is void.
+     *
      * @return bool
      */
     public function isVoid()
@@ -126,6 +136,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is mixed.
+     *
      * @return bool
      */
     public function isMixed()
@@ -134,6 +146,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is null.
+     *
      * @return bool
      */
     public function isNull()
@@ -142,6 +156,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is boolean.
+     *
      * @return bool
      */
     public function isBoolean()
@@ -150,6 +166,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is string.
+     *
      * @return bool
      */
     public function isString()
@@ -158,6 +176,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is integer.
+     *
      * @return bool
      */
     public function isInteger()
@@ -166,6 +186,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is float.
+     *
      * @return bool
      */
     public function isFloat()
@@ -174,6 +196,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is number.
+     *
      * @return bool
      */
     public function isNumber()
@@ -182,6 +206,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is scalar.
+     *
      * @return bool
      */
     public function isScalar()
@@ -190,6 +216,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is array.
+     *
      * @return bool
      */
     public function isArray()
@@ -198,6 +226,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is object.
+     *
      * @return bool
      */
     public function isObject()
@@ -206,6 +236,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is resource.
+     *
      * @return bool
      */
     public function isResource()
@@ -214,6 +246,7 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether the reflected type is $standardizedType.
      *
      * @param string $standardizedType
      * @return bool
@@ -230,6 +263,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Setter of $type.
+     *
      * @param string $type
      */
     private function setType($type)
@@ -238,6 +273,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Getter of $typeMappingList.
+     *
      * @return array
      */
     private function getTypeMappingList()
@@ -246,6 +283,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Returns a type mapping.
+     *
      * @param string $standardizeType
      * @return array
      */
@@ -255,6 +294,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * Indicates whether self::$type is a possible type of $standardizedType.
+     *
      * @param string $standardizedType
      * @return bool
      */
@@ -264,6 +305,8 @@ class TypeReflection extends Object
     }
 
     /**
+     * get the possible types.
+     *
      * @return array
      */
     private function getStandardizedTypes()

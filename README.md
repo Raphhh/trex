@@ -54,7 +54,7 @@ You can hydrate an object from a JSON string.
 
 ### Object export in JSON
 
-You can easily convert your object to JSON, choosing witch property you what to export with *@transient* comment tag, including private ones.
+You can easily convert your object to JSON, choosing which property you want to export with *@transient* comment tag, including private ones.
 
     class Foo extends TRex/Core/Object{
     
@@ -67,7 +67,7 @@ You can easily convert your object to JSON, choosing witch property you what to 
 
     }
     
-    echo new Foo(); //{a: "a"} => only non transient property
+    echo new Foo(); //{a: "a"} => only non transient properties
 
 
 ### Composite action on several objects
@@ -92,14 +92,14 @@ You can list objects and call a same method on all of them.
     $foo1 = new Foo();
     $foo2 = new Foo();
     
-    //getA() return "a"
+    //getA() returns "a"
     echo $foo1->getA(); //a
     echo $foo2->getA(); //a
     
-    //composite action set "b" instead of "a"
+    //composite action sets "b" instead of "a"
     (new Objects(array($foo1, $foo2)))->setA('b');
     
-    //getA() return "b", the value setted by the composite action
+    //getA() returns "b", the value set by the composite action
     echo $foo1->getA(); //b
     echo $foo2->getA(); //b
 
@@ -131,11 +131,11 @@ You can cache your method result without using a local property.
     $result = $foo->concat('b');
     echo $result; //ab
     
-    //if we call the method with another argument, this is another cache
+    //if we call the method with another argument, this is another cache.
     $result = $foo->concat('c'); // A lot of things...
     echo $result; //ac
     
-    //but first cache is still pending
+    //but first cache is still pending.
     $result = $foo->concat('b');
     echo $result; //ab
 

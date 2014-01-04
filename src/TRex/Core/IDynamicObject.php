@@ -2,8 +2,10 @@
 namespace TRex\Core;
 
 /**
- * Interface IDynamicObject
+ * Describes an object with dynamic attributes.
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IDynamicObject
 {

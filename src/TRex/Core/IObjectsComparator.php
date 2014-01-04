@@ -3,7 +3,9 @@ namespace TRex\Core;
 
 /**
  * Interface IObjectsComparator
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IObjectsComparator
 {

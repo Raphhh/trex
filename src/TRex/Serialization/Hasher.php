@@ -4,7 +4,8 @@ namespace TRex\Serialization;
 use TRex\Core\Object;
 
 /**
- * Class Hasher
+ * Hasher calculate a hash string for different kind of data.
+ *
  * @package TRex\Serialization
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
@@ -12,14 +13,18 @@ class Hasher extends Object
 {
 
     /**
+     * Current hash method.
+     *
      * @var HashMethod
      */
     private $hashMethod;
 
     /**
-     * @param $hashMethod
-     * @param $data
-     * @return mixed
+     * Hash $data with the specified hash method.
+     *
+     * @param HashMethod $hashMethod
+     * @param mixed $data
+     * @return string
      */
     public static function hash(HashMethod $hashMethod, $data)
     {
@@ -27,6 +32,8 @@ class Hasher extends Object
     }
 
     /**
+     * Constructor.
+     *
      * @param HashMethod $hashMethod
      */
     public function __construct(HashMethod $hashMethod = null)
@@ -35,8 +42,10 @@ class Hasher extends Object
     }
 
     /**
-     * @param $object
-     * @return mixed
+     * Hash by class.
+     *
+     * @param object $object
+     * @return string
      */
     public function hashClass($object)
     {
@@ -44,8 +53,10 @@ class Hasher extends Object
     }
 
     /**
-     * @param $object
-     * @return mixed
+     * Hash for object.
+     *
+     * @param object $object
+     * @return string
      */
     public function hashObject($object)
     {
@@ -53,8 +64,10 @@ class Hasher extends Object
     }
 
     /**
+     * Hash for array.
+     *
      * @param array $array
-     * @return mixed
+     * @return string
      */
     public function hashArray(array $array)
     {
@@ -62,6 +75,8 @@ class Hasher extends Object
     }
 
     /**
+     * Gets the current hash method.
+     *
      * @return HashMethod
      */
     public function getHashMethod()
@@ -70,6 +85,8 @@ class Hasher extends Object
     }
 
     /**
+     * Sets the current hash method.
+     *
      * @param HashMethod $hashMethod
      */
     public function setHashMethod(HashMethod $hashMethod)
@@ -78,6 +95,8 @@ class Hasher extends Object
     }
 
     /**
+     * Init $hashMethod.
+     *
      * @param HashMethod $hashMethod
      */
     private function initHashMethod(HashMethod $hashMethod = null)

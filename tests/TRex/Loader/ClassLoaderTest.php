@@ -27,7 +27,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * get an undefined vendor source path
+     * gets an undefined vendor source path
      *
      * @depends testHasVendorNotAdded
      */
@@ -38,7 +38,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * get an undefined vendor root dir
+     * gets an undefined vendor root dir
      *
      * @depends testGetSourcePathNotAdded
      */
@@ -49,7 +49,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * get an undefined vendor real path
+     * gets an undefined vendor real path
      *
      * @depends testGetRootDirNotAdded
      */
@@ -60,7 +60,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * remove an undefined vendor
+     * removes an undefined vendor
      *
      * @depends testGetRealPathNotAdded
      */
@@ -71,7 +71,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * add a vendor for the first time
+     * adds a vendor for the first time
      *
      * @depends testGetSourcePathNotAdded
      */
@@ -82,7 +82,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * add a same vendor for the second time
+     * adds a same vendor for the second time
      *
      * @depends testAddVendorFirst
      */
@@ -93,7 +93,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * get a vendor source path witch has been added without an ending DIRECTORY_SEPARATOR
+     * gets a vendor source path which has been added without an ending DIRECTORY_SEPARATOR.
      */
     public function testGetSourcePathWithoutSlash()
     {
@@ -117,7 +117,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * get a vendor source path
+     * gets a vendor source path
      *
      * @depends testHasVendorAfterAdd
      */
@@ -131,7 +131,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * get a vendor root dir
+     * gets a vendor root dir
      *
      * @depends testGetSourcePathAfterAdd
      */
@@ -145,7 +145,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * get a vendor real path
+     * gets a vendor real path
      *
      * @depends testGetRootDirAfterAdd
      */
@@ -159,7 +159,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * remove a vendor
+     * removes a vendor
      *
      * @depends testGetRealPathAfterAdd
      */
@@ -181,7 +181,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * add a list of vendors
+     * adds a list of vendors
      */
     public function testAddVendors()
     {
@@ -211,7 +211,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * add the same vendor twice
+     * adds the same vendor twice
      */
     public function testAddVendorsWithDouble()
     {
@@ -237,7 +237,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test the conversion of a class path
+     * tests the conversion of a class path
      *
      * @param string $className
      * @param string $path
@@ -255,7 +255,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test the conversion of a class path with a vendor not added before.
+     * tests the conversion of a class path with a vendor not added before.
      */
     public function testGetClassPathWithNotAddedVendor()
     {
@@ -264,40 +264,40 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test the load of a class file
+     * tests the load of a class file
      */
     public function testLoadOk()
     {
         $classLoader = new ClassLoader();
-		$this->assertTrue(
-			$classLoader->addVendor(
-				'TRex',
-				$this->getFilePath('tests' . DIRECTORY_SEPARATOR)
-			)
-		);
+        $this->assertTrue(
+            $classLoader->addVendor(
+                'TRex',
+                $this->getFilePath('tests' . DIRECTORY_SEPARATOR)
+            )
+        );
         $this->assertSame(
             'Foo_test',
             $classLoader->load('TRex\Loader\resources\Foo'),
             sprintf('Class not found at "%s"', $classLoader->getClassPath('TRex\Loader\resources\Foo'))
         );
-		return $classLoader;
+        return $classLoader;
     }
 
-	/**
-	 * test the load of a class file when there is no such file, but error is muted.
-	 *
-	 * @depends testLoadOk
-	 */
-	public function testLoadKoWithoutError(ClassLoader $classLoader)
-	{
-		$this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
-		return $classLoader;
-	}
+    /**
+     * tests the load of a class file when there is no such file, but error is muted.
+     *
+     * @depends testLoadOk
+     */
+    public function testLoadKoWithoutError(ClassLoader $classLoader)
+    {
+        $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
+        return $classLoader;
+    }
 
     /**
-     * test the load of a class file when there is no such file
-	 *
-	 * @depends testLoadKoWithoutError
+     * tests the load of a class file when there is no such file
+     *
+     * @depends testLoadKoWithoutError
      *
      * @expectedException \Exception
      * @expectedExceptionMessage No file found for class TRex\Loader\resources\None with the path
@@ -306,7 +306,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     {
         $classLoader->setErrorDisplayed(true);
         $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
-		return $classLoader;
+        return $classLoader;
     }
 
     /**
@@ -323,7 +323,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test activation of autoloading
+     * tests activation of autoloading
      *
      */
     public function testRegister()
@@ -334,7 +334,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test deactivation of autoloading
+     * tests deactivation of autoloading
      *
      * @depends testRegister
      */
@@ -344,7 +344,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test setter and getter of $basePath
+     * tests setter and getter of $basePath
      *
      */
     public function testSetBasePath()
@@ -355,7 +355,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test setter and getter of $basePath without an ending directory separator
+     * tests setter and getter of $basePath without an ending directory separator
      */
     public function testSetBasePathWithoutDirSeparator()
     {
@@ -373,13 +373,13 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
         $classLoader->setBasePath('foo' . DIRECTORY_SEPARATOR);
         $classLoader->addVendor(__FUNCTION__, 'bar' . DIRECTORY_SEPARATOR);
         $this->assertSame(
-			'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR,
+            'foo' . DIRECTORY_SEPARATOR . 'bar' . DIRECTORY_SEPARATOR,
             $classLoader->getRealPath(__FUNCTION__)
         );
     }
 
     /**
-     * provide a list of functions not throwing exception
+     * provides a list of functions not throwing exception
      *
      * @return array
      */
@@ -395,7 +395,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * return the path for $file
+     * returns the path for $file
      *
      * @param $file
      * @return string
@@ -406,7 +406,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * provide class paths for test
+     * provides class paths for test
      *
      * @return array
      */
@@ -424,56 +424,56 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
             array(
                 'Vendor\ClassName',
                 sprintf(
-					'vendor%ssrc%sVendor%sClassName.php',
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR
-				)
+                    'vendor%ssrc%sVendor%sClassName.php',
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR
+                )
             ),
             array(
                 '\Vendor\ClassName',
-				sprintf(
-					'vendor%ssrc%sVendor%sClassName.php',
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR
-				)
+                sprintf(
+                    'vendor%ssrc%sVendor%sClassName.php',
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR
+                )
             ),
             array(
                 'Vendor\VendorClassName',
-				sprintf(
-					'vendor%ssrc%sVendor%sVendorClassName.php',
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR
-				)
+                sprintf(
+                    'vendor%ssrc%sVendor%sVendorClassName.php',
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR
+                )
             ),
             array(
                 'Vendor_ClassName',
-				sprintf(
-					'vendor%ssrc%sVendor%sClassName.php',
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR
-				)
+                sprintf(
+                    'vendor%ssrc%sVendor%sClassName.php',
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR
+                )
             ),
             array(
                 '\Vendor_ClassName',
-				sprintf(
-					'vendor%ssrc%sVendor%sClassName.php',
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR
-				)
+                sprintf(
+                    'vendor%ssrc%sVendor%sClassName.php',
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR
+                )
             ),
             array(
                 'Vendor_VendorClassName',
-				sprintf(
-					'vendor%ssrc%sVendor%sVendorClassName.php',
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR,
-					DIRECTORY_SEPARATOR
-				)
+                sprintf(
+                    'vendor%ssrc%sVendor%sVendorClassName.php',
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR,
+                    DIRECTORY_SEPARATOR
+                )
             ),
         );
     }

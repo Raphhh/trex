@@ -4,8 +4,10 @@ namespace TRex\Iterator;
 use TRex\Core\IObjects;
 
 /**
- * Interface IIteratorSorter
+ * Interface IIteratorSorter.
+ *
  * @package TRex\Iterator
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IIteratorSorter
 {

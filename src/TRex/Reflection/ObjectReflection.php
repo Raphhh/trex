@@ -5,6 +5,7 @@ namespace TRex\Reflection;
  * Class ObjectReflection
  *
  * @package TRex\Reflection
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  */
 class ObjectReflection extends ClassReflection
@@ -17,7 +18,7 @@ class ObjectReflection extends ClassReflection
     private $object;
 
     /*
-     * Accept only an instance of a class.
+     * Accepts only an instance of a class.
      * This instance can be recovered with self::getObject();
      *
      * var object $object
@@ -29,7 +30,7 @@ class ObjectReflection extends ClassReflection
     }
 
     /**
-     * Getter of $object.
+     * Gets the current reflected object.
      *
      * @return object
      */
@@ -39,7 +40,7 @@ class ObjectReflection extends ClassReflection
     }
 
     /**
-     * Setter of $object.
+     * Sets the current reflected object.
      *
      * @param object $object
      */

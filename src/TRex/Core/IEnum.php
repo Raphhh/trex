@@ -2,8 +2,11 @@
 namespace TRex\Core;
 
 /**
- * Interface IEnum
+ * Enum represents a value in a possible list.
+ * This ensures having a value among the constants of your class and prevents any other value.
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IEnum
 {
@@ -14,13 +17,6 @@ interface IEnum
      * @param mixed $value
      */
     public function __construct($value);
-
-    /**
-     * Cast to string.
-     *
-     * @return string
-     */
-    public function __toString();
 
     /**
      * Returns the list of the possible values.
@@ -37,7 +33,7 @@ interface IEnum
     public function getValue();
 
     /**
-     * Indicates if the current value is $expectedValue.
+     * Indicates whether the current value is $expectedValue.
      *
      * @param mixed $expectedValue
      * @return bool

@@ -5,8 +5,12 @@ use TRex\Serialization\IArrayCastable;
 use TRex\Serialization\IJsonCastable;
 
 /**
- * Interface IObject
+ * Base object.
+ * Can be dynamic.
+ * Can be converted.
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 interface IObject extends IDynamicObject, IArrayCastable, IJsonCastable
 {

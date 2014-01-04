@@ -5,6 +5,7 @@ namespace TRex\Reflection;
  * Class MethodReflection.
  *
  * @package TRex\Reflection
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  * @method \ReflectionMethod getReflector()
  */
@@ -12,7 +13,7 @@ class MethodReflection extends AttributeReflection
 {
 
     /**
-     * Instantiate a new MethodReflection from a PHP reflector.
+     * Instantiates a new MethodReflection from a PHP reflector.
      *
      * @param \ReflectionMethod
      * @return MethodReflection

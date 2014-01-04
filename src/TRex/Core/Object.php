@@ -5,8 +5,12 @@ use TRex\Serialization\DataToArrayCaster;
 use TRex\Serialization\ObjectToArrayCaster;
 
 /**
- * Class Object
+ * Base object.
+ * Can be dynamic.
+ * Can be converted.
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  */
 abstract class Object implements IObject
@@ -28,9 +32,9 @@ abstract class Object implements IObject
     private $methods = array();
 
     /**
-     * {@inheritDoc}
+     * Constructor.
      *
-     * $data is initial data to set in the object. Keys are property names, and value are initial property values.
+     * $data is initial data to set in the object. Keys are property names, and values are initial property values.
      * $data could be a JSON string, an array or an array castable object.
      *
      * @param mixed $data
@@ -43,11 +47,13 @@ abstract class Object implements IObject
     }
 
     /**
-     * {@inheritDoc}
+     * See PHP doc.
      *
+     * @link http://www.php.net/manual/en/language.oop5.overloading.php
      * @param string $propertyName
      * @return mixed
      * @throws \RuntimeException
+     * @internal
      */
     public function __get($propertyName)
     {
@@ -60,12 +66,14 @@ abstract class Object implements IObject
     }
 
     /**
-     * {@inheritDoc}
+     * See PHP doc.
      *
+     * @link http://www.php.net/manual/en/language.oop5.overloading.php
      * @param string $propertyName
      * @param mixed $value
      * @return mixed
      * @throws \RuntimeException
+     * @internal
      */
     public function __set($propertyName, $value)
     {
@@ -78,15 +86,17 @@ abstract class Object implements IObject
     }
 
     /**
-     * {@inheritDoc}
+     * See PHP doc.
      *
      * Call dynamically a method added with self::addMethod().
      * After having added a method, it is possible to call it like a declared method $object->newMethod($arg)
      *
+     * @link http://www.php.net/manual/en/language.oop5.overloading.php
      * @param string $methodName
      * @param array $args
      * @throws \RuntimeException
      * @return mixed
+     * @internal
      */
     public function __call($methodName, array $args)
     {
@@ -152,8 +162,9 @@ abstract class Object implements IObject
     }
 
     /**
-     * {@inheritDoc}
+     * See PHP doc.
      *
+     * @link http://php.net/manual/en/language.oop5.magic.php
      * @return string
      */
     public function __toString()

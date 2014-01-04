@@ -4,7 +4,8 @@ namespace TRex\Annotation;
 use TRex\Core\Objects;
 
 /**
- * Class Annotations
+ * Class Annotations.
+ *
  * @package TRex\Annotation
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */

@@ -6,9 +6,12 @@ use TRex\Core\Objects;
 /**
  * Class TIteratorSorter
  * Implements IIteratorSorter.
+ *
  * @package TRex\Iterator
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
-trait TIteratorSorter {
+trait TIteratorSorter
+{
 
     /**
      * Needs IIterator.

@@ -10,8 +10,11 @@ use TRex\Iterator\TKeyAccessor;
 use TRex\Serialization\DataToArrayCaster;
 
 /**
- * Class Objects
+ * IObjects is a oriented object array.
+ * This handles a list like an object.
+ *
  * @package TRex\Core
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
  */
 class Objects extends Object implements IObjects
@@ -26,6 +29,8 @@ class Objects extends Object implements IObjects
     use TObjectsModifier;
 
     /**
+     * Current iterator.
+     *
      * @var IObjectsIterator
      */
     private $iterator;
@@ -41,7 +46,7 @@ class Objects extends Object implements IObjects
     }
 
     /**
-     * Getter of $iterator.
+     * Returns the current iterator.
      *
      * @return IObjectsIterator
      */
@@ -51,7 +56,7 @@ class Objects extends Object implements IObjects
     }
 
     /**
-     * Setter of $iterator.
+     * Sets the current Iterator.
      *
      * @param IObjectsIterator $iterator
      */
@@ -107,7 +112,7 @@ class Objects extends Object implements IObjects
     /**
      * {@inheritDoc}
      *
-     * @param $value
+     * @param mixed $value
      */
     public function addFirst($value /*, ...*/)
     {

@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "type": "library",
     "keywords": ["TRex", "T-Rex"],
-    "homepage": "http://labs.raphaellefebvre.be/TRex",
+    "homepage": "http://labs.raphaellefebvre.be/trex",
     "license": "MIT",
     "authors": [
         {

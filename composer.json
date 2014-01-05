@@ -1,6 +1,6 @@
 {
     "name": "raphhh/trex",
-    "description": "A light PHP toolbox with low level classes",
+    "description": "A PHP class helper",
     "version": "1.0.0",
     "type": "library",
     "keywords": ["TRex", "T-Rex"],

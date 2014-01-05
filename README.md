@@ -16,6 +16,16 @@ TRex is a light toolbox with low level classes implemented with standard missing
 
 ## How to start?
 
+### With Composer
+
+You just have to add the TRex package in your composer.json and update your project.
+
+    "require": {
+        "raphhh/trex": "dev-master"
+    }
+
+### Without Composer
+
 The simplest way to start is to include the bootstrap file in your working file.
 
     include_once 'trex/src/TRex/boostrap.php';

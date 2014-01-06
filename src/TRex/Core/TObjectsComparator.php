@@ -15,7 +15,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function merge(IObjects $objects /*, ...*/)
     {
@@ -26,7 +26,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function mergeA(IObjects $objects /*, ...*/)
     {
@@ -37,7 +37,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function diff(IObjects $objects /*, ...*/)
     {
@@ -48,7 +48,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function diffA(IObjects $objects /*, ...*/)
     {
@@ -59,7 +59,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function diffK(IObjects $objects /*, ...*/)
     {
@@ -70,7 +70,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function intersect(IObjects $objects /*, ...*/)
     {
@@ -81,7 +81,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function intersectA(IObjects $objects /*, ...*/)
     {
@@ -92,7 +92,7 @@ trait TObjectsComparator
      * See IObjectsComparator.
      *
      * @param IObjects $objects
-     * @return Objects
+     * @return self
      */
     public function intersectK(IObjects $objects /*, ...*/)
     {
@@ -105,11 +105,11 @@ trait TObjectsComparator
      *
      * @param string $functionName
      * @param array $objectsList
-     * @return Objects
+     * @return self
      */
     private function apply($functionName, array $objectsList)
     {
-        return new Objects(call_user_func_array($functionName, $this->parseObjectsListToArray($objectsList)));
+        return new $this(call_user_func_array($functionName, $this->parseObjectsListToArray($objectsList)));
     }
 
     /**

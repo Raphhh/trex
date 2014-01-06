@@ -16,6 +16,16 @@ use TRex\Serialization\DataToArrayCaster;
  * @package TRex\Core
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
+ *
+ * @method Objects merge(IObjects $objects)
+ * @method Objects mergeA(IObjects $objects)
+ * @method Objects mergeK(IObjects $objects)
+ * @method Objects diff(IObjects $objects)
+ * @method Objects diffA(IObjects $objects)
+ * @method Objects diffK(IObjects $objects)
+ * @method Objects intersect(IObjects $objects)
+ * @method Objects intersectA(IObjects $objects)
+ * @method Objects intersectK(IObjects $objects)
  */
 class Objects extends Object implements IObjects
 {

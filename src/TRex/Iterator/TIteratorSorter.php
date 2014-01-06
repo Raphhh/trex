@@ -1,8 +1,6 @@
 <?php
 namespace TRex\Iterator;
 
-use TRex\Core\Objects;
-
 /**
  * Class TIteratorSorter
  * Implements IIteratorSorter.
@@ -23,11 +21,11 @@ trait TIteratorSorter
     /**
      * See IIteratorSorter.
      *
-     * @return Objects
+     * @return self
      */
     public function reindex()
     {
-        return new Objects(array_values($this->getIterator()->toArray()));
+        return new $this(array_values($this->getIterator()->toArray()));
     }
 
     /**
@@ -35,7 +33,7 @@ trait TIteratorSorter
      *
      * @param \TRex\Iterator\SortType $type
      * @param callable|int $option
-     * @return Objects
+     * @return self
      */
     public function sort(SortType $type = null, $option = SORT_NATURAL)
     {
@@ -46,17 +44,17 @@ trait TIteratorSorter
 
         $values = $this->getIterator()->toArray();
         $sort($values, $option);
-        return new Objects($values);
+        return new $this($values);
     }
 
     /**
      * See IIteratorSorter.
      *
      * @param bool $areKeysPreserved
-     * @return Objects
+     * @return self
      */
     public function reverse($areKeysPreserved = true)
     {
-        return new Objects(array_reverse($this->getIterator()->toArray(), $areKeysPreserved));
+        return new $this(array_reverse($this->getIterator()->toArray(), $areKeysPreserved));
     }
 }

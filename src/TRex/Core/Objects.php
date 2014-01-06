@@ -3,6 +3,7 @@ namespace TRex\Core;
 
 use TRex\Iterator\IObjectsIterator;
 use TRex\Iterator\IteratorAdapter;
+use TRex\Iterator\SortType;
 use TRex\Iterator\TArrayAccess;
 use TRex\Iterator\TIterator;
 use TRex\Iterator\TIteratorSorter;
@@ -29,6 +30,9 @@ use TRex\Serialization\DataToArrayCaster;
  * @method Objects extract($startIndex, $length = 0, $areKeysPreserved = true)
  * @method Objects each(\Closure $callback)
  * @method Objects filter(\Closure $callback = null)
+ * @method Objects reindex()
+ * @method Objects sort(SortType $type = null, $option = SORT_NATURAL)
+ * @method Objects reverse($areKeysPreserved = true)
  */
 class Objects extends Object implements IObjects
 {

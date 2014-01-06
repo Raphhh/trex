@@ -26,6 +26,9 @@ use TRex\Serialization\DataToArrayCaster;
  * @method Objects intersect(IObjects $objects)
  * @method Objects intersectA(IObjects $objects)
  * @method Objects intersectK(IObjects $objects)
+ * @method Objects extract($startIndex, $length = 0, $areKeysPreserved = true)
+ * @method Objects each(\Closure $callback)
+ * @method Objects filter(\Closure $callback = null)
  */
 class Objects extends Object implements IObjects
 {

@@ -25,25 +25,25 @@ trait TObjectsModifier
      * @param int $startIndex
      * @param int $length
      * @param bool $areKeysPreserved
-     * @return IObjects
+     * @return self
      */
     public function extract($startIndex, $length = 0, $areKeysPreserved = true)
     {
         if (!$length) {
             $length = $this->getIterator()->count();
         }
-        return new Objects(array_slice($this->getIterator()->toArray(), $startIndex, $length, $areKeysPreserved));
+        return new $this(array_slice($this->getIterator()->toArray(), $startIndex, $length, $areKeysPreserved));
     }
 
     /**
      * See IObjectsComparator.
      *
      * @param \Closure $callback
-     * @return Objects
+     * @return self
      */
     public function each(\Closure $callback)
     {
-        $result = new Objects();
+        $result = new $this();
         foreach ($this as $key => $object) {
             $result[$key] = $this->invokeClosure($callback, $object, $key);
         }
@@ -54,12 +54,12 @@ trait TObjectsModifier
      * See IObjectsComparator.
      *
      * @param \Closure $callback
-     * @return Objects
+     * @return self
      */
     public function filter(\Closure $callback = null)
     {
         $callback = $this->formatFilter($callback);
-        $result = new Objects();
+        $result = new $this();
         foreach ($this as $key => $value) {
             if ($this->invokeClosure($callback, $value, $key)) {
                 $result[$key] = $value;
@@ -74,7 +74,7 @@ trait TObjectsModifier
      * @param \Closure $closure
      * @param mixed $value
      * @param mixed $key
-     * @return Objects
+     * @return self
      */
     private function invokeClosure(\Closure $closure, $value, $key)
     {

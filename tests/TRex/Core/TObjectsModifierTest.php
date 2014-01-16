@@ -268,4 +268,18 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $result);
         $this->assertSame($data[1], $result[1]);
     }
+
+    public function testUnique()
+    {
+        $objects = new Objects();
+        $objects[0] = new resources\foo();
+        $objects[1] = new resources\foo();
+        $objects[2] = $objects[1];
+
+        $result = $objects->unique();
+
+        $this->assertCount(2, $result);
+        $this->assertSame($objects[0], $result[0]);
+        $this->assertSame($objects[1], $result[1]);
+    }
 }

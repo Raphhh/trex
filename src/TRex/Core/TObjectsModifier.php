@@ -68,6 +68,17 @@ trait TObjectsModifier
         return $result;
     }
 
+    public function unique()
+    {
+        $result = new Objects();
+        foreach ($this as $key => $value) {
+            if (!$result->has($value)) {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
+
     /**
      * Calls the closure in binding the objects context.
      *

@@ -59,4 +59,14 @@ trait TIteratorSorter
     {
         return new Objects(array_reverse($this->getIterator()->toArray(), $areKeysPreserved));
     }
+
+    /**
+     * @return Objects
+     */
+    public function shuffle()
+    {
+        $data = $this->getIterator()->toArray();
+        shuffle($data);
+        return new Objects($data);
+    }
 }

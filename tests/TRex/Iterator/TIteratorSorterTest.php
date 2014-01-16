@@ -126,4 +126,18 @@ class TIteratorSorterTest extends \PHPUnit_Framework_TestCase
         $objects = new Objects($data);
         $this->assertSame(array_reverse($data, false), $objects->reverse(false)->toArray());
     }
+
+    public function testShuffle()
+    {
+        $data = array(
+            1 => 'a',
+            0 => 'b',
+            'a' => 1,
+            'b' => 0,
+        );
+        $objects = new Objects($data);
+        $result = $objects->shuffle()->toArray();
+        $this->assertNotSame($data, $result);
+        $this->assertEquals($data, $result);
+    }
 }

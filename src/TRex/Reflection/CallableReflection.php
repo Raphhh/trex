@@ -130,6 +130,18 @@ class CallableReflection extends Object
     }
 
     /**
+     * Invokes the reflected callback with static binding.
+     * Uses an associative array of params.
+     *
+     * @param array $args
+     * @return mixed
+     */
+    public function invokeAStatic($args)
+    {
+        return $this->invokeArgsStatic($this->mapArgs($args));
+    }
+
+    /**
      * getter of $type
      *
      * @return int

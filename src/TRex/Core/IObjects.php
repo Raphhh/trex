@@ -21,7 +21,8 @@ interface IObjects extends
     IIteratorSorter,
     IObjectsComparator,
     IObjectsModifier,
-    IObjectsSearcher
+    IObjectsSearcher,
+    IComposite
 {
 
 

@@ -57,4 +57,16 @@ trait TIteratorSorter
     {
         return new $this(array_reverse($this->getIterator()->toArray(), $areKeysPreserved));
     }
+
+    public function groupBy(\Closure $closure)
+    {
+        $results = array();
+        foreach ($this->each($closure) as $key => $result) {
+            if (!isset($results[$result])) {
+                $results[$result] = new $this();
+            }
+            $results[$result][$key] = $this[$key];
+        }
+        return $results;
+    }
 }

@@ -191,4 +191,13 @@ class Objects extends Object implements IObjects
     {
         $this->setIterator(new IteratorAdapter(new \ArrayIterator((new DataToArrayCaster())->cast($data))));
     }
+
+    public function pluck($propertyName)
+    {
+        return $this->each(
+            function ($object) use ($propertyName) {
+                return $object->{'get' . $propertyName}();
+            }
+        )->toArray();
+    }
 }

@@ -10,18 +10,23 @@ By default, PHP classes are dynamic with properties. You can add a property to a
 
 In using TRex\Core\Object, this behavior is canceled.
 
-    class Foo extends TRex/Core/Object{}
+```php
+class Foo extends TRex/Core/Object{}
 
-    $foo = new Foo();
-    $foo->none = 'none'; // exception is thrown
+$foo = new Foo();
+$foo->none = 'none'; // exception is thrown
+```
 
 You can revert to the initial behavior with Object::setDynamic()
 
-    class Foo extends TRex/Core/Object{}
-
-    $foo = new Foo();
-    $foo->setDynamic(true);
-    $foo->none = 'none';
+```php
+class Foo extends TRex/Core/Object{}
+```
+```php
+$foo = new Foo();
+$foo->setDynamic(true);
+$foo->none = 'none';
+```
 
 ### Allow dynamic method
 
@@ -29,13 +34,16 @@ By default, PHP classes have not dynamic methods. You can not add a method to an
 
 In using TRex\Core\Object, this behavior is allowed.
 
-    class Foo extends TRex/Core/Object{
-        private $a = 'a';
-    }
-
-    $foo = new Foo();
-    $foo->addMethod('bar', function($arg){ return $this->a.$arg; });
-    $foo->bar('b'); // 'ab'
+```php
+class Foo extends TRex/Core/Object{
+    private $a = 'a';
+}
+```
+```php
+$foo = new Foo();
+$foo->addMethod('bar', function($arg){ return $this->a.$arg; });
+$foo->bar('b'); // 'ab'
+```
 
 Note that you have access to the context of the current object ($this) in the function you pass.
 
@@ -46,67 +54,77 @@ Note that you have access to the context of the current object ($this) in the fu
 
 You can hydrate an object from an array.
 
-    class Foo extends TRex/Core/Object{
+```php
+class Foo extends TRex/Core/Object{
 
-    	private $a;
+    private $a;
 
-    	function getA(){
-    		return $this->a;
-    	}
-
-    	function setA($a){
-    		$this->a = a;
-    	}
-
+    function getA(){
+        return $this->a;
     }
 
-    $foo = new Foo(["a" => 123]);
-    echo $foo->getA(); //123
+    function setA($a){
+        $this->a = a;
+    }
+
+}
+```
+```php
+$foo = new Foo(["a" => 123]);
+echo $foo->getA(); //123
+```
 
 ### From JSON
 
 You can hydrate an object from a JSON string.
 
-    class Foo extends TRex/Core/Object{
+```php
+class Foo extends TRex/Core/Object{
 
-    	private $a;
+    private $a;
 
-    	function getA(){
-    		return $this->a;
-    	}
-
-    	function setA($a){
-    		$this->a = a;
-    	}
-
+    function getA(){
+        return $this->a;
     }
 
-    $foo = new Foo('{"a": 123}');
-    echo $foo->getA(); //123
+    function setA($a){
+        $this->a = a;
+    }
+
+}
+```
+```php
+$foo = new Foo('{"a": 123}');
+echo $foo->getA(); //123
+```
 
 ### From object
 
 You can hydrate an object from an array castable object.
 
-    class Foo extends TRex/Core/Object{
+```php
+class Foo extends TRex/Core/Object{
 
-    	private $a;
+    private $a;
 
-    	function getA(){
-    		return $this->a;
-    	}
-
-    	function setA($a){
-    		$this->a = a;
-    	}
-
+    function getA(){
+        return $this->a;
     }
 
-    $data = new \stdClass();
-    $data->a = 123;
+    function setA($a){
+        $this->a = a;
+    }
 
-    $foo = new Foo($data);
-    echo $foo->getA(); //123
+}
+```
+```php
+$data = new \stdClass();
+$data->a = 123;
+```
+```php
+$foo = new Foo($data);
+echo $foo->getA(); //123
+```
 
 
 ## Object export
@@ -121,60 +139,70 @@ You can also filter properties on their visibility (private/protected/public).
 
 You can easily convert your object to JSON, choosing which property you what to export with *@transient* comment tag, including private ones.
 
-    class Foo extends TRex/Core/Object{
+```php
+class Foo extends TRex/Core/Object{
 
-        private $a = 'a';
+    private $a = 'a';
 
-        /**
-         * @transient
-         */
-        public $b = 'b';
+    /**
+     * @transient
+     */
+    public $b = 'b';
 
-    }
-
-    $foo = new Foo();
-    $foo->toArray(); //array (a: "a") => only non transient property
+}
+```
+```php
+$foo = new Foo();
+$foo->toArray(); //array (a: "a") => only non transient property
+```
 
 ### To JSON
 
 You can easily convert your object to JSON, choosing which property you what to export with *@transient* comment tag, including private ones.
 
-    class Foo extends TRex/Core/Object{
+```php
+class Foo extends TRex/Core/Object{
 
-        private $a = 'a';
+    private $a = 'a';
 
-        /**
-         * @transient
-         */
-        public $b = 'b';
+    /**
+     * @transient
+     */
+    public $b = 'b';
 
-    }
-
-    echo new Foo(); //{a: "a"} => only non transient property
+}
+```
+```php
+echo new Foo(); //{a: "a"} => only non transient property
+```
 
 ### To any other object
 
 You can transform your object to an other object.
 
-    class Bar{
+```php
+class Bar{
 
-        public $a;
-        public $c;
+    public $a;
+    public $c;
 
-    }
+}
+```
+```php
+class Foo extends TRex/Core/Object{
 
-    class Foo extends TRex/Core/Object{
+    private $a = 'a';
 
-        private $a = 'a';
+    /**
+     * @cast \Bar::c
+     */
+    public $b = 'b';
 
-        /**
-         * @cast \Bar::c
-         */
-        public $b = 'b';
-
-    }
-
-    $foo = new Foo();
-    $bar = $foo->castTo('\Bar');
-    echo $bar->$a; // null;
-    echo $bar->$c; // 'b';
+}
+```
+```php
+$foo = new Foo();
+$bar = $foo->castTo('\Bar');
+echo $bar->$a; // null;
+echo $bar->$c; // 'b';
+```

@@ -10,7 +10,6 @@ use TRex\Core\resources\Foo;
  *
  * @package TRex\Core
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
- * @todo work with mock...
  */
 class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,8 +24,11 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
             'a' => 1,
             'b' => 0,
         );
-        $objects = new Objects($data);
-        $this->assertSame(array_slice($data, 1, 3, true), $objects->extract(1)->toArray());
+        $objects = new resources\Foos($data);
+        $result = $objects->extract(1);
+
+        $this->assertInstanceOf(get_class($objects), $result);
+        $this->assertSame(array_slice($data, 1, 3, true), $result->toArray());
     }
 
     public function testExtractWithLength()
@@ -37,8 +39,11 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
             'a' => 1,
             'b' => 0,
         );
-        $objects = new Objects($data);
-        $this->assertSame(array_slice($data, 1, 2, true), $objects->extract(1, 2)->toArray());
+        $objects = new resources\Foos($data);
+        $result = $objects->extract(1, 2);
+
+        $this->assertInstanceOf(get_class($objects), $result);
+        $this->assertSame(array_slice($data, 1, 2, true), $result->toArray());
     }
 
     public function testExtractWithoutPreservedKeys()
@@ -49,8 +54,11 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
             'a' => 1,
             'b' => 0,
         );
-        $objects = new Objects($data);
-        $this->assertSame(array_slice($data, 1, 3, false), $objects->extract(1, 0, false)->toArray());
+        $objects = new resources\Foos($data);
+        $result = $objects->extract(1, 0, false);
+
+        $this->assertInstanceOf(get_class($objects), $result);
+        $this->assertSame(array_slice($data, 1, 3, false), $result->toArray());
     }
 
     /**
@@ -58,12 +66,13 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testEach()
     {
-        $objects = new Objects();
+        $objects = new resources\Foos();
         $result = $objects->each(
             function () {
             }
         );
-        $this->assertInstanceOf('TRex\Core\Objects', $result);
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertNotSame($objects, $result);
     }
 
@@ -74,12 +83,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testEachWithObjectByThis()
     {
         $data = array(new Foo(), new Bar());
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->each(
             function () {
                 return get_class($this);
             }
         );
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(2, $result);
         $this->assertSame('TRex\Core\resources\Foo', $result[0]);
         $this->assertSame('TRex\Core\resources\Bar', $result[1]);
@@ -92,12 +103,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testEachWithObjectByValue()
     {
         $data = array(new Foo(), new Bar());
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->each(
             function ($value) {
                 return get_class($value);
             }
         );
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(2, $result);
         $this->assertSame('TRex\Core\resources\Foo', $result[0]);
         $this->assertSame('TRex\Core\resources\Bar', $result[1]);
@@ -110,12 +123,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testEachWithObjectByKeyAndObjects()
     {
         $data = array(new Foo(), new Bar());
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->each(
             function ($value, $key, $objects) {
                 return get_class($objects[$key]);
             }
         );
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(2, $result);
         $this->assertSame('TRex\Core\resources\Foo', $result[0]);
         $this->assertSame('TRex\Core\resources\Bar', $result[1]);
@@ -128,12 +143,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testEachWithScalarByValue()
     {
         $data = array(0, 1);
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->each(
             function ($value) {
                 return $value + 1;
             }
         );
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(2, $result);
         $this->assertSame(1, $result[0]);
         $this->assertSame(2, $result[1]);
@@ -146,12 +163,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testEachWithScalarByKeyAndObjects()
     {
         $data = array(0, 1);
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->each(
             function ($value, $key, $object) {
                 return $object[$key] + 1;
             }
         );
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(2, $result);
         $this->assertSame(1, $result[0]);
         $this->assertSame(2, $result[1]);
@@ -162,9 +181,10 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilter()
     {
-        $objects = new Objects();
+        $objects = new resources\Foos();
         $result = $objects->filter();
-        $this->assertInstanceOf('TRex\Core\Objects', $result);
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertNotSame($objects, $result);
     }
 
@@ -173,8 +193,10 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterWithEmptyFilter()
     {
-        $objects = new Objects(array('', 0, 1, false, null, '0', array()));
+        $objects = new resources\Foos(array('', 0, 1, false, null, '0', array()));
         $result = $objects->filter();
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(1, $result);
         $this->assertSame(1, $result[2]);
     }
@@ -186,13 +208,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testFilterWithObjectByThis()
     {
         $data = array(new Bar(), new Foo());
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->filter(
             function () {
                 return $this instanceof Foo;
             }
         );
-        $this->assertInstanceOf('TRex\Core\Objects', $result);
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(1, $result);
         $this->assertSame($data[1], $result[1]);
     }
@@ -204,13 +227,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testFilterWithObjectByValue()
     {
         $data = array(new Bar(), new Foo());
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->filter(
             function ($value) {
                 return $value instanceof Foo;
             }
         );
-        $this->assertInstanceOf('TRex\Core\Objects', $result);
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(1, $result);
         $this->assertSame($data[1], $result[1]);
     }
@@ -222,13 +246,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testFilterWithObjectByKeyAndObjects()
     {
         $data = array(new Bar(), new Foo());
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->filter(
             function ($value, $key, $objects) {
                 return $objects[$key] instanceof Foo;
             }
         );
-        $this->assertInstanceOf('TRex\Core\Objects', $result);
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(1, $result);
         $this->assertSame($data[1], $result[1]);
     }
@@ -240,13 +265,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testFilterWithScalarByValue()
     {
         $data = array('a', 'b');
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->filter(
             function ($value) {
                 return $value === 'b';
             }
         );
-        $this->assertInstanceOf('TRex\Core\Objects', $result);
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(1, $result);
         $this->assertSame($data[1], $result[1]);
     }
@@ -258,13 +284,14 @@ class TObjectsModifierTest extends \PHPUnit_Framework_TestCase
     public function testFilterWithScalarByKeyAndObjects()
     {
         $data = array('a', 'b');
-        $objects = new Objects($data);
+        $objects = new resources\Foos($data);
         $result = $objects->filter(
             function ($value, $key, $objects) {
                 return $objects[$key] === 'b';
             }
         );
-        $this->assertInstanceOf('TRex\Core\Objects', $result);
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertCount(1, $result);
         $this->assertSame($data[1], $result[1]);
     }

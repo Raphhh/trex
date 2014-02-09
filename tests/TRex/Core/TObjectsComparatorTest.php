@@ -5,7 +5,6 @@ namespace TRex\Core;
  * Class TObjectsComparatorTest
  * Calss test for TObjectsComparator
  * @package TRex\Core
- * @todo work with mock...
  */
 class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,10 +32,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->merge(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_merge($data1, $data2, $data3),
-            $objects->merge(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 
@@ -64,10 +66,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->mergeA(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_replace($data3, $data2, $data1),
-            $objects->mergeA(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 
@@ -95,10 +100,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->diff(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_diff($data1, $data2, $data3),
-            $objects->diff(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 
@@ -126,10 +134,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->diffA(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_diff_assoc($data1, $data2, $data3),
-            $objects->diffA(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 
@@ -157,10 +168,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->diffK(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_diff_key($data1, $data2, $data3),
-            $objects->diffK(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 
@@ -188,10 +202,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->intersect(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_intersect($data1, $data2, $data3),
-            $objects->intersect(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 
@@ -219,10 +236,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->intersectA(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_intersect_assoc($data1, $data2, $data3),
-            $objects->intersectA(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 
@@ -250,10 +270,13 @@ class TObjectsComparatorTest extends \PHPUnit_Framework_TestCase
             'g' => 5,
         );
 
-        $objects = new Objects($data1);
+        $objects = new resources\Foos($data1);
+        $result = $objects->intersectK(new Objects($data2), new Objects($data3));
+
+        $this->assertInstanceOf(get_class($objects), $result);
         $this->assertSame(
             array_intersect_key($data1, $data2, $data3),
-            $objects->intersectK(new Objects($data2), new Objects($data3))->toArray()
+            $result->toArray()
         );
     }
 }

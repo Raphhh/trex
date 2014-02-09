@@ -3,6 +3,7 @@ namespace TRex\Core;
 
 use TRex\Iterator\IObjectsIterator;
 use TRex\Iterator\IteratorAdapter;
+use TRex\Iterator\SortType;
 use TRex\Iterator\TArrayAccess;
 use TRex\Iterator\TIterator;
 use TRex\Iterator\TIteratorSorter;
@@ -16,6 +17,22 @@ use TRex\Serialization\DataToArrayCaster;
  * @package TRex\Core
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  * @transient
+ *
+ * @method Objects merge(IObjects $objects)
+ * @method Objects mergeA(IObjects $objects)
+ * @method Objects mergeK(IObjects $objects)
+ * @method Objects diff(IObjects $objects)
+ * @method Objects diffA(IObjects $objects)
+ * @method Objects diffK(IObjects $objects)
+ * @method Objects intersect(IObjects $objects)
+ * @method Objects intersectA(IObjects $objects)
+ * @method Objects intersectK(IObjects $objects)
+ * @method Objects extract($startIndex, $length = 0, $areKeysPreserved = true)
+ * @method Objects each(\Closure $callback)
+ * @method Objects filter(\Closure $callback = null)
+ * @method Objects reindex()
+ * @method Objects sort(SortType $type = null, $option = SORT_NATURAL)
+ * @method Objects reverse($areKeysPreserved = true)
  */
 class Objects extends Object implements IObjects
 {

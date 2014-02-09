@@ -194,4 +194,13 @@ class ObjectTest extends \PHPUnit_Framework_TestCase
             $result->toArray()
         );
     }
+
+    /**
+     * Tests __toString
+     */
+    public function test__toString()
+    {
+        $foo = new Foo();
+        $this->assertSame((string)$foo->toJson(), (string)$foo);
+    }
 }

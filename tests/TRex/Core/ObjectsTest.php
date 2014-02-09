@@ -252,4 +252,29 @@ class ObjectsTest extends \PHPUnit_Framework_TestCase
         array_pop($data);
         $this->assertSame($data, $objects->toArray());
     }
+
+    public function test__callComposite()
+    {
+        $objects = new Objects();
+        $objects[0] = new resources\foo();
+        $objects[1] = new resources\foo();
+
+        $this->assertSame(array('foo from foo', 'foo from foo'), $objects->getFoo());
+    }
+
+    public function test__callDynamic()
+    {
+        $objects = new Objects();
+        $objects[0] = new resources\foo();
+        $objects[1] = new resources\foo();
+
+        $objects->addMethod(
+            'getFoo',
+            function () {
+                return 'foo from object';
+            }
+        );
+
+        $this->assertSame('foo from object', $objects->getFoo());
+    }
 }

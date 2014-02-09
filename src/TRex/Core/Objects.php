@@ -44,6 +44,7 @@ class Objects extends Object implements IObjects
     use TIteratorSorter;
     use TObjectsComparator;
     use TObjectsModifier;
+    use TComposite;
 
     /**
      * Current iterator.
@@ -60,6 +61,14 @@ class Objects extends Object implements IObjects
     public function __construct($data = null)
     {
         $this->initIterator($data);
+    }
+
+    public function __call($methodName, array $args)
+    {
+        if ($this->getMethod($methodName)) {
+            return parent::__call($methodName, $args);
+        }
+        return $this->invoke($methodName, $args);
     }
 
     /**

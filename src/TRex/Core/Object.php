@@ -178,7 +178,7 @@ abstract class Object implements IObject
      * @param string $name
      * @return array
      */
-    private function getMethod($name)
+    protected function getMethod($name)
     {
         if (isset($this->methods[$name])) {
             return $this->methods[$name];
@@ -192,7 +192,7 @@ abstract class Object implements IObject
      * @param string $name
      * @return mixed
      */
-    private function getProperty($name)
+    protected function getProperty($name)
     {
         if (method_exists($this, 'get' . $name)) {
             return $this->{'get' . $name}();

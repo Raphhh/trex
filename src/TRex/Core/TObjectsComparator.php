@@ -140,17 +140,4 @@ trait TObjectsComparator
         array_unshift($array, $value);
         return $array;
     }
-
-    /**
-     * Pushes $value to $array.
-     *
-     * @param array $array
-     * @param mixed $value
-     * @return array
-     */
-    private function pushTo(array $array, $value)
-    {
-        array_push($array, $value);
-        return $array;
-    }
 }

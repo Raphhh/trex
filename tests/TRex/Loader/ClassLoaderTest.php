@@ -290,7 +290,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadKoWithoutError(ClassLoader $classLoader)
     {
-        $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
+        $this->assertNull($classLoader->load('TRex\Loader\resources\None'));
         return $classLoader;
     }
 
@@ -305,7 +305,7 @@ class ClassLoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoadKoWithError(ClassLoader $classLoader)
     {
         $classLoader->setErrorDisplayed(true);
-        $this->assertSame(null, $classLoader->load('TRex\Loader\resources\None'));
+        $this->assertNull($classLoader->load('TRex\Loader\resources\None'));
         return $classLoader;
     }
 

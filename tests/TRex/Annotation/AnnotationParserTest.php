@@ -50,9 +50,18 @@ class AnnotationParserTest extends \PHPUnit_Framework_TestCase
     public function testParseTypeComment()
     {
         $annotationParser = new AnnotationParser();
-        $types = $annotationParser->parseTypeComment('null|\Vendor\Package\Class[] my cspecial comment');
+        $types = $annotationParser->parseTypeComment('null|\Vendor\Package\Class[] my special comment');
         $this->assertCount(2, $types);
         $this->assertSame('null', $types[0]);
         $this->assertSame('\Vendor\Package\Class[]', $types[1]);
+    }
+
+    /**
+     * Tests parseTypeComment with empty string.
+     */
+    public function testParseTypeCommentEmpty()
+    {
+        $annotationParser = new AnnotationParser();
+        $this->assertSame(array(), $annotationParser->parseTypeComment(''));
     }
 }

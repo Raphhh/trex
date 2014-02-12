@@ -69,7 +69,7 @@ class ObjectCache extends Object
     {
         list($classKey, $methodKey, $argumentsKey) = $this->getKeys($cachedObject, $methodName, $arguments);
         if (!$this->hasCacheForArg($classKey, $methodKey, $argumentsKey)) {
-            $this->addCache($classKey, $methodKey, $argumentsKey, call_user_func_array($callback, $arguments));
+            $this->addCacheForArg($classKey, $methodKey, $argumentsKey, call_user_func_array($callback, $arguments));
         }
         return $this->caches[$classKey][$methodKey][$argumentsKey];
     }
@@ -135,7 +135,7 @@ class ObjectCache extends Object
         return isset($this->caches[$classKey]);
     }
 
-    private function addCache($classKey, $methodName, $argumentsKey, $value)
+    private function addCacheForArg($classKey, $methodName, $argumentsKey, $value)
     {
         $this->caches[$classKey][$methodName][$argumentsKey] = $value;
     }

@@ -124,7 +124,7 @@ class CallableReflection extends Object
      * @param array $args
      * @return mixed
      */
-    public function invokeArgsStatic($args)
+    public function invokeArgsStatic(array $args)
     {
         return forward_static_call_array($this->getCallable(), $args);
     }
@@ -136,7 +136,7 @@ class CallableReflection extends Object
      * @param array $args
      * @return mixed
      */
-    public function invokeAStatic($args)
+    public function invokeAStatic(array $args)
     {
         return $this->invokeArgsStatic($this->mapArgs($args));
     }

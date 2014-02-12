@@ -14,11 +14,6 @@ class ObjectCache extends Object
 {
 
     /**
-     * @var
-     */
-    private $cachedObject;
-
-    /**
      * @var array
      */
     private $caches = array();
@@ -29,17 +24,6 @@ class ObjectCache extends Object
     private static $instance;
 
     /**
-     * @example Cache::call($object)->foo($args);
-     * @param $cachedObject
-     * @return ObjectCache
-     */
-    public static function call($cachedObject)
-    {
-        self::getInstance()->setCachedObject($cachedObject);
-        return self::getInstance();
-    }
-
-    /**
      * @return ObjectCache
      */
     public static function getInstance()
@@ -48,16 +32,6 @@ class ObjectCache extends Object
             self::$instance = new static();
         }
         return self::$instance;
-    }
-
-    public function __call($methodName, array $arguments)
-    {
-        return $this->get(
-            $this->getCachedObject(),
-            $methodName,
-            $arguments,
-            array($this->getCachedObject(), $methodName)
-        );
     }
 
     public function toArray()
@@ -148,16 +122,6 @@ class ObjectCache extends Object
     private function addCacheForArg($classKey, $methodName, $argumentsKey, $value)
     {
         $this->caches[$classKey][$methodName][$argumentsKey] = $value;
-    }
-
-    private function setCachedObject($cachedObject)
-    {
-        $this->cachedObject = $cachedObject;
-    }
-
-    private function getCachedObject()
-    {
-        return $this->cachedObject;
     }
 
     private function getKeys($cachedObject = null, $methodName = '', array $arguments = array())

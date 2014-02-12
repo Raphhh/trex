@@ -125,14 +125,14 @@ class ObjectCache extends Object
         return isset($this->caches[$classKey][$methodName][$argumentsKey]);
     }
 
-    private function hasCacheForClass($classKey)
-    {
-        return isset($this->caches[$classKey]);
-    }
-
     private function hasCacheForMethod($classKey, $methodName)
     {
         return isset($this->caches[$classKey][$methodName]);
+    }
+
+    private function hasCacheForClass($classKey)
+    {
+        return isset($this->caches[$classKey]);
     }
 
     private function addCache($classKey, $methodName, $argumentsKey, $value)

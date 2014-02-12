@@ -74,6 +74,11 @@ class ObjectCache extends Object
         return $this->caches[$classKey][$methodKey][$argumentsKey];
     }
 
+    public function add($cachedObject, $methodName, array $arguments, callable $callback)
+    {
+        //todo
+    }
+
     public function clean($cachedObject = null, $methodName = '', array $arguments = array())
     {
         if ($cachedObject && $methodName && $arguments) {
@@ -85,6 +90,11 @@ class ObjectCache extends Object
         } else {
             $this->cleanCache();
         }
+    }
+
+    public function has($cachedObject = null, $methodName = '', array $arguments = array())
+    {
+        //todo
     }
 
     private function cleanCacheForArg($cachedObject, $methodName, $arguments)

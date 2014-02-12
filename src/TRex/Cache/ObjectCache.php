@@ -76,23 +76,48 @@ class ObjectCache extends Object
 
     public function clean($cachedObject = null, $methodName = '', array $arguments = array())
     {
-        list($classKey, $methodKey, $argumentsKey) = $this->getKeys($cachedObject, $methodName, $arguments);
         if ($cachedObject && $methodName && $arguments) {
-            if ($this->hasCache($classKey, $methodKey, $argumentsKey)) {
-                $this->caches[$classKey][$methodKey][$argumentsKey] = array();
-            }
+            $this->cleanCacheForArg($cachedObject, $methodName, $arguments);
         } elseif ($cachedObject && $methodName) {
-            if ($this->hasCacheForMethod($classKey, $methodKey)) {
-                $this->caches[$classKey][$methodKey] = array();
-            }
-        }
-        if ($cachedObject) {
-            if ($this->hasCacheForClass($classKey)) {
-                $this->caches[$classKey] = array();
-            }
+            $this->cleanCacheForMethod($cachedObject, $methodName);
+        } elseif ($cachedObject) {
+            $this->cleanCacheForClass($cachedObject);
         } else {
-            $this->caches = array();
+            $this->cleanCache();
         }
+    }
+
+    private function cleanCacheForArg($cachedObject, $methodName, $arguments)
+    {
+        list($classKey, $methodKey, $argumentsKey) =
+            $this->getKeys($cachedObject, $methodName, $arguments);
+        if ($this->hasCache($classKey, $methodKey, $argumentsKey)) {
+            unset($this->caches[$classKey][$methodKey][$argumentsKey]);
+        }
+    }
+
+    private function cleanCacheForMethod($cachedObject, $methodName)
+    {
+        list($classKey, $methodKey) = $this->getKeys(
+            $cachedObject,
+            $methodName
+        );
+        if ($this->hasCacheForMethod($classKey, $methodKey)) {
+            unset($this->caches[$classKey][$methodKey]);
+        }
+    }
+
+    private function cleanCacheForClass($cachedObject)
+    {
+        list($classKey) = $this->getKeys($cachedObject);
+        if ($this->hasCacheForClass($classKey)) {
+            unset($this->caches[$classKey]);
+        }
+    }
+
+    private function cleanCache()
+    {
+        $this->caches = array();
     }
 
     private function hasCache($classKey, $methodName, $argumentsKey)

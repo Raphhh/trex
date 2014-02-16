@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Reflection;
 
+use TRex\Reflection\resources\Callback;
+
 class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -268,5 +270,56 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetObjectForInvokedObject()
     {
+    }
+
+    /**
+     * @return callable
+     */
+    private function getFunction()
+    {
+        return 'is_string';
+    }
+
+    /**
+     * @return callable
+     */
+    private function getClosure()
+    {
+        return function ($a, $b) {
+            return func_get_args();
+        };
+    }
+
+    /**
+     * @return callable
+     */
+    private function getInstanceMethod()
+    {
+        $callback = new Callback();
+        return array($callback, 'foo');
+    }
+
+    /**
+     * @return callable
+     */
+    private function getStaticMethod1()
+    {
+        return array('TRex\Reflection\resources\Callback', 'bar');
+    }
+
+    /**
+     * @return callable
+     */
+    private function getStaticMethod2()
+    {
+        return 'TRex\Reflection\resources\Callback::bar';
+    }
+
+    /**
+     * @return callable
+     */
+    private function getInvokedObject()
+    {
+        return new Callback();
     }
 }

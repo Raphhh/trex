@@ -323,22 +323,35 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetObjectForFunction()
     {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $this->assertNull($reflectedCallable->getObject());
     }
 
     public function testGetObjectForClosure()
     {
+        $reflectedCallable = new CallableReflection($this->getClosure());
+        $this->assertNull($reflectedCallable->getObject());
     }
 
     public function testGetObjectForInstanceMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertInstanceOf('TRex\Reflection\resources\Callback', $reflectedCallable->getObject());
     }
 
     public function testGetObjectForStaticMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $this->assertNull($reflectedCallable->getObject());
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $this->assertNull($reflectedCallable->getObject());
     }
 
     public function testGetObjectForInvokedObject()
     {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $this->assertInstanceOf('TRex\Reflection\resources\Callback', $reflectedCallable->getObject());
     }
 
     /**

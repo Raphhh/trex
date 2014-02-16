@@ -15,22 +15,47 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetReflectionForFunction()
     {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $reflection = $reflectedCallable->getReflection();
+        $this->assertInstanceOf('\ReflectionFunction', $reflection);
+        $this->assertSame($this->getFunction(), $reflection->getName());
     }
 
     public function testGetReflectionForClosure()
     {
+        $reflectedCallable = new CallableReflection($this->getClosure());
+        $reflection = $reflectedCallable->getReflection();
+        $this->assertInstanceOf('\ReflectionFunction', $reflection);
+        $this->assertSame('TRex\Reflection\{closure}', $reflection->getName());
     }
 
     public function testGetReflectionForInstanceMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $reflection = $reflectedCallable->getReflection();
+        $this->assertInstanceOf('\ReflectionMethod', $reflection);
+        $this->assertSame('foo', $reflection->getName());
     }
 
     public function testGetReflectionForStaticMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $reflection = $reflectedCallable->getReflection();
+        $this->assertInstanceOf('\ReflectionMethod', $reflection);
+        $this->assertSame('bar', $reflection->getName());
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $reflection = $reflectedCallable->getReflection();
+        $this->assertInstanceOf('\ReflectionMethod', $reflection);
+        $this->assertSame('bar', $reflection->getName());
     }
 
     public function testGetReflectionForInvokedObject()
     {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $reflection = $reflectedCallable->getReflection();
+        $this->assertInstanceOf('\ReflectionMethod', $reflection);
+        $this->assertSame('__invoke', $reflection->getName());
     }
 
     public function testInvokeForFunction()

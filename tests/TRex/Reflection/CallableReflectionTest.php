@@ -290,22 +290,35 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetClassNameForFunction()
     {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $this->assertSame('', $reflectedCallable->getClassName());
     }
 
     public function testGetClassNameForClosure()
     {
+        $reflectedCallable = new CallableReflection($this->getClosure());
+        $this->assertSame('', $reflectedCallable->getClassName());
     }
 
     public function testGetClassNameForInstanceMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertSame('TRex\Reflection\resources\Callback', $reflectedCallable->getClassName());
     }
 
     public function testGetClassNameForStaticMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $this->assertSame('TRex\Reflection\resources\Callback', $reflectedCallable->getClassName());
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $this->assertSame('TRex\Reflection\resources\Callback', $reflectedCallable->getClassName());
     }
 
     public function testGetClassNameForInvokedObject()
     {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $this->assertSame('TRex\Reflection\resources\Callback', $reflectedCallable->getClassName());
     }
 
     public function testGetObjectForFunction()

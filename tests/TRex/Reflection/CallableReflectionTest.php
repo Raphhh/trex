@@ -6,8 +6,11 @@ use TRex\Reflection\resources\Callback;
 class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testCallable()
+    public function testGetCallable()
     {
+        $callable = $this->getInvokedObject();
+        $reflectedCallable = new CallableReflection($callable);
+        $this->assertSame($callable, $reflectedCallable->getCallable());
     }
 
     public function testGetReflectionForFunction()

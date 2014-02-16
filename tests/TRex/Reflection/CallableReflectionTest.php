@@ -223,22 +223,36 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetClosureForFunction()
     {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $this->assertNull($reflectedCallable->getClosure());
     }
 
     public function testGetClosureForClosure()
     {
+        $closure = $this->getClosure();
+        $reflectedCallable = new CallableReflection($closure);
+        $this->assertSame($closure, $reflectedCallable->getClosure());
     }
 
     public function testGetClosureForInstanceMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertNull($reflectedCallable->getClosure());
     }
 
     public function testGetClosureForStaticMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $this->assertNull($reflectedCallable->getClosure());
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $this->assertNull($reflectedCallable->getClosure());
     }
 
     public function testGetClosureForInvokedObject()
     {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $this->assertNull($reflectedCallable->getClosure());
     }
 
     public function testGetMethodNameForFunction()

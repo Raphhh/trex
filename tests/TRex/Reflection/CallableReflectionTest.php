@@ -155,22 +155,35 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testGetTypeForFunction()
     {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $this->assertSame(CallableReflection::FUNCTION_TYPE, $reflectedCallable->getType());
     }
 
     public function testGetTypeForClosure()
     {
+        $reflectedCallable = new CallableReflection($this->getClosure());
+        $this->assertSame(CallableReflection::CLOSURE_TYPE, $reflectedCallable->getType());
     }
 
     public function testGetTypeForInstanceMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertSame(CallableReflection::INSTANCE_METHOD_TYPE, $reflectedCallable->getType());
     }
 
     public function testGetTypeForStaticMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $this->assertSame(CallableReflection::STATIC_METHOD_TYPE, $reflectedCallable->getType());
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $this->assertSame(CallableReflection::STATIC_METHOD_TYPE, $reflectedCallable->getType());
     }
 
     public function testGetTypeForInvokedObject()
     {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $this->assertSame(CallableReflection::INVOKED_OBJECT_TYPE, $reflectedCallable->getType());
     }
 
     //... todo isType

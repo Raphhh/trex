@@ -633,7 +633,7 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
      */
     private function getClosure()
     {
-        return function ($a, $b) {
+        return function ($a, $b, $c = 3) {
             return func_get_args();
         };
     }

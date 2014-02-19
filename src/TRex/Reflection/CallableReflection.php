@@ -98,6 +98,17 @@ class CallableReflection extends Object
     }
 
     /**
+     * Invokes the reflected callback with associative params.
+     *
+     * @param array $args
+     * @return mixed
+     */
+    public function invokeA(array $args)
+    {
+        return $this->invokeArgs($this->mapArgs($args));
+    }
+
+    /**
      * invokes the reflected callback with static binding
      *
      * @return mixed
@@ -329,5 +340,30 @@ class CallableReflection extends Object
                 trigger_error("Type not found for callable", E_USER_ERROR);
             }
         }
+    }
+
+    /**
+     * @param array $args
+     * @throws \InvalidArgumentException
+     * @return array
+     */
+    private function mapArgs(array $args)
+    {
+        $params = array();
+        foreach ($this->getReflection()->getParameters() as $position => $reflectedParam) {
+            if (array_key_exists($reflectedParam->name, $args)) {
+                $params[$position] = $args[$reflectedParam->name];
+            } elseif (!$reflectedParam->isOptional()) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Missing key "%s" for the %sth params of %s',
+                        $reflectedParam->name,
+                        $position,
+                        $this->getReflection()->getName()
+                    )
+                );
+            }
+        }
+        return $params;
     }
 }

@@ -159,22 +159,35 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokeStaticForFunction()
     {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $this->assertTrue($reflectedCallable->invokeStatic('foo'));
     }
 
     public function testInvokeStaticForClosure()
     {
+        $reflectedCallable = new CallableReflection($this->getClosure());
+        $this->assertSame(array(1, 2), $reflectedCallable->invokeStatic(1, 2));
     }
 
     public function testInvokeStaticForInstanceMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertSame(array(1, 2), $reflectedCallable->invokeStatic(1, 2));
     }
 
     public function testInvokeStaticForStaticMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $this->assertSame(array(1, 2), $reflectedCallable->invokeStatic(1, 2));
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $this->assertSame(array(1, 2), $reflectedCallable->invokeStatic(1, 2));
     }
 
     public function testInvokeStaticForInvokedObject()
     {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $this->assertSame(array(1, 2), $reflectedCallable->invokeStatic(1, 2));
     }
 
     public function testInvokeArgsStaticForFunction()

@@ -8,7 +8,6 @@ use TRex\Core\Object;
  * Callable Reflection: You can reflect a callback and know its type.
  * @package TRex\Reflection
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
- * @todo has to be unit tested
  */
 class CallableReflection extends Object
 {

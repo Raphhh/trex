@@ -127,7 +127,7 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
     public function testInvokeAForFunction()
     {
         $reflectedCallable = new CallableReflection($this->getFunction());
-        $this->assertTrue($reflectedCallable->invokeArgs(array('foo')));
+        $this->assertTrue($reflectedCallable->invokeA(array('var' => 'foo')));
     }
 
     public function testInvokeAForClosure()

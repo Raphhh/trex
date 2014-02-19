@@ -40,7 +40,7 @@ class CallableReflection extends Object
      *
      * @param callable $callable
      */
-    function __construct(callable $callable)
+    public function __construct(callable $callable)
     {
         $this->setCallable($callable);
     }

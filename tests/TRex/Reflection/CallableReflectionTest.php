@@ -343,6 +343,39 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($reflectedCallable->isStaticMethod());
     }
 
+    public function testIsInvokedObjectForFunction()
+    {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $this->assertFalse($reflectedCallable->isInvokedObject());
+    }
+
+    public function testIsInvokedObjectForClosure()
+    {
+        $reflectedCallable = new CallableReflection($this->getClosure());
+        $this->assertFalse($reflectedCallable->isInvokedObject());
+    }
+
+    public function testIsInvokedObjectForInstanceMethod()
+    {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertFalse($reflectedCallable->isInvokedObject());
+    }
+
+    public function testIsInvokedObjectForStaticMethod()
+    {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $this->assertFalse($reflectedCallable->isInvokedObject());
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $this->assertFalse($reflectedCallable->isInvokedObject());
+    }
+
+    public function testIsInvokedObjectForInvokedObject()
+    {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $this->assertTrue($reflectedCallable->isInvokedObject());
+    }
+
     public function testGetFunctionNameForFunction()
     {
         $reflectedCallable = new CallableReflection($this->getFunction());

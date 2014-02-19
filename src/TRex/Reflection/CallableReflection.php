@@ -57,6 +57,26 @@ class CallableReflection extends Object
     }
 
     /**
+     * Returns the appropriate class of the callable reflection.
+     *
+     * @return \ReflectionClass|\ReflectionFunction|\ReflectionMethod
+     * @throws \LogicException
+     */
+    public function getReflection()
+    {
+        if ($this->isFunction() || $this->isClosure()) {
+            return new \ReflectionFunction($this->getCallable());
+        }
+        if ($this->isMethod()) {
+            return new \ReflectionMethod($this->getClassName(), $this->getMethodName());
+        }
+        if ($this->isInvokedObject()) {
+            return new \ReflectionMethod($this->getClassName(), '__invoke');
+        }
+        throw new \LogicException('Unknown callable reflection');
+    }
+
+    /**
      * invokes the reflected callback
      *
      * @return mixed

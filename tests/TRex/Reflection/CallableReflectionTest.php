@@ -126,22 +126,35 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testInvokeAForFunction()
     {
+        $reflectedCallable = new CallableReflection($this->getFunction());
+        $this->assertTrue($reflectedCallable->invokeArgs(array('foo')));
     }
 
     public function testInvokeAForClosure()
     {
+        $reflectedCallable = new CallableReflection($this->getClosure());
+        $this->assertSame(array(2, 1), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2)));
     }
 
     public function testInvokeAForInstanceMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertSame(array(2, 1), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2)));
     }
 
     public function testInvokeAForStaticMethod()
     {
+        $reflectedCallable = new CallableReflection($this->getStaticMethod1());
+        $this->assertSame(array(2, 1), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2)));
+
+        $reflectedCallable = new CallableReflection($this->getStaticMethod2());
+        $this->assertSame(array(2, 1), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2)));
     }
 
     public function testInvokeAForInvokedObject()
     {
+        $reflectedCallable = new CallableReflection($this->getInvokedObject());
+        $this->assertSame(array(2, 1), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2)));
     }
 
     public function testInvokeStaticForFunction()

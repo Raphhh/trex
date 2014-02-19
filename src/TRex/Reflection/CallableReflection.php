@@ -348,7 +348,7 @@ class CallableReflection extends Object
 
             } else {
                 $this->setType(self::ERROR_TYPE);
-                trigger_error("Type not found for callable", E_USER_ERROR);
+                throw new \LogicException('Type not found for callable');
             }
         }
     }

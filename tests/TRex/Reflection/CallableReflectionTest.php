@@ -157,6 +157,28 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(array(2, 1), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2)));
     }
 
+    public function testInvokeAWithOptionalParameter()
+    {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertSame(array(2, 1, 3), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2, 'c' => 3)));
+    }
+
+    public function testInvokeAWithUndeclaredParameter()
+    {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $this->assertSame(array(2, 1), $reflectedCallable->invokeA(array('b' => 1, 'a' => 2, 'd' => 4)));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Missing key "a" for the 0th params of foo
+     */
+    public function testInvokeAWithMissingParameter()
+    {
+        $reflectedCallable = new CallableReflection($this->getInstanceMethod());
+        $reflectedCallable->invokeA(array());
+    }
+
     public function testInvokeStaticForFunction()
     {
         $reflectedCallable = new CallableReflection($this->getFunction());

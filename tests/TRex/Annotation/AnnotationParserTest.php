@@ -95,6 +95,9 @@ class AnnotationParserTest extends \PHPUnit_Framework_TestCase
             array( //with spaces
                 'typeComment' => 'null|\Vendor\Package\Class[] my special comment',
             ),
+            array( //with double spaces
+                'typeComment' => 'null|\Vendor\Package\Class[]  my special comment',
+            ),
             array( //with tabs
                 'typeComment' => 'null|\Vendor\Package\Class[]	my special comment',
             ),

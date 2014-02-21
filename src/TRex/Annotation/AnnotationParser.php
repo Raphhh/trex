@@ -21,7 +21,7 @@ class AnnotationParser extends Object
     public function getAnnotations($docComment)
     {
         $result = new Annotations();
-        foreach ($this->explode($docComment) as $values) {
+        foreach ($this->explodeDocComment($docComment) as $values) {
             if (!isset($result[$values[1]])) {
                 $result[$values[1]] = new Annotation();
             }
@@ -51,7 +51,7 @@ class AnnotationParser extends Object
      * @param string $docComment
      * @return array
      */
-    private function explode($docComment)
+    private function explodeDocComment($docComment)
     {
         $matches = array();
         preg_match_all('/@(.*?)[[:blank:]](.*?)$/m', $docComment, $matches, PREG_SET_ORDER);

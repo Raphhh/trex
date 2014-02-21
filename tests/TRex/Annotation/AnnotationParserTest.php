@@ -55,6 +55,15 @@ class AnnotationParserTest extends \PHPUnit_Framework_TestCase
                     * @return mixed
                     */',
             ),
+            array( //with double spaces
+                'docComment' => '/**
+                    * comment..
+                    *
+                    * @param  string $param1
+                    * @param  int $param2
+                    * @return  mixed
+                    */',
+            ),
             array( //with tabs
                 'docComment' => '/**
                     * comment..

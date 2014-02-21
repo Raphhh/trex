@@ -67,13 +67,29 @@ class AnnotationParserTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testParseTypeComment()
+    /**
+     * @dataProvider provideTypeComment
+     * @param $typeComment
+     */
+    public function testParseTypeComment($typeComment)
     {
         $annotationParser = new AnnotationParser();
-        $types = $annotationParser->parseTypeComment('null|\Vendor\Package\Class[] my special comment');
+        $types = $annotationParser->parseTypeComment($typeComment);
         $this->assertCount(2, $types);
         $this->assertSame('null', $types[0]);
         $this->assertSame('\Vendor\Package\Class[]', $types[1]);
+    }
+
+    public function provideTypeComment()
+    {
+        return array(
+            array( //with spaces
+                'typeComment' => 'null|\Vendor\Package\Class[] my special comment',
+            ),
+            array( //with tabs
+                'typeComment' => 'null|\Vendor\Package\Class[]	my special comment',
+            ),
+        );
     }
 
     /**

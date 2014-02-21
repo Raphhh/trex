@@ -39,8 +39,7 @@ class AnnotationParser extends Object
     public function parseTypeComment($typeComment)
     {
         if ($typeComment) {
-            $words = explode(' ', $typeComment);
-            return explode('|', $words[0]);
+            return explode('|', $this->explodeTypeComment($typeComment)[0]);
         }
         return array();
     }
@@ -56,5 +55,16 @@ class AnnotationParser extends Object
         $matches = array();
         preg_match_all('/@(.*?)[[:blank:]](.*?)$/m', $docComment, $matches, PREG_SET_ORDER);
         return $matches;
+    }
+
+    /**
+     * Explodes a string by space.
+     *
+     * @param $typeComment
+     * @return array
+     */
+    private function explodeTypeComment($typeComment)
+    {
+        return preg_split('/[[:blank:]]/', $typeComment);
     }
 }

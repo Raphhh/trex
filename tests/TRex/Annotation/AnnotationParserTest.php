@@ -21,16 +21,12 @@ class AnnotationParserTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $annotationParser->getAnnotations(''));
     }
 
-    public function testGetAnnotationsFull()
+    /**
+     * @dataProvider provideDocComment
+     * @param $docComment
+     */
+    public function testGetAnnotationsFull($docComment)
     {
-        $docComment = '/**
-						* comment..
-						*
-						* @param string $param1
-						* @param int $param2
-						* @return mixed
-						*/';
-
         $annotationParser = new AnnotationParser();
         $annotations = $annotationParser->getAnnotations($docComment);
         $this->assertCount(2, $annotations);
@@ -45,6 +41,30 @@ class AnnotationParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('TRex\Annotation\Annotation', $annotations['return']);
         $this->assertCount(1, $annotations['return']);
         $this->assertSame('mixed', $annotations['return'][0]);
+    }
+
+    public function provideDocComment()
+    {
+        return array(
+            array( //with spaces
+                'docComment' => '/**
+                    * comment..
+                    *
+                    * @param string $param1
+                    * @param int $param2
+                    * @return mixed
+                    */',
+            ),
+            array( //with tabs
+                'docComment' => '/**
+                    * comment..
+                    *
+                    * @param	string $param1
+                    * @param	int $param2
+                    * @return	mixed
+                    */',
+            ),
+        );
     }
 
     public function testParseTypeComment()

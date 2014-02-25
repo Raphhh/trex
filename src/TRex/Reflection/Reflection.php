@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Reflection;
 
+use TRex\Annotation\AnnotationParser;
+use TRex\Annotation\Annotations;
 use TRex\Core\Object;
 
 /**
@@ -21,6 +23,11 @@ abstract class Reflection extends Object
     private $reflector;
 
     /**
+     * @var Annotations
+     */
+    private $annotations;
+
+    /**
      * Reflector must be added at the instantiation of the object,
      * and must be a PHP reflection class chosen according to the king of reflection.
      *
@@ -39,6 +46,19 @@ abstract class Reflection extends Object
     public function getName()
     {
         return $this->getReflector()->getName();
+    }
+
+    /**
+     * Returns the comment annotations of the attributes.
+     *
+     * @return Annotations
+     */
+    public function getAnnotations()
+    {
+        if (null === $this->annotations) {
+            $this->setAnnotations($this->buildAnnotations());
+        }
+        return $this->annotations;
     }
 
     /**
@@ -70,5 +90,24 @@ abstract class Reflection extends Object
     private function setReflector(\Reflector $reflector)
     {
         $this->reflector = $reflector;
+    }
+
+    /**
+     * @return Annotations
+     */
+    private function buildAnnotations()
+    {
+        $annotationParser = new AnnotationParser();
+        return $annotationParser->getAnnotations($this->getReflector()->getDocComment());
+    }
+
+    /**
+     * Setter of $annotations
+     *
+     * @param Annotations $annotations
+     */
+    private function setAnnotations(Annotations $annotations)
+    {
+        $this->annotations = $annotations;
     }
 }

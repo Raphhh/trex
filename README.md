@@ -116,7 +116,7 @@ You can cache your method result without using a local property.
             return $this->cache(function($arg){
                 echo 'A lot of things...'
                 return $this->a.$arg; //private context of your current object is still present.
-            };
+            });
         }
     
     }

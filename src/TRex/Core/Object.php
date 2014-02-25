@@ -171,7 +171,7 @@ abstract class Object implements IObject
      * @return mixed
      * @todo has to be tested
      */
-    protected function cache(\Closure $closure, $mustBeRefreshed = true)
+    protected function cache(\Closure $closure, $mustBeRefreshed = false)
     {
         $backTraces = debug_backtrace(!DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
         if ($mustBeRefreshed) {

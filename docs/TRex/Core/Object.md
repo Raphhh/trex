@@ -203,6 +203,6 @@ class Foo extends TRex/Core/Object{
 ```php
 $foo = new Foo();
 $bar = $foo->castTo('\Bar');
-echo $bar->$a; // null;
-echo $bar->$c; // 'b';
+echo $bar->a; // null;
+echo $bar->c; // 'b';
 ```

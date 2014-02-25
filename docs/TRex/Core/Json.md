@@ -31,7 +31,7 @@ $json = new Json($data);
 
 ```php
 $data = '{"a": "b"}';
-$json = Json::createFromString($data);
+$json = new Json($data);
 ```
 
 

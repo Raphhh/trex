@@ -61,11 +61,11 @@ trait TIteratorSorter
     function orderBy(array $orders)
     {
         $values = $this->getIterator()->toArray();
-        usort($values, $this->getOrderByClosure($orders));
+        usort($values, $this->getOrderingClosure($orders));
         return new $this($values);
     }
 
-    private function getOrderByClosure(array $orders)
+    private function getOrderingClosure(array $orders)
     {
         return \Closure::bind(
             function ($refData, $compData) use ($orders) {

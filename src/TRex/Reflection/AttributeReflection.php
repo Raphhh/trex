@@ -134,7 +134,7 @@ abstract class AttributeReflection extends Reflection
      */
     public function getAnnotations()
     {
-        if (null == $this->annotations) {
+        if (null === $this->annotations) {
             $this->setAnnotations($this->buildAnnotations());
         }
         return $this->annotations;
@@ -147,7 +147,7 @@ abstract class AttributeReflection extends Reflection
      */
     public function getTypeReflections()
     {
-        if (null == $this->typeReflections) {
+        if (null === $this->typeReflections) {
             $this->setTypeReflections($this->buildTypeReflections());
         }
         return $this->typeReflections;

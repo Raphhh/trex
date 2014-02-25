@@ -108,7 +108,7 @@ You can list objects and call a same method on all of them.
 
 You can cache your method result without using a local property.
 
-    class Foo extends TRex/Cache/CacheObject{
+    class Foo extends TRex/Cache/Object{
     
         private $a = 'a';
     

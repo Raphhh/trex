@@ -9,8 +9,8 @@ use TRex\Core\Objects\IObjectsComparator;
 use TRex\Core\Objects\IObjectsModifier;
 use TRex\Core\Objects\IObjectsSearcher;
 use TRex\Iterator\IIterator;
-use TRex\Iterator\IIteratorSorter;
 use TRex\Iterator\IKeyAccessor;
+use TRex\Iterator\Iterator\IIteratorSorter;
 
 /**
  * IObjects is a oriented object array.

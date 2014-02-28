@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Iterator;
 
+use TRex\Iterator\Iterator\IteratorAdapter;
+
 /**
  * Class TKeyAccessorTest
  * test class for TKeyAccessor.

@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Iterator;
 
+use TRex\Iterator\Iterator\SortType;
+
 /**
  * Class TIteratorSorterTest
  * Test class for TIteratorSorter

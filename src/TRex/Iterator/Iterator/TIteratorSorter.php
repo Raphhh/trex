@@ -1,5 +1,7 @@
 <?php
-namespace TRex\Iterator;
+namespace TRex\Iterator\Iterator;
+
+use TRex\Iterator\IIterator;
 
 /**
  * Class TIteratorSorter
@@ -31,7 +33,7 @@ trait TIteratorSorter
     /**
      * See IIteratorSorter.
      *
-     * @param \TRex\Iterator\SortType $type
+     * @param \TRex\Iterator\Iterator\SortType $type
      * @param callable|int $option
      * @return self
      */

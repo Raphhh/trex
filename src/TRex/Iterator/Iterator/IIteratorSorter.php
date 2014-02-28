@@ -1,5 +1,5 @@
 <?php
-namespace TRex\Iterator;
+namespace TRex\Iterator\Iterator;
 
 use TRex\Core\IObjects;
 
@@ -27,7 +27,7 @@ interface IIteratorSorter
      * $type describes the type of sorting. (value/key/associative)
      * $option is a PHP sort option or a callback.
      *
-     * @param \TRex\Iterator\SortType $type
+     * @param \TRex\Iterator\Iterator\SortType $type
      * @param callable|int $option
      * @return IObjects
      */

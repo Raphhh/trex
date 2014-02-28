@@ -5,12 +5,12 @@ use TRex\Core\Objects\TComposite;
 use TRex\Core\Objects\TObjectsComparator;
 use TRex\Core\Objects\TObjectsModifier;
 use TRex\Core\Objects\TObjectsSearcher;
-use TRex\Iterator\IObjectsIterator;
-use TRex\Iterator\IteratorAdapter;
-use TRex\Iterator\SortType;
+use TRex\Iterator\Iterator\IObjectsIterator;
+use TRex\Iterator\Iterator\IteratorAdapter;
+use TRex\Iterator\Iterator\SortType;
+use TRex\Iterator\Iterator\TIteratorSorter;
 use TRex\Iterator\TArrayAccess;
 use TRex\Iterator\TIterator;
-use TRex\Iterator\TIteratorSorter;
 use TRex\Iterator\TKeyAccessor;
 use TRex\Serialization\DataToArrayCaster;
 

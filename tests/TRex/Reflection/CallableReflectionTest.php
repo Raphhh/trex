@@ -13,47 +13,47 @@ class CallableReflectionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($callable, $reflectedCallable->getCallable());
     }
 
-    public function testGetReflectionForFunction()
+    public function testgetReflectorForFunction()
     {
         $reflectedCallable = new CallableReflection($this->getFunction());
-        $reflection = $reflectedCallable->getReflection();
+        $reflection = $reflectedCallable->getReflector();
         $this->assertInstanceOf('\ReflectionFunction', $reflection);
         $this->assertSame($this->getFunction(), $reflection->getName());
     }
 
-    public function testGetReflectionForClosure()
+    public function testgetReflectorForClosure()
     {
         $reflectedCallable = new CallableReflection($this->getClosure());
-        $reflection = $reflectedCallable->getReflection();
+        $reflection = $reflectedCallable->getReflector();
         $this->assertInstanceOf('\ReflectionFunction', $reflection);
         $this->assertSame('TRex\Reflection\{closure}', $reflection->getName());
     }
 
-    public function testGetReflectionForInstanceMethod()
+    public function testgetReflectorForInstanceMethod()
     {
         $reflectedCallable = new CallableReflection($this->getInstanceMethod());
-        $reflection = $reflectedCallable->getReflection();
+        $reflection = $reflectedCallable->getReflector();
         $this->assertInstanceOf('\ReflectionMethod', $reflection);
         $this->assertSame('foo', $reflection->getName());
     }
 
-    public function testGetReflectionForStaticMethod()
+    public function testgetReflectorForStaticMethod()
     {
         $reflectedCallable = new CallableReflection($this->getStaticMethod1());
-        $reflection = $reflectedCallable->getReflection();
+        $reflection = $reflectedCallable->getReflector();
         $this->assertInstanceOf('\ReflectionMethod', $reflection);
         $this->assertSame('bar', $reflection->getName());
 
         $reflectedCallable = new CallableReflection($this->getStaticMethod2());
-        $reflection = $reflectedCallable->getReflection();
+        $reflection = $reflectedCallable->getReflector();
         $this->assertInstanceOf('\ReflectionMethod', $reflection);
         $this->assertSame('bar', $reflection->getName());
     }
 
-    public function testGetReflectionForInvokedObject()
+    public function testgetReflectorForInvokedObject()
     {
         $reflectedCallable = new CallableReflection($this->getInvokedObject());
-        $reflection = $reflectedCallable->getReflection();
+        $reflection = $reflectedCallable->getReflector();
         $this->assertInstanceOf('\ReflectionMethod', $reflection);
         $this->assertSame('__invoke', $reflection->getName());
     }

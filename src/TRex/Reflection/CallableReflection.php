@@ -61,7 +61,7 @@ class CallableReflection extends Object
      * @return \ReflectionClass|\ReflectionFunction|\ReflectionMethod
      * @throws \LogicException
      */
-    public function getReflection()
+    public function getReflector()
     {
         if ($this->isFunction() || $this->isClosure()) {
             return new \ReflectionFunction($this->getCallable());
@@ -361,7 +361,7 @@ class CallableReflection extends Object
     private function mapArgs(array $args)
     {
         $params = array();
-        foreach ($this->getReflection()->getParameters() as $position => $reflectedParam) {
+        foreach ($this->getReflector()->getParameters() as $position => $reflectedParam) {
             if (array_key_exists($reflectedParam->name, $args)) {
                 $params[$position] = $args[$reflectedParam->name];
             } elseif (!$reflectedParam->isOptional()) {
@@ -370,7 +370,7 @@ class CallableReflection extends Object
                         'Missing key "%s" for the %sth params of %s',
                         $reflectedParam->name,
                         $position,
-                        $this->getReflection()->getName()
+                        $this->getReflector()->getName()
                     )
                 );
             }

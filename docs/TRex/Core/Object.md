@@ -137,7 +137,7 @@ You can also filter properties on their visibility (private/protected/public).
 
 ### To array
 
-You can easily convert your object to JSON, choosing which property you what to export with *@transient* comment tag, including private ones.
+You can easily convert your object to array, choosing which property you want to export, including private ones. If you want to exclude some properties, you can add them a comment tag *@transient*.
 
 ```php
 class Foo extends TRex/Core/Object{
@@ -158,7 +158,7 @@ $foo->toArray(); //array (a: "a") => only non transient property
 
 ### To JSON
 
-You can easily convert your object to JSON, choosing which property you what to export with *@transient* comment tag, including private ones.
+You can easily convert your object to JSON, choosing which property you want to export, including private ones. If you want to exclude some properties, you can add them a comment tag *@transient*.
 
 ```php
 class Foo extends TRex/Core/Object{

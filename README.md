@@ -70,7 +70,7 @@ echo $foo->getA(); //123
 
 ### Object export in JSON
 
-You can easily convert your object to JSON, choosing which property you want to export with *@transient* comment tag, including private ones.
+You can easily convert your object to JSON, choosing which property you want to export, including private ones. If you want to exclude some properties, you can add them a comment tag *@transient*.
 
 ```php
 class Foo extends TRex/Core/Object{

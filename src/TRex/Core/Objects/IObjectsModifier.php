@@ -1,5 +1,7 @@
 <?php
-namespace TRex\Core;
+namespace TRex\Core\Objects;
+
+use TRex\Core\IObjects;
 
 /**
  * Interface IObjectsModifier

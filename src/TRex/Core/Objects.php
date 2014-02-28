@@ -1,6 +1,10 @@
 <?php
 namespace TRex\Core;
 
+use TRex\Core\Objects\TComposite;
+use TRex\Core\Objects\TObjectsComparator;
+use TRex\Core\Objects\TObjectsModifier;
+use TRex\Core\Objects\TObjectsSearcher;
 use TRex\Iterator\IObjectsIterator;
 use TRex\Iterator\IteratorAdapter;
 use TRex\Iterator\SortType;

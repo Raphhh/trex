@@ -1,6 +1,13 @@
 <?php
 namespace TRex\Core;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
+use TRex\Core\Objects\IComposite;
+use TRex\Core\Objects\IObjectsComparator;
+use TRex\Core\Objects\IObjectsModifier;
+use TRex\Core\Objects\IObjectsSearcher;
 use TRex\Iterator\IIterator;
 use TRex\Iterator\IIteratorSorter;
 use TRex\Iterator\IKeyAccessor;
@@ -14,10 +21,10 @@ use TRex\Iterator\IKeyAccessor;
  */
 interface IObjects extends
     IIterator,
-    \IteratorAggregate,
-    \ArrayAccess,
+    IteratorAggregate,
+    ArrayAccess,
     IKeyAccessor,
-    \Countable,
+    Countable,
     IIteratorSorter,
     IObjectsComparator,
     IObjectsModifier,

@@ -2,7 +2,6 @@
 namespace TRex\Reflection;
 
 use TRex\Annotation\AnnotationParser;
-use TRex\Annotation\Annotations;
 
 /**
  * Class AttributeReflection
@@ -44,11 +43,6 @@ abstract class AttributeReflection extends Reflection
      * Filter constant.
      */
     const STATIC_FILTER = \ReflectionProperty::IS_STATIC;
-
-    /**
-     * @var Annotations
-     */
-    private $annotations;
 
     /**
      * @var TypeReflection[]
@@ -128,19 +122,6 @@ abstract class AttributeReflection extends Reflection
     }
 
     /**
-     * Returns the comment annotations of the attributes.
-     *
-     * @return Annotations
-     */
-    public function getAnnotations()
-    {
-        if (null === $this->annotations) {
-            $this->setAnnotations($this->buildAnnotations());
-        }
-        return $this->annotations;
-    }
-
-    /**
      * Returns a list of all types of the attributes.
      *
      * @return TypeReflection[]
@@ -151,25 +132,6 @@ abstract class AttributeReflection extends Reflection
             $this->setTypeReflections($this->buildTypeReflections());
         }
         return $this->typeReflections;
-    }
-
-    /**
-     * @return Annotations
-     */
-    private function buildAnnotations()
-    {
-        $annotationParser = new AnnotationParser();
-        return $annotationParser->getAnnotations($this->getReflector()->getDocComment());
-    }
-
-    /**
-     * Setter of $annotations
-     *
-     * @param Annotations $annotations
-     */
-    private function setAnnotations(Annotations $annotations)
-    {
-        $this->annotations = $annotations;
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
-namespace TRex\Iterator;
+namespace TRex\Iterator\Iterator;
+
+use TRex\Iterator\IIterator;
 
 /**
  * Interface IObjectsIterator.

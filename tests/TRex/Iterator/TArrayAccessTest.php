@@ -14,7 +14,7 @@ class TArrayAccessTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetExists()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('exist'))
             ->getMock();
@@ -30,7 +30,7 @@ class TArrayAccessTest extends \PHPUnit_Framework_TestCase
      */
     public function offsetGet()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('get'))
             ->getMock();
@@ -46,7 +46,7 @@ class TArrayAccessTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetSet()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('addAt'))
             ->getMock();
@@ -62,7 +62,7 @@ class TArrayAccessTest extends \PHPUnit_Framework_TestCase
      */
     public function testOffsetUnset()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('removeAt'))
             ->getMock();

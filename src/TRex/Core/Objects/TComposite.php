@@ -1,5 +1,5 @@
 <?php
-namespace TRex\Core;
+namespace TRex\Core\Objects;
 
 /**
  * Class TComposite

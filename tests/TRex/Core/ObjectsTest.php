@@ -1,7 +1,7 @@
 <?php
 namespace TRex\Core;
 
-use TRex\Iterator\IteratorAdapter;
+use TRex\Iterator\Iterator\IteratorAdapter;
 
 /**
  * Class ObjectsTest

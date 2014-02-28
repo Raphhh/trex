@@ -1,6 +1,8 @@
 <?php
 namespace TRex\Iterator;
 
+use TRex\Iterator\Iterator\IteratorAdapter;
+
 /**
  * Class IteratorAdapterTest
  * @package TRex\Iterator

@@ -14,7 +14,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testExist()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('exist'))
             ->getMock();
@@ -30,7 +30,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testGet()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('get'))
             ->getMock();
@@ -46,7 +46,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testKey()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('key'))
             ->getMock();
@@ -62,7 +62,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testCurrent()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('current'))
             ->getMock();
@@ -78,7 +78,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNext()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('next'))
             ->getMock();
@@ -94,7 +94,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testRewind()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('rewind'))
             ->getMock();
@@ -110,7 +110,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testSeek()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('seek'))
             ->getMock();
@@ -126,7 +126,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValid()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('valid'))
             ->getMock();
@@ -142,7 +142,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddAt()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('addAt'))
             ->getMock();
@@ -158,7 +158,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testRemoveAt()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('removeAt'))
             ->getMock();
@@ -174,7 +174,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testCount()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('count'))
             ->getMock();
@@ -190,7 +190,7 @@ class TIteratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testToArray()
     {
-        $iterator = $this->getMockBuilder('TRex\Iterator\IteratorAdapter')
+        $iterator = $this->getMockBuilder('TRex\Iterator\Iterator\IteratorAdapter')
             ->disableOriginalConstructor()
             ->setMethods(array('toArray'))
             ->getMock();

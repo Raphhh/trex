@@ -1,5 +1,5 @@
 <?php
-namespace TRex\Iterator;
+namespace TRex\Iterator\Iterator;
 
 use TRex\Core\Object;
 

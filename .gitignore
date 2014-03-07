@@ -1,2 +1,7 @@
 # PHP editors
 /.idea/
+
+/vendor/
+phpunit.xml
+composer.lock
+composer.phar

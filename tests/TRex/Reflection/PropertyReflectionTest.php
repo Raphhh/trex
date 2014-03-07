@@ -27,6 +27,15 @@ class PropertyReflectionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests reflector type.
+     */
+    public function teGetReflector()
+    {
+        $reflectedClass = new ClassReflection('TRex\Reflection\resources\Foo');
+        $this->assertInstanceOf('\ReflectionClass', $reflectedClass->getReflector());
+    }
+
+    /**
      * Test the recovery of the name.
      */
     public function testGetName()

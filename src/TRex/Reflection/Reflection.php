@@ -39,6 +39,16 @@ abstract class Reflection extends Object
     }
 
     /**
+     * Getter of $reflector.
+     *
+     * @return \ReflectionClass|\ReflectionProperty|\ReflectionMethod
+     */
+    public function getReflector()
+    {
+        return $this->reflector;
+    }
+
+    /**
      * Returns the name of the reflected object, class, property or method.
      *
      * @return string
@@ -70,16 +80,6 @@ abstract class Reflection extends Object
     public function isTransient()
     {
         return strpos(strval($this->getReflector()->getDocComment()), '@transient') !== false;
-    }
-
-    /**
-     * Getter of $reflector.
-     *
-     * @return \ReflectionClass|\ReflectionProperty|\ReflectionMethod
-     */
-    protected function getReflector()
-    {
-        return $this->reflector;
     }
 
     /**

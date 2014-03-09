@@ -1,7 +1,7 @@
 {
     "name": "raphhh/trex",
     "description": "A PHP class helper",
-    "version": "1.0.0",
+    "version": "dev-master",
     "type": "library",
     "keywords": ["TRex", "T-Rex"],
     "homepage": "http://labs.raphaellefebvre.be/trex",

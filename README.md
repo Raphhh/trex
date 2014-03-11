@@ -1,6 +1,6 @@
 # README
 
-[![Build Status](https://travis-ci.org/Raphhh/trex.png?branch=Object-Reflection)](https://travis-ci.org/Raphhh/trex)
+[![Build Status](https://travis-ci.org/Raphhh/trex.png)](https://travis-ci.org/Raphhh/trex)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Raphhh/trex/badges/quality-score.png?s=c5dc0874bf12e9c757c2f46a3439e91289bf07bc)](https://scrutinizer-ci.com/g/Raphhh/trex/)
 [![Code Coverage](https://scrutinizer-ci.com/g/Raphhh/trex/badges/coverage.png?s=ea0eee6ed113b03abd872b715217f554db09b647)](https://scrutinizer-ci.com/g/Raphhh/trex/)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/d52b1df3-646c-4d91-818c-8590d7a02150/mini.png)](https://insight.sensiolabs.com/projects/d52b1df3-646c-4d91-818c-8590d7a02150)

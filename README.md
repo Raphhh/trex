@@ -11,7 +11,7 @@
 
 ## What is TRex?
 
-TRex is a light toolbox with low level classes implemented with standard missing features.
+TRex is a light toolbox with low level classes implemented with standard missing features. It provides a set of tools for better programming.
 
 
 ## How to start?

@@ -2,6 +2,7 @@
     "name": "raphhh/trex",
     "description": "A PHP class helper",
     "version": "dev-master",
+	"minimum-stability": "dev",
     "type": "library",
     "keywords": ["TRex", "T-Rex"],
     "homepage": "http://labs.raphaellefebvre.be/trex",

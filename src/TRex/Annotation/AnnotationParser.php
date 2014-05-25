@@ -53,7 +53,7 @@ class AnnotationParser extends Object
     private function explodeDocComment($docComment)
     {
         $matches = array();
-        preg_match_all('/@(.*?)[[:blank:]](.*?)$/m', $docComment, $matches, PREG_SET_ORDER);
+        preg_match_all('/@(.*?)[[:blank:]]|\(.*?)$/m', $docComment, $matches, PREG_SET_ORDER);
         return $matches;
     }
 

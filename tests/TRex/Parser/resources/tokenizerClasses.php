@@ -1,5 +1,7 @@
 <?php
 
+namespace Foo;
+
 abstract class class1
 {
 }

@@ -1,14 +1,13 @@
 <?php
-namespace TRex\Reflection;
+namespace TRex\Parser;
 
 /**
  * Class Tokenizer
- * @package TRex\Reflection
+ * @package TRex\Parser
  * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
  */
 class Tokenizer
 {
-
     /**
      * @var array
      */

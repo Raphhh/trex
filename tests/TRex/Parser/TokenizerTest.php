@@ -1,6 +1,11 @@
 <?php
-namespace TRex\Reflection;
+namespace TRex\Parser;
 
+/**
+ * Class TokenizerTest
+ * @package TRex\Parser
+ * @author Raphaël Lefebvre <raphael@raphaellefebvre.be>
+ */
 class TokenizerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetClassNames()

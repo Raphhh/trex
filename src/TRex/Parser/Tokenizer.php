@@ -28,12 +28,17 @@ class Tokenizer
     {
         $result = array();
         $currentTokenType = 0;
+        $currentNamespace = '';
         foreach ($this->getTokens() as $token) {
-            if ($token[0] === T_ABSTRACT || $token[0] === T_CLASS) {
+            if ($token[0] === T_NAMESPACE) {
+                $currentTokenType = T_NAMESPACE;
+            } elseif ($token[0] === T_ABSTRACT || $token[0] === T_CLASS) {
                 $currentTokenType += $token[0];
             } elseif ($currentTokenType && $token[0] === T_STRING) {
-                if ($currentTokenType === T_CLASS) {
-                    $result[] = $token[1];
+                if ($currentTokenType === T_NAMESPACE) {
+                    $currentNamespace = $token[1] . '\\';
+                } elseif ($currentTokenType === T_CLASS) {
+                    $result[] = $currentNamespace . $token[1];
                 }
                 $currentTokenType = 0;
             }

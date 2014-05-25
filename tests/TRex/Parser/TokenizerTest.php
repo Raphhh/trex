@@ -11,6 +11,6 @@ class TokenizerTest extends \PHPUnit_Framework_TestCase
     public function testGetClassNames()
     {
         $tokenizer = new Tokenizer(file_get_contents(__DIR__ . '/resources/tokenizerClasses.php'));
-        $this->assertSame(array('class2', 'class3'), $tokenizer->getInstantiableClassNames());
+        $this->assertSame(array('Foo\class2', 'Foo\class3'), $tokenizer->getInstantiableClassNames());
     }
 }

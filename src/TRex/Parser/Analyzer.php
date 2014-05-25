@@ -1,6 +1,7 @@
 <?php
 namespace TRex\Parser;
 
+use TRex\Core\Objects;
 use TRex\Reflection\ClassReflection;
 
 /**
@@ -17,7 +18,7 @@ class Analyzer
     public function getClassReflections($filePath)
     {
         $this->includeMockFile($filePath);
-        $result = array();
+        $result = new Objects();
         foreach ($this->getClassNames($filePath) as $className) {
             $result[$className] = new ClassReflection($className);
         }

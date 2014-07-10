@@ -20,10 +20,8 @@ TRex is a light toolbox with low level classes implemented with standard missing
 
 You just have to add the TRex package in your composer.json and update your project.
 
-```json
-"require": {
-    "raphhh/trex": "dev-master"
-}
+```
+$ php composer.phar require raphhh/trex
 ```
 
 ### Without Composer
